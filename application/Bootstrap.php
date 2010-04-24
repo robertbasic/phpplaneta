@@ -22,7 +22,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         $moduleLoader = new Zend_Application_Module_Autoloader(
                                 array(
-                                    'namespace' => 'Public',
+                                    'namespace' => 'Planet',
                                     'basePath' => APPLICATION_PATH . '/modules/public'
                                 )
                             );

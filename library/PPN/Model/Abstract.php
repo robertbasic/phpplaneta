@@ -11,4 +11,10 @@
  */
 class PPN_Model_Abstract
 {
+    public function __construct()
+    {
+    }
+
+    
+
 }

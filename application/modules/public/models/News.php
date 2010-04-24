@@ -9,6 +9,6 @@
  *
  * @author robert
  */
-class Public_Model_News extends PPN_Model_Abstract
+class Planet_Model_News extends PPN_Model_Abstract
 {
 }
