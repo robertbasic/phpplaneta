@@ -1,0 +1,42 @@
+.form {
+	width: 100%;
+}
+
+.form h3 {
+	font: normal 18px Arial, Helvetica, sans-serif;
+	text-transform: uppercase;
+	text-align: left;
+	padding-left: 15px;
+	margin: 10px;
+}
+
+.form form ul {
+	margin: 10px;
+}
+
+.form form ul li {
+	padding: 10px 0;
+}
+
+.form form ul li label {
+	display:block;
+	float:left;
+	line-height:23px;
+	width:115px;
+}
+
+.form-input {
+	width:200px;
+}
+
+.form-textarea {
+	-moz-border-radius:3px;
+	border: 1px solid #000;
+	height:140px;
+	width:340px;
+}
+
+.form-input-required {
+	font-size: 90%;
+	color: #ff0000;
+}

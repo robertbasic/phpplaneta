@@ -1,0 +1,14 @@
+<?php
+
+class IndexController extends Base
+{
+
+    public function init()
+    {
+    }
+
+    public function indexAction()
+    {
+    }
+}
+
