@@ -37,7 +37,7 @@ class PPN_Model_Resource_Abstract extends Zend_Db_Table_Abstract
      *
      * @return string
      */
-    protected function getPrefix()
+    public function getPrefix()
     {
         if($this->_prefix === null) {
             $this->_config = $this->getConfig();
@@ -52,12 +52,31 @@ class PPN_Model_Resource_Abstract extends Zend_Db_Table_Abstract
      *
      * @return array
      */
-    protected function getConfig()
+    public function getConfig()
     {
         if($this->_config === null) {
             $this->_config = $this->getAdapter()->getConfig();
         }
 
         return $this->_config;
+    }
+
+    /**
+     * Return a Zend_Paginator instance based on the select passed
+     *
+     * @param Zend_Db_Select $select
+     * @param int $page
+     * @return Zend_Paginator
+     */
+    protected function _getPaginatorForSelect($select,$page)
+    {
+        $page = (int)$page;
+        if($page < 1) {
+            $page = 1;
+        }
+        $paginator = Zend_Paginator::factory($select);
+        $paginator->setCurrentPageNumber($page);
+
+        return $paginator;
     }
 }
