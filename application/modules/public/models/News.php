@@ -19,22 +19,34 @@ class Planet_Model_News extends PPN_Model_Abstract
 
     public function getAllActiveNewsFromCategoryBySlug($slug,$page=null)
     {
-        return $this->getResource('News')->getAllActiveNewsFromCategoryBySlug($slug,$page=null);
+        return $this->getResource('News')->getAllActiveNewsFromCategoryBySlug($slug,$page);
     }
 
     public function getAllActiveNewsFromCategoryById($id,$page=null)
     {
-        return $this->getResource('News')->getAllActiveNewsFromCategoryById($id,$page=null);
+        return $this->getResource('News')->getAllActiveNewsFromCategoryById($id,$page);
     }
 
-    public function getOneNewsBySlug()
+    public function getOneActiveNewsBySlug($slug)
     {
+        $oneNews = $this->getResource('News')->getOneActiveNewsBySlug($slug);
 
+        if($oneNews === null) {
+            throw new Exception("No such news");
+        }
+
+        return $oneNews;
     }
 
-    public function getOneNewsById()
+    public function getOneActiveNewsById($id)
     {
+        $oneNews = $this->getResource('News')->getOneActiveNewsById($id);
+
+        if($oneNews === null) {
+            throw new Exception("No such news");
+        }
         
+        return $oneNews;
     }
 
 }
