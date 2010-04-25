@@ -43,6 +43,17 @@ class PPN_Form_Abstract extends Zend_Form
         'ViewHelper'
     );
 
+    protected $_model = null;
+
+    public function __construct($model=null)
+    {
+        if($model !== null) {
+            $this->setModel($model);
+        }
+
+        parent::__construct();
+    }
+
     public function init()
     {
         /*$this->addElementPrefixPath(
@@ -124,6 +135,16 @@ class PPN_Form_Abstract extends Zend_Form
                 )
             )
         ));
+    }
+
+    public function setModel($model)
+    {
+        $this->_model = $model;
+    }
+
+    public function getModel()
+    {
+        return $this->_model;
     }
 
 }

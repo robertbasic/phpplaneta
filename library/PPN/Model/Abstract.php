@@ -47,13 +47,14 @@ class PPN_Model_Abstract
      * $resourceName must be in format Foo_Bar
      *
      * @param string $formName the form name
+     * @param array $options additional options, models...
      * @return Zend_Form
      */
-    public function getForm($formName)
+    public function getForm($formName, $model=null)
     {
         if(!isset($this->_forms[$formName])) {
             $formClass = $this->_getNamespace() . '_Form_' . $formName;
-            $this->_forms[$formName] = new $formClass();
+            $this->_forms[$formName] = new $formClass($model);
         }
 
         return $this->_forms[$formName];

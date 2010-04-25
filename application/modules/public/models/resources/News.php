@@ -46,6 +46,17 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
 
     }
 
+    public function getAllNews($page=null)
+    {
+        $select = $this->_getAllNewsSelect();
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
     /**
      * Get all active news from a category, by category slug
      *
@@ -132,6 +143,41 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
                 );
 
         return $this->fetchRow($select);
+    }
+
+    /**
+     * Get one news by it's id
+     *
+     * @param int $id
+     * @return PPN_Model_Resource_Item_Abstract
+     */
+    public function getOneNewsById($id)
+    {
+        $id = (int)$id;
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.id = ?', $id)
+                    )
+                );
+
+        return $this->fetchRow($select);
+    }
+
+    public function insertNews($data)
+    {
+        return $this->insert($data);
+    }
+
+    public function updateNews($data)
+    {
+        return $this->update($data, array('id = ?' => $data['id']));
+    }
+
+    public function deleteNews($id)
+    {
+        $id = (int)$id;
+
+        return $this->delete(array('id = ?' => $id));
     }
 
     /**

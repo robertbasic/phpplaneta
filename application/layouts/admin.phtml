@@ -15,13 +15,13 @@
 
             <a href="<?php echo $this->url(array('action' => 'index',
                                                 'controller' => 'admin'),
-                                                'admin'); ?>">Admin</a>
+                                                'admin', true); ?>">Admin</a>
             <a href="<?php echo $this->url(array('action' => 'admin-list',
                                                 'controller' => 'news'),
-                                                'admin'); ?>">Vesti</a>
+                                                'admin', true); ?>">Vesti</a>
             <a href="<?php echo $this->url(array('action' => 'logout',
-                                                'controller' => 'user')
-                                                        ); ?>">Logout</a>
+                                                'controller' => 'user'),
+                                                 null, true); ?>">Logout</a>
             <br />
 
             <?php
