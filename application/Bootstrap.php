@@ -54,4 +54,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->_view->headTitle()->setSeparator(' / ');
     }
 
+    public function _initAdminRoute()
+    {
+        $this->bootstrap('FrontController');
+        $fc = $this->getResource('FrontController');
+
+        $router = $fc->getRouter();
+
+        $adminRoute = new Zend_Controller_Router_Route(
+                    'admin/:module/:controller/:action/*',
+                    array(
+                        'action' => 'index',
+                        'controller' => 'admin',
+                        'module' => 'public',
+                        'isAdmin' => true
+                    )
+                );
+
+        $router->addRoute('admin', $adminRoute);
+    }
+
 }

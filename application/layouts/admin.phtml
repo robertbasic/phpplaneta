@@ -1,0 +1,32 @@
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+
+        <link rel="stylesheet" href="/static/css/reset-fonts-grids.css" type="text/css" />
+
+    </head>
+
+    <body>
+
+        <div id="doc3" class="yui-t7">
+
+
+            <a href="<?php echo $this->url(array('action' => 'index',
+                                                'controller' => 'admin'),
+                                                'admin'); ?>">Admin</a>
+            <a href="<?php echo $this->url(array('action' => 'admin-list',
+                                                'controller' => 'news'),
+                                                'admin'); ?>">Vesti</a>
+
+            <br />
+
+            <?php
+            echo $this->layout()->content;
+            ?>
+
+        </div>
+
+    </body>
+</html>
