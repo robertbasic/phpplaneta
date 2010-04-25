@@ -12,19 +12,19 @@ class Planet_Model_News extends PPN_Model_Abstract
         
     }
 
-    public function getAllNews()
+    public function getAllActiveNews($page=null)
     {
-        
+        return $this->getResource('News')->getAllActiveNews($page);
     }
 
-    public function getAllNewsFromCategoryBySlug()
+    public function getAllActiveNewsFromCategoryBySlug($slug,$page=null)
     {
-
+        return $this->getResource('News')->getAllActiveNewsFromCategoryBySlug($slug,$page=null);
     }
 
-    public function getAllNewsFromCategoryById()
+    public function getAllActiveNewsFromCategoryById($id,$page=null)
     {
-        
+        return $this->getResource('News')->getAllActiveNewsFromCategoryById($id,$page=null);
     }
 
     public function getOneNewsBySlug()

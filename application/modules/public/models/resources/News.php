@@ -21,5 +21,128 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
      *
      * @var Zend_Db_Table_Row_Abstract
      */
-    protected $_rowClass = 'Public_Model_Resource_Item_News';
+    protected $_rowClass = 'Planet_Model_Resource_News_Item';
+
+    /**
+     * Get all active news
+     *
+     * @param int $page
+     * @return Zend_Paginator | Zend_Db_Table_Rowset
+     */
+    public function getAllActiveNews($page=null)
+    {
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.active = ?', true),
+                        array('author.active = ?', true)
+                    )
+                );
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+
+    }
+
+    /**
+     * Get all active news from a category, by category slug
+     *
+     * @param int $page
+     * @return Zend_Paginator | Zend_Db_Table_Rowset
+     */
+    public function getAllActiveNewsFromCategoryBySlug($slug,$page=null)
+    {
+        $slug = (string)$slug;
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.active = ?', true),
+                        array('author.active = ?', true),
+                        array('category.slug = ?', $slug)
+                    )
+                );
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * Get all active news from a category, by category id
+     *
+     * @param int $page
+     * @return Zend_Paginator | Zend_Db_Table_Rowset
+     */
+    public function getAllActiveNewsFromCategoryById($id,$page=null)
+    {
+        $id = (int)$id;
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.active = ?', true),
+                        array('author.active = ?', true),
+                        array('news.fk_news_category_id = ?', $id)
+                    )
+                );
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * Build the select object for news
+     * optionally pass in an array for the where part
+     * without the where it will return all the news
+     *
+     * @param array $where
+     * @return Zend_Db_Select
+     */
+    protected function _getAllNewsSelect($where=null)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+
+        $select->from(
+                    array(
+                        'news' => $this->_name
+                    ),
+                    array(
+                        'id', 'fk_news_category_id', 'fk_user_id', 'title', 'slug',
+                            'text', 'datetime_added', 'active', 'comments_enabled'
+                    )
+                )
+                ->join(
+                    array(
+                        'category' => $this->getPrefix() . 'news_categories'
+                    ),
+                    'category.id = news.fk_news_category_id',
+                    array(
+                        'category_title' => 'title', 'category_slug' => 'slug'
+                    )
+                )
+                ->join(
+                    array(
+                        'author' => $this->getPrefix() . 'users'
+                    ),
+                    'author.id = news.fk_user_id',
+                    array(
+                        'firstname', 'lastname'
+                    )
+                );
+
+        if($where !== null and is_array($where)) {
+            foreach($where as $w) {
+                $select->where($w[0], $w[1]);
+            }
+        }
+
+        $select->order('news.datetime_added DESC');
+
+        return $select;
+    }
 }
