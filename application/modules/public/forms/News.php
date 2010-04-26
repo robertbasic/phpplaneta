@@ -37,6 +37,27 @@ class Planet_Form_News extends PPN_Form_Abstract
         );
 
         $this->addElement(
+            'text',
+            'slug',
+            array(
+                'label' => 'Slug:',
+                'required' => true,
+                'validators' => array(
+                    array(
+                        'validator' => 'StringLength', 'options' => array(3, 255)
+                    )
+                ),
+                'filters' => array(
+                    array(
+                        'filter' => 'StringTrim',
+                        'filter' => 'StripTags',
+                        'filter' => 'Slug'
+                    )
+                )
+            )
+        );
+
+        $this->addElement(
             'select',
             'fk_news_category_id',
             array(

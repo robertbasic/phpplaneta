@@ -110,7 +110,6 @@ class Planet_Model_News extends PPN_Model_Abstract
             $data = $form->getValues();
 
             $data['datetime_added'] = date('Y-m-d H:i:s');
-            $data['slug'] = $data['title'];
 
             $return = $this->getResource('News')->insertNews($data);
         } else {
@@ -124,7 +123,6 @@ class Planet_Model_News extends PPN_Model_Abstract
 
             $data = $form->getValues();
 
-            $data['slug'] = $data['title'];
             $return = $this->getResource('News')->updateNews($data);
         }
         
