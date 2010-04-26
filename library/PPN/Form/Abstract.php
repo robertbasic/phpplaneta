@@ -115,7 +115,8 @@ class PPN_Form_Abstract extends Zend_Form
             'csrf',
             array(
                 'ignore' => true,
-                'decorators' => $this->buttonDecorators
+                'decorators' => $this->buttonDecorators,
+                'salt' => 'unique'
             )
         );
 

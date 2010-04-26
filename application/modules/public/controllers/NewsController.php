@@ -6,6 +6,7 @@ class NewsController extends Zend_Controller_Action
     public function init()
     {
         $this->model = new Planet_Model_News();
+        $this->loggedInUser = $this->_helper->loggedInUser();
     }
 
     public function indexAction()
@@ -19,15 +20,15 @@ class NewsController extends Zend_Controller_Action
 
     public function addAction()
     {
-        /**
-         * @todo Add user's ID
-         */
         $addForm = $this->model->getForm('News_Add', $this->model);
+        $addForm->getElement('fk_user_id')->setValue($this->loggedInUser->id);
 
         if($this->_request->isPost()) {
             if($addForm->isValid($this->_request->getPost())) {
-                if($this->model->saveNews($addForm->getValues())) {
-                    return $this->_helper->redirector('admin-list');
+                try {
+                   $this->model->saveNews($addForm->getValues());
+                   return $this->_helper->redirector('admin-list');
+                } catch (Exception $e) {
                 }
             }
         }
@@ -47,13 +48,15 @@ class NewsController extends Zend_Controller_Action
         $editForm->populate($this->model->getOneNewsById($id)->toArray());
 
         /**
-         * @todo breaks for whatever reason. fix it.
+         * @todo breaks cause of the csrf element. fix it.
          * 
          */
         if($this->_request->isPost()) {
             if($editForm->isValid($this->_request->getPost())) {
-                if($this->model->saveNews($editForm->getValues())) {
-                    return $this->_helper->redirector('admin-list');
+                try {
+                   $this->model->saveNews($editForm->getValues());
+                   return $this->_helper->redirector('admin-list');
+                } catch (Exception $e) {
                 }
             }
         }
@@ -69,7 +72,10 @@ class NewsController extends Zend_Controller_Action
             return $this->_helper->redirector('admin-list');
         }
 
-        $this->model->deleteNews($id);
+        try {
+            $this->model->deleteNews($id);
+        } catch (Exception $e) {
+        }
         return $this->_helper->redirector('admin-list');
     }
 

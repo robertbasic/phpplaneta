@@ -165,12 +165,22 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
 
     public function insertNews($data)
     {
-        return $this->insert($data);
+        try {
+            $this->insert($data);
+            return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
     }
 
     public function updateNews($data)
     {
-        return $this->update($data, array('id = ?' => $data['id']));
+        try {
+           $this->update($data, array('id = ?' => $data['id']));
+           return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
     }
 
     public function deleteNews($id)

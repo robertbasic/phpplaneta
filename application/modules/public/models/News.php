@@ -90,6 +90,11 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $categoriesSelectBox;
     }
 
+    /**
+     * @todo Refactor this mess!
+     * @param array $data
+     * @return bool
+     */
     public function saveNews($data)
     {
         $return = false;
@@ -102,24 +107,27 @@ class Planet_Model_News extends PPN_Model_Abstract
                 return false;
             }
 
+            $data = $form->getValues();
+
             $data['datetime_added'] = date('Y-m-d H:i:s');
             $data['slug'] = $data['title'];
 
-            $return = $this->getResource('News')->insertNews($form->getValues());
+            $return = $this->getResource('News')->insertNews($data);
         } else {
             $form = $this->getForm('News_Edit');
             $form->populate($data);
             $form->removeElement('csrf');
 
             if(!$form->isValid($data)) {
-                var_dump($form->getMessages());
                 return false;
             }
 
-            $data['slug'] = $data['title'];
-            $return = $this->getResource('News')->updateNews($form->getValues());
-        }
+            $data = $form->getValues();
 
+            $data['slug'] = $data['title'];
+            $return = $this->getResource('News')->updateNews($data);
+        }
+        
         return $return;
     }
 

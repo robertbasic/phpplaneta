@@ -74,6 +74,15 @@ class Planet_Form_News extends PPN_Form_Abstract
         );
 
         $this->addElement(
+            'checkbox',
+            'comments_enabled',
+            array(
+                'label' => 'Komentari?',
+                'required' => true
+            )
+        );
+
+        $this->addElement(
             'hidden',
             'fk_user_id',
             array(
