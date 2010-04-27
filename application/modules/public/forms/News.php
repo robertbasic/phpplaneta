@@ -40,11 +40,7 @@ class Planet_Form_News extends PPN_Form_Abstract
                 'required' => true,
                 'validators' => array(
                     array(
-                        'validator' => 'StringLength', 'options' => array(3, 255),
-                        'validator' => 'Db_NoRecordExists', 'options' => array(
-                            'table' => $this->getModel()->getResource('News')->getPrefix() . 'news',
-                            'field' => 'slug'
-                        )
+                        'validator' => 'StringLength', 'options' => array(3, 255)
                     )
                 ),
                 'filters' => array(

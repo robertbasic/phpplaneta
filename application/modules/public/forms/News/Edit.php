@@ -17,4 +17,20 @@ class Planet_Form_News_Edit extends Planet_Form_News
 
         $this->setAction('/admin/public/news/edit');
     }
+
+    public function setSlugValidator()
+    {
+        $this->getElement('slug')->addValidator(
+                    'Db_NoRecordExists',
+                    false,
+                    array(
+                        'table' => $this->getModel()->getResource('News')->getPrefix() . 'news',
+                        'field' => 'slug',
+                        'exclude' => array(
+                            'field' => 'id',
+                            'value' => $this->getElement('id')->getValue()
+                        )
+                    )
+                );
+    }
 }

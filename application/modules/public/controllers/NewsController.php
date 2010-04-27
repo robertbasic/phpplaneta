@@ -55,7 +55,8 @@ class NewsController extends Zend_Controller_Action
         }
 
         $editForm = $this->model->getForm('News_Edit');
-        $editForm->populate($this->model->getOneNewsById($id)->toArray());
+        $editForm->populate($this->model->getOneNewsById($id)->toArray())
+                ->setSlugValidator();
 
         /**
          * @todo breaks cause of the csrf element. fix it.
