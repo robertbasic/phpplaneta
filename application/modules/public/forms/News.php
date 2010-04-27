@@ -1,11 +1,7 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of News
+ * Base form for adding/editing news
  *
  * @author robert
  */
@@ -36,6 +32,9 @@ class Planet_Form_News extends PPN_Form_Abstract
             )
         );
 
+        /**
+         * @todo add a unique validator for the slug
+         */
         $this->addElement(
             'text',
             'slug',

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @todo add messages to flashmessenger all over the place
+ */
+
 class NewsController extends Zend_Controller_Action
 {
 
@@ -49,7 +53,6 @@ class NewsController extends Zend_Controller_Action
 
         /**
          * @todo breaks cause of the csrf element. fix it.
-         * 
          */
         if($this->_request->isPost()) {
             if($editForm->isValid($this->_request->getPost())) {

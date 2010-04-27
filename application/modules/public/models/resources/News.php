@@ -5,6 +5,7 @@
  * table news
  *
  * @author robert
+ * @todo throw specific exceptions
  */
 class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
 {
