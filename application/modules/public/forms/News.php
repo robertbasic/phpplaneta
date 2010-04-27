@@ -32,9 +32,6 @@ class Planet_Form_News extends PPN_Form_Abstract
             )
         );
 
-        /**
-         * @todo add a unique validator for the slug
-         */
         $this->addElement(
             'text',
             'slug',
@@ -43,7 +40,11 @@ class Planet_Form_News extends PPN_Form_Abstract
                 'required' => true,
                 'validators' => array(
                     array(
-                        'validator' => 'StringLength', 'options' => array(3, 255)
+                        'validator' => 'StringLength', 'options' => array(3, 255),
+                        'validator' => 'Db_NoRecordExists', 'options' => array(
+                            'table' => $this->getModel()->getResource('News')->getPrefix() . 'news',
+                            'field' => 'slug'
+                        )
                     )
                 ),
                 'filters' => array(
