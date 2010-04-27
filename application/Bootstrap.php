@@ -77,6 +77,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 );
 
         $router->addRoute('admin', $adminRoute);
+
+        $loginRoute = new Zend_Controller_Router_Route_Static(
+                    'login',
+                    array(
+                        'action' => 'login',
+                        'controller' => 'user',
+                        'module' => 'public'
+                    )
+                );
+        $router->addRoute('login', $loginRoute);
     }
 
 }

@@ -21,6 +21,10 @@ class NewsController extends Zend_Controller_Action
 
     public function adminListAction()
     {
+        if(!$this->loggedInUser) {
+            return $this->redirector->gotoRoute(null, 'login');
+        }
+
         $page = $this->_getParam('page', 1);
 
         $this->view->news = $this->model->getAllNews($page);
@@ -28,6 +32,10 @@ class NewsController extends Zend_Controller_Action
 
     public function addAction()
     {
+        if(!$this->loggedInUser) {
+            return $this->redirector->gotoRoute(null, 'login');
+        }
+
         $addForm = $this->model->getForm('News_Add');
         $addForm->setAction($this->urlHelper->url(array(
                                                     'action' => 'add',
@@ -55,6 +63,10 @@ class NewsController extends Zend_Controller_Action
 
     public function editAction()
     {
+        if(!$this->loggedInUser) {
+            return $this->redirector->gotoRoute(null, 'login');
+        }
+
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {
@@ -92,6 +104,10 @@ class NewsController extends Zend_Controller_Action
 
     public function deleteAction()
     {
+        if(!$this->loggedInUser) {
+            return $this->redirector->gotoRoute(null, 'login');
+        }
+        
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {
