@@ -24,7 +24,7 @@ class NewsController extends Zend_Controller_Action
 
     public function addAction()
     {
-        $addForm = $this->model->getForm('News_Add', $this->model);
+        $addForm = $this->model->getForm('News_Add');
         $addForm->getElement('fk_user_id')->setValue($this->loggedInUser->id);
 
         if($this->_request->isPost()) {
@@ -48,7 +48,7 @@ class NewsController extends Zend_Controller_Action
             return $this->_helper->redirector('admin-list');
         }
 
-        $editForm = $this->model->getForm('News_Edit', $this->model);
+        $editForm = $this->model->getForm('News_Edit');
         $editForm->populate($this->model->getOneNewsById($id)->toArray());
 
         /**

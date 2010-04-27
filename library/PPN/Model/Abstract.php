@@ -50,11 +50,11 @@ class PPN_Model_Abstract
      * @param array $options additional options, models...
      * @return Zend_Form
      */
-    public function getForm($formName, $model=null)
+    public function getForm($formName)
     {
         if(!isset($this->_forms[$formName])) {
             $formClass = $this->_getNamespace() . '_Form_' . $formName;
-            $this->_forms[$formName] = new $formClass($model);
+            $this->_forms[$formName] = new $formClass($this);
         }
 
         return $this->_forms[$formName];
