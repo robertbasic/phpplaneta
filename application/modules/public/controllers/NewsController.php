@@ -12,6 +12,7 @@ class NewsController extends Zend_Controller_Action
         $this->model = new Planet_Model_News();
         $this->loggedInUser = $this->_helper->loggedInUser();
         $this->redirector = $this->getHelper('redirector');
+        $this->urlHelper = $this->getHelper('url');
     }
 
     public function indexAction()
@@ -28,6 +29,12 @@ class NewsController extends Zend_Controller_Action
     public function addAction()
     {
         $addForm = $this->model->getForm('News_Add');
+        $addForm->setAction($this->urlHelper->url(array(
+                                                    'action' => 'add',
+                                                    'controller' => 'news'
+                                                ),
+                                                'admin', true
+                                            ));
         $addForm->getElement('fk_user_id')->setValue($this->loggedInUser->id);
 
         if($this->_request->isPost()) {
@@ -51,10 +58,19 @@ class NewsController extends Zend_Controller_Action
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {
-            return $this->_helper->redirector('admin-list');
+            return $this->redirector->gotoRoute(
+                           array('action' => 'admin-list', 'controller' => 'news'),
+                           'admin', true
+                           );
         }
 
         $editForm = $this->model->getForm('News_Edit');
+        $editForm->setAction($this->urlHelper->url(array(
+                                                    'action' => 'edit',
+                                                    'controller' => 'news'
+                                                ),
+                                                'admin', true
+                                            ));
         $editForm->populate($this->model->getOneNewsById($id)->toArray())
                 ->setSlugValidator();
 

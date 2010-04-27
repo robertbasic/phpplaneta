@@ -14,8 +14,6 @@ class Planet_Form_News_Edit extends Planet_Form_News
     public function init()
     {
         parent::init();
-
-        $this->setAction('/admin/public/news/edit');
     }
 
     public function setSlugValidator()
