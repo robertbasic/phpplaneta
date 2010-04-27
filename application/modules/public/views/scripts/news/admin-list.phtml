@@ -7,26 +7,55 @@
 <br />
 
 <?php if(count($this->news) > 0): ?>
-
+<table>
+    <thead>
+        <tr>
+            <td>Naslov</td>
+            <td>Slug</td>
+            <td>Kategorija</td>
+            <td>Aktivno?</td>
+            <td colspan="2">Akcija</td>
+        </tr>
+    </thead>
     <?php foreach($this->news as $news): ?>
+    <tr>
+        <td>
+            <?php echo $this->escape($news->title); ?>
+        </td>
 
-        <?php echo $this->escape($news->title); ?>
+        <td>
+            <?php echo $this->escape($news->slug); ?>
+        </td>
 
-        <a href="<?php echo $this->url(array(
+        <td>
+            <?php echo $this->escape($news->category_title); ?>
+        </td>
+
+        <td>
+            <?php echo $this->escape($news->active); ?>
+        </td>
+
+        <td>
+            <a href="<?php echo $this->url(array(
                                             'action' => 'edit',
                                             'controller' => 'news',
                                             'id' => $news->id
                                         ),
                                         'admin', true); ?>">Edit</a>
-        <a href="<?php echo $this->url(array(
+        </td>
+        <td>
+            <a href="<?php echo $this->url(array(
                                             'action' => 'delete',
                                             'controller' => 'news',
                                             'id' => $news->id
                                         ),
                                         'admin', true); ?>">Delete</a>
-
-        <br />
+        </td>
+    </tr>
     <?php endforeach; ?>
+</table>
+
+<?php echo $this->paginationControl($this->news, 'Sliding', 'paginator.phtml'); ?>
 
 <?php else: ?>
 Nema vesti

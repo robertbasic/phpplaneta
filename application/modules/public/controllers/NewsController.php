@@ -11,6 +11,7 @@ class NewsController extends Zend_Controller_Action
     {
         $this->model = new Planet_Model_News();
         $this->loggedInUser = $this->_helper->loggedInUser();
+        $this->redirector = $this->getHelper('redirector');
     }
 
     public function indexAction()
@@ -19,7 +20,9 @@ class NewsController extends Zend_Controller_Action
 
     public function adminListAction()
     {
-        $this->view->news = $this->model->getAllNews();
+        $page = $this->_getParam('page', 1);
+
+        $this->view->news = $this->model->getAllNews($page);
     }
 
     public function addAction()
@@ -31,7 +34,10 @@ class NewsController extends Zend_Controller_Action
             if($addForm->isValid($this->_request->getPost())) {
                 try {
                    $this->model->saveNews($addForm->getValues());
-                   return $this->_helper->redirector('admin-list');
+                   return $this->redirector->gotoRoute(
+                           array('action' => 'admin-list', 'controller' => 'news'),
+                           'admin', true
+                           );
                 } catch (Exception $e) {
                 }
             }
@@ -58,7 +64,10 @@ class NewsController extends Zend_Controller_Action
             if($editForm->isValid($this->_request->getPost())) {
                 try {
                    $this->model->saveNews($editForm->getValues());
-                   return $this->_helper->redirector('admin-list');
+                   return $this->redirector->gotoRoute(
+                           array('action' => 'admin-list', 'controller' => 'news'),
+                           'admin', true
+                           );
                 } catch (Exception $e) {
                 }
             }
@@ -72,14 +81,20 @@ class NewsController extends Zend_Controller_Action
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {
-            return $this->_helper->redirector('admin-list');
+            return $this->redirector->gotoRoute(
+                           array('action' => 'admin-list', 'controller' => 'news'),
+                           'admin', true
+                           );
         }
 
         try {
             $this->model->deleteNews($id);
         } catch (Exception $e) {
         }
-        return $this->_helper->redirector('admin-list');
+        return $this->redirector->gotoRoute(
+                           array('action' => 'admin-list', 'controller' => 'news'),
+                           'admin', true
+                           );
     }
 
 }
