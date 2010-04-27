@@ -38,6 +38,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         return $moduleLoader;
     }
+
+    public function _initActionHelpers()
+    {
+        Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH .'/modules/public/controllers/helpers');
+    }
     
     /**
      * Initializing the View, setting the doctype, charset, et al.
@@ -72,6 +77,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 );
 
         $router->addRoute('admin', $adminRoute);
+
+        $loginRoute = new Zend_Controller_Router_Route_Static(
+                    'login',
+                    array(
+                        'action' => 'login',
+                        'controller' => 'user',
+                        'module' => 'public'
+                    )
+                );
+        $router->addRoute('login', $loginRoute);
     }
 
 }

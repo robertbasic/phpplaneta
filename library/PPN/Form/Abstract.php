@@ -1,11 +1,7 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of Base
+ * Base class for all the forms
  *
  * @author robert
  */
@@ -43,8 +39,24 @@ class PPN_Form_Abstract extends Zend_Form
         'ViewHelper'
     );
 
+    protected $_model = null;
+
+    public function __construct($model=null)
+    {
+        if($model !== null) {
+            $this->setModel($model);
+        }
+
+        parent::__construct();
+    }
+
     public function init()
     {
+        $this->addElementPrefixPath(
+                    'PPN_Filter',
+                    realpath(APPLICATION_PATH . '/../library/PPN/Filter'),
+                    'filter'
+                );
         /*$this->addElementPrefixPath(
             'DBS_Validate',
             realpath(APPLICATION_PATH . '/../library/DBS/Validator'),
@@ -103,8 +115,9 @@ class PPN_Form_Abstract extends Zend_Form
             'hash',
             'csrf',
             array(
-                'ignore' => true,
-                'decorators' => $this->buttonDecorators
+                'ignore' => false,
+                'decorators' => $this->buttonDecorators,
+                'salt' => 'unique'
             )
         );
 
@@ -124,6 +137,16 @@ class PPN_Form_Abstract extends Zend_Form
                 )
             )
         ));
+    }
+
+    public function setModel($model)
+    {
+        $this->_model = $model;
+    }
+
+    public function getModel()
+    {
+        return $this->_model;
     }
 
 }

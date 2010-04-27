@@ -5,6 +5,7 @@
  * table news
  *
  * @author robert
+ * @todo throw specific exceptions
  */
 class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
 {
@@ -44,6 +45,17 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
 
         return $this->fetchAll($select);
 
+    }
+
+    public function getAllNews($page=null)
+    {
+        $select = $this->_getAllNewsSelect();
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
     }
 
     /**
@@ -132,6 +144,51 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
                 );
 
         return $this->fetchRow($select);
+    }
+
+    /**
+     * Get one news by it's id
+     *
+     * @param int $id
+     * @return PPN_Model_Resource_Item_Abstract
+     */
+    public function getOneNewsById($id)
+    {
+        $id = (int)$id;
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.id = ?', $id)
+                    )
+                );
+
+        return $this->fetchRow($select);
+    }
+
+    public function insertNews($data)
+    {
+        try {
+            $this->insert($data);
+            return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function updateNews($data)
+    {
+        try {
+           $this->update($data, array('id = ?' => $data['id']));
+           return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function deleteNews($id)
+    {
+        $id = (int)$id;
+
+        return $this->delete(array('id = ?' => $id));
     }
 
     /**
