@@ -48,12 +48,16 @@
                 </span>
             </div>
 
-            <div id="body" class="grid_16">
+            <div id="body" class="container_16">
 
                 <div id="left" class="grid_12">
                     <?php
                     echo $this->layout()->content;
                     ?>
+                </div>
+
+                <div id="right" class="grid_4">
+                    <?php echo $this->flashMessenger(); ?>
                 </div>
 
             </div>

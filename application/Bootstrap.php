@@ -57,6 +57,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->_view->headMeta()->appendHttpEquiv('Content-type', 'text/html;charset=utf-8');
         $this->_view->headTitle('PHPplaneta.net');
         $this->_view->headTitle()->setSeparator(' / ');
+
+        $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
     }
 
     public function _initAdminRoute()

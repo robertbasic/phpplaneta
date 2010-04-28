@@ -41,6 +41,37 @@ a:hover {
 	margin: 5px 10px;
 }
 
+#left {
+	float: left;
+}
+
+#right {
+	float: left;
+}
+
+.flashMessenger {
+	width: 100%;
+	float: left;
+	text-align: center;
+	color: #ffffff;
+}
+
+.fm-good {
+	background: #00B35B;
+}
+
+.fm-good:before {
+	content: "\2714 \00a0 "; /*a check mark and a nbsp*/
+}
+
+.fm-bad {
+	background: #990000;
+}
+
+.fm-bad:before {
+	content: "\2718 \00a0 "; /*a check mark and a nbsp*/
+}
+
 #left table {
 	width: 100%;
 	text-align: center;

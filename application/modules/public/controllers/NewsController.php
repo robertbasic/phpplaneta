@@ -13,6 +13,7 @@ class NewsController extends Zend_Controller_Action
         $this->loggedInUser = $this->_helper->loggedInUser();
         $this->redirector = $this->getHelper('redirector');
         $this->urlHelper = $this->getHelper('url');
+        $this->fm = $this->getHelper('flashMessenger');
     }
 
     public function indexAction()
@@ -22,6 +23,7 @@ class NewsController extends Zend_Controller_Action
     public function adminListAction()
     {
         if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(null, 'login');
         }
 
@@ -35,6 +37,7 @@ class NewsController extends Zend_Controller_Action
     public function addAction()
     {
         if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(null, 'login');
         }
 
@@ -51,11 +54,15 @@ class NewsController extends Zend_Controller_Action
             if($addForm->isValid($this->_request->getPost())) {
                 try {
                    $this->model->saveNews($addForm->getValues());
+
+                   $this->fm->addMessage(array('fm-good' => 'Vest uspešno dodata!'));
+
                    return $this->redirector->gotoRoute(
                            array('action' => 'admin-list', 'controller' => 'news'),
                            'admin', true
                            );
                 } catch (Exception $e) {
+                    $this->fm->addMessage(array('fm-bad' => $e->getMessage()));
                 }
             }
         }
@@ -68,6 +75,7 @@ class NewsController extends Zend_Controller_Action
     public function editAction()
     {
         if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(null, 'login');
         }
 
@@ -94,11 +102,15 @@ class NewsController extends Zend_Controller_Action
             if($editForm->isValid($this->_request->getPost())) {
                 try {
                    $this->model->saveNews($editForm->getValues());
+
+                   $this->fm->addMessage(array('fm-good' => 'Vest uspešno promenjena!'));
+
                    return $this->redirector->gotoRoute(
                            array('action' => 'admin-list', 'controller' => 'news'),
                            'admin', true
                            );
                 } catch (Exception $e) {
+                    $this->fm->addMessage(array('fm-bad' => $e->getMessage()));
                 }
             }
         }
@@ -111,6 +123,7 @@ class NewsController extends Zend_Controller_Action
     public function deleteAction()
     {
         if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(null, 'login');
         }
         
@@ -125,7 +138,10 @@ class NewsController extends Zend_Controller_Action
 
         try {
             $this->model->deleteNews($id);
+
+            $this->fm->addMessage(array('fm-good' => 'Vest uspešno obrisana!'));
         } catch (Exception $e) {
+            $this->fm->addMessage(array('fm-bad' => $e->getMessage()));
         }
         return $this->redirector->gotoRoute(
                            array('action' => 'admin-list', 'controller' => 'news'),
