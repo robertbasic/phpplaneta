@@ -28,6 +28,8 @@ class NewsController extends Zend_Controller_Action
         $page = $this->_getParam('page', 1);
 
         $this->view->news = $this->model->getAllNews($page);
+
+        $this->view->pageTitle = 'Administracija vesti';
     }
 
     public function addAction()
@@ -59,6 +61,8 @@ class NewsController extends Zend_Controller_Action
         }
 
         $this->view->addForm = $addForm;
+
+        $this->view->pageTitle = 'Dodavanje vesti';
     }
 
     public function editAction()
@@ -100,6 +104,8 @@ class NewsController extends Zend_Controller_Action
         }
 
         $this->view->editForm = $editForm;
+
+        $this->view->pageTitle = 'Izmena vesti';
     }
 
     public function deleteAction()

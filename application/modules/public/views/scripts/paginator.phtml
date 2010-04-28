@@ -2,9 +2,11 @@
 <div class="paginationControl">
 <!-- Previous page link -->
 <?php if (isset($this->previous)): ?>
-  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>"><img src="/static/images/pagination-button-prev.png" alt="Previous"  /></a> 
+    <a href="<?php echo $this->url(array('page' => $this->first)); ?>"> &laquo; </a>
+    <a href="<?php echo $this->url(array('page' => $this->previous)); ?>"> &lsaquo; </a>
 <?php else: ?>
-  <span class="disabled"></span> 
+  <span class="disabled"> &laquo; </span>
+  <span class="disabled"> &lsaquo; </span>
 <?php endif; ?>
 
 <!-- Numbered page links -->
@@ -12,15 +14,17 @@
   <?php if ($page != $this->current): ?>
     <a href="<?php echo $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a> 
   <?php else: ?>
-    <?php echo $page; ?> 
+    <span class="disabled"> <?php echo $page; ?> </span>
   <?php endif; ?>
 <?php endforeach; ?>
 
 <!-- Next page link -->
 <?php if (isset($this->next)): ?>
-  <a href="<?php echo $this->url(array('page' => $this->next)); ?>"><img src="/static/images/pagination-button-next.png" alt="Next" /></a>
+  <a href="<?php echo $this->url(array('page' => $this->next)); ?>"> &rsaquo; </a>
+  <a href="<?php echo $this->url(array('page' => $this->last)); ?>"> &raquo; </a>
 <?php else: ?>
-  <span class="disabled"></span>
+  <span class="disabled"> &raquo; </span>
+  <span class="disabled"> &rsaquo; </span>
 <?php endif; ?>
 </div>
 <?php endif; ?>

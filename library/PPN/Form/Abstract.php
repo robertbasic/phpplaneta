@@ -14,7 +14,7 @@ class PPN_Form_Abstract extends Zend_Form
         array(
             'HtmlTag',
             array(
-                'tag' => 'li', 'class' => 'form_element'
+                'tag' => 'li'
             )
         )
     );
@@ -77,7 +77,7 @@ class PPN_Form_Abstract extends Zend_Form
                 array(
                     'HtmlTag',
                     array(
-                        'tag' => 'ul'
+                        'tag' => 'ul', 'class' => 'form_ul'
                     )
                 ),
                 'Form'

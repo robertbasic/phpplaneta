@@ -4,29 +4,59 @@
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle(); ?>
 
-        <link rel="stylesheet" href="/static/css/reset-fonts-grids.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/reset.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/text.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/960.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/admin.css" type="text/css" />
 
     </head>
 
     <body>
 
-        <div id="doc3" class="yui-t7">
+        <div id="page" class="container_16">
 
+            <div id="header" class="grid_16">
 
-            <a href="<?php echo $this->url(array('action' => 'index',
+                <ul class="navigation">
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'index',
                                                 'controller' => 'admin'),
                                                 'admin', true); ?>">Admin</a>
-            <a href="<?php echo $this->url(array('action' => 'admin-list',
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'admin-list',
                                                 'controller' => 'news'),
                                                 'admin', true); ?>">Vesti</a>
-            <a href="<?php echo $this->url(array('action' => 'logout',
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'logout',
                                                 'controller' => 'user'),
                                                  null, true); ?>">Logout</a>
-            <br />
+                    </li>
+                </ul>
 
-            <?php
-            echo $this->layout()->content;
-            ?>
+                <h2><?php echo $this->pageTitle; ?></h2>
+                
+            </div>
+
+            <div id="action_toolbar" class="grid_16">
+                <span>
+                    <?php echo $this->actionToolbar(); ?>
+                </span>
+            </div>
+
+            <div id="body" class="grid_16">
+
+                <div id="left" class="grid_12">
+                    <?php
+                    echo $this->layout()->content;
+                    ?>
+                </div>
+
+            </div>
 
         </div>
 
