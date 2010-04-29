@@ -91,6 +91,19 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $categoriesSelectBox;
     }
 
+    public function getNewsSourcesForSelectBox()
+    {
+        $sources = $this->getResource('News_Sources')->fetchAll()->toArray();
+
+        $sourcesSelectBox = array();
+
+        foreach($sources as $source) {
+            $sourcesSelectBox[$source['id']] = $source['name'];
+        }
+
+        return $sourcesSelectBox;
+    }
+
     /**
      * @todo Refactor this mess!
      * @param array $data
@@ -99,6 +112,12 @@ class Planet_Model_News extends PPN_Model_Abstract
     public function saveNews($data)
     {
         $return = false;
+
+        if(array_key_exists('fk_news_source_id', $data)
+                and $data['fk_news_source_id'] == '') {
+            unset($data['fk_news_source_id']);
+        }
+
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Add');
             $form->populate($data);
