@@ -53,15 +53,36 @@ class Zend_View_Helper_ActionToolbar extends Zend_View_Helper_Abstract
             if($this->_controller == 'news') {
                 if($this->_action == 'add'
                         or $this->_action == 'edit') {
-                    $toolbar = "<a href='" . $this->_view->url(array(
+                    $toolbar = " <a href='" . $this->_view->url(array(
                                                 'action' => 'admin-list',
                                                 'controller' => 'news'),
-                                                'admin', true) . "'>Sve vesti</a>";
+                                                'admin', true) . "'>Sve vesti</a> ";
                 } else {
-                    $toolbar = "<a href='" . $this->_view->url(array(
+                    $toolbar = " <a href='" . $this->_view->url(array(
                                                 'action' => 'add',
                                                 'controller' => 'news'),
-                                                'admin', true) . "'>Dodaj vest</a>";
+                                                'admin', true) . "'>Dodaj vest</a> ";
+                    $toolbar .= " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-sources'),
+                                                'admin', true) . "'>Izvori vesti</a> ";
+                }
+            } elseif($this->_controller == 'news-sources') {
+                if($this->_action == 'add'
+                        or $this->_action == 'edit') {
+                    $toolbar = " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-sources'),
+                                                'admin', true) . "'>Svi izvori</a> ";
+                } else {
+                    $toolbar = " <a href='" . $this->_view->url(array(
+                                                'action' => 'add',
+                                                'controller' => 'news-sources'),
+                                                'admin', true) . "'>Dodaj izvor</a> ";
+                    $toolbar .= " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news'),
+                                                'admin', true) . "'>Sve vesti</a> ";
                 }
             }
         }

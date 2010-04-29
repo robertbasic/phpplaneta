@@ -23,6 +23,17 @@ class Planet_Model_Resource_News_Sources extends PPN_Model_Resource_Abstract
      */
     protected $_rowClass = 'Planet_Model_Resource_News_Sources_Item';
 
+    public function getAllNewsSources($page=null)
+    {
+        $select = $this->_getSourceSelect();
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
     /**
      * Get a source by id
      *
@@ -40,6 +51,33 @@ class Planet_Model_Resource_News_Sources extends PPN_Model_Resource_Abstract
                 );
 
         return $this->fetchRow($select);
+    }
+
+    public function insertSource($data)
+    {
+        try {
+            $this->insert($data);
+            return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function updateSource($data)
+    {
+        try {
+           $this->update($data, array('id = ?' => $data['id']));
+           return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function deleteSource($id)
+    {
+        $id = (int)$id;
+
+        return $this->delete(array('id = ?' => $id));
     }
 
     protected function _getSourceSelect($where=null)
