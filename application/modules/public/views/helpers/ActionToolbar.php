@@ -66,6 +66,10 @@ class Zend_View_Helper_ActionToolbar extends Zend_View_Helper_Abstract
                                                 'action' => 'admin-list',
                                                 'controller' => 'news-sources'),
                                                 'admin', true) . "'>Izvori vesti</a> ";
+                    $toolbar .= " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-categories'),
+                                                'admin', true) . "'>Kategorije vesti</a> ";
                 }
             } elseif($this->_controller == 'news-sources') {
                 if($this->_action == 'add'
@@ -83,6 +87,31 @@ class Zend_View_Helper_ActionToolbar extends Zend_View_Helper_Abstract
                                                 'action' => 'admin-list',
                                                 'controller' => 'news'),
                                                 'admin', true) . "'>Sve vesti</a> ";
+                    $toolbar .= " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-categories'),
+                                                'admin', true) . "'>Kategorije vesti</a> ";
+                }
+            } elseif($this->_controller == 'news-categories') {
+                if($this->_action == 'add'
+                        or $this->_action == 'edit') {
+                    $toolbar = " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-categories'),
+                                                'admin', true) . "'>Sve kategorije</a> ";
+                } else {
+                    $toolbar = " <a href='" . $this->_view->url(array(
+                                                'action' => 'add',
+                                                'controller' => 'news-categories'),
+                                                'admin', true) . "'>Dodaj kategoriju</a> ";
+                    $toolbar .= " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news'),
+                                                'admin', true) . "'>Sve vesti</a> ";
+                    $toolbar .= " <a href='" . $this->_view->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-source'),
+                                                'admin', true) . "'>Izvori vesti</a> ";
                 }
             }
         }

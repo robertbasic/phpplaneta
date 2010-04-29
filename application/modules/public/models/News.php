@@ -95,6 +95,22 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $categoriesSelectBox;
     }
 
+    public function getAllNewsCategories($page=null)
+    {
+        return $this->getResource('News_Categories')->getAllNewsCategories($page);
+    }
+
+    public function getOneNewsCategoryById($id)
+    {
+        $oneCategory = $this->getResource('News_Categories')->getCategoryById($id);
+
+        if($oneCategory === null) {
+            throw new Exception("No such category");
+        }
+
+        return $oneCategory;
+    }
+
     public function getNewsSourcesForSelectBox()
     {
         $sources = $this->getResource('News_Sources')->fetchAll()->toArray();
@@ -173,6 +189,39 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $return;
     }
 
+    public function saveNewsCategory($data)
+    {
+        $return = false;
+
+        if(!array_key_exists('id', $data)) {
+            $form = $this->getForm('News_Categories_Add');
+            $form->populate($data);
+            $form->removeElement('csrf');
+
+            if(!$form->isValid($data)) {
+                return false;
+            }
+
+            $data = $form->getValues();
+
+            $return = $this->getResource('News_Categories')->insertCategory($data);
+        } else {
+            $form = $this->getForm('News_Categories_Edit');
+            $form->populate($data);
+            $form->removeElement('csrf');
+
+            if(!$form->isValid($data)) {
+                return false;
+            }
+
+            $data = $form->getValues();
+
+            $return = $this->getResource('News_Categories')->updateCategory($data);
+        }
+
+        return $return;
+    }
+
     public function saveNewsSource($data)
     {
         $return = false;
@@ -213,6 +262,11 @@ class Planet_Model_News extends PPN_Model_Abstract
     public function deleteNews($id)
     {
         return $this->getResource('News')->deleteNews($id);
+    }
+
+    public function deleteNewsCategory($id)
+    {
+        return $this->getResource('News_Categories')->deleteCategory($id);
     }
 
     public function deleteNewsSource($id)

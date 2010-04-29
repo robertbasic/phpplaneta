@@ -23,6 +23,17 @@ class Planet_Model_Resource_News_Categories extends PPN_Model_Resource_Abstract
      */
     protected $_rowClass = 'Planet_Model_Resource_News_Categories_Item';
 
+    public function getAllNewsCategories($page=null)
+    {
+        $select = $this->_getCategorySelect();
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
     /**
      * Get a category by slug
      *
@@ -59,6 +70,33 @@ class Planet_Model_Resource_News_Categories extends PPN_Model_Resource_Abstract
                 );
 
         return $this->fetchRow($select);
+    }
+
+    public function insertCategory($data)
+    {
+        try {
+            $this->insert($data);
+            return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function updateCategory($data)
+    {
+        try {
+           $this->update($data, array('id = ?' => $data['id']));
+           return true;
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function deleteCategory($id)
+    {
+        $id = (int)$id;
+
+        return $this->delete(array('id = ?' => $id));
     }
 
     protected function _getCategorySelect($where=null)
