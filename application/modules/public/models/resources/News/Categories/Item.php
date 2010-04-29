@@ -1,7 +1,7 @@
 <?php
 
 /**
- * One row from the news table
+ * One row from the news_categories table
  *
  * @author robert
  */

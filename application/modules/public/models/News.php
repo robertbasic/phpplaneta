@@ -13,6 +13,10 @@ class Planet_Model_News extends PPN_Model_Abstract
         
     }
 
+    /**
+     * Getters
+     */
+
     public function getAllActiveNews($page=null)
     {
         return $this->getResource('News')->getAllActiveNews($page);
@@ -91,6 +95,39 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $categoriesSelectBox;
     }
 
+    public function getNewsSourcesForSelectBox()
+    {
+        $sources = $this->getResource('News_Sources')->fetchAll()->toArray();
+
+        $sourcesSelectBox = array();
+
+        foreach($sources as $source) {
+            $sourcesSelectBox[$source['id']] = $source['name'];
+        }
+
+        return $sourcesSelectBox;
+    }
+
+    public function getAllNewsSources($page=null)
+    {
+        return $this->getResource('News_Sources')->getAllNewsSources($page);
+    }
+
+    public function getOneNewsSourceById($id)
+    {
+        $oneSource = $this->getResource('News_Sources')->getSourceById($id);
+
+        if($oneSource === null) {
+            throw new Exception("No such source");
+        }
+
+        return $oneSource;
+    }
+
+    /**
+     * Saves
+     */
+
     /**
      * @todo Refactor this mess!
      * @param array $data
@@ -99,6 +136,12 @@ class Planet_Model_News extends PPN_Model_Abstract
     public function saveNews($data)
     {
         $return = false;
+
+        if(array_key_exists('fk_news_source_id', $data)
+                and $data['fk_news_source_id'] == '') {
+            unset($data['fk_news_source_id']);
+        }
+
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Add');
             $form->populate($data);
@@ -130,9 +173,51 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $return;
     }
 
+    public function saveNewsSource($data)
+    {
+        $return = false;
+
+        if(!array_key_exists('id', $data)) {
+            $form = $this->getForm('News_Sources_Add');
+            $form->populate($data);
+            $form->removeElement('csrf');
+
+            if(!$form->isValid($data)) {
+                return false;
+            }
+
+            $data = $form->getValues();
+
+            $return = $this->getResource('News_Sources')->insertSource($data);
+        } else {
+            $form = $this->getForm('News_Sources_Edit');
+            $form->populate($data);
+            $form->removeElement('csrf');
+
+            if(!$form->isValid($data)) {
+                return false;
+            }
+
+            $data = $form->getValues();
+
+            $return = $this->getResource('News_Sources')->updateSource($data);
+        }
+
+        return $return;
+    }
+
+    /**
+     * Deletes
+     */
+
     public function deleteNews($id)
     {
         return $this->getResource('News')->deleteNews($id);
+    }
+
+    public function deleteNewsSource($id)
+    {
+        return $this->getResource('News_Sources')->deleteSource($id);
     }
 
 }
