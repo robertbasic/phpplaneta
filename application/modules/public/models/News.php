@@ -255,6 +255,47 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $return;
     }
 
+    public function saveNewsTags($data)
+    {
+        $return = false;
+
+        if(!array_key_exists('tags', $data)
+                or $data['tags'] == '') {
+            throw new Exception("No tags provided");
+        }
+
+        if(!array_key_exists('id', $data)) {
+            $tags = explode(",", $data['tags']);
+
+            $tagsSanitized = array();
+
+            $trimmer = new Zend_Filter_StringTrim();
+            $stripper = new Zend_Filter_StripTags();
+            $slugger = new PPN_Filter_Slug();
+
+            $i = 0;
+            foreach($tags as $tag) {
+                $tmpTag = $trimmer->filter($stripper->filter($tag));
+                $tmpSlug = $slugger->filter($tmpTag);
+
+                if($tmpTag != '' and $tmpSlug != '') {
+                    $tagsSanitized[$i]['title'] = $tmpTag;
+                    $tagsSanitized[$i]['slug'] = $tmpSlug;
+                    $i++;
+                }
+            }
+
+            $insertedTags = $this->getResource('News_Tags')
+                                    ->insertTags($tagsSanitized);
+
+            return $insertedTags;
+        } else {
+            
+        }
+
+        return $data;
+    }
+
     /**
      * Deletes
      */

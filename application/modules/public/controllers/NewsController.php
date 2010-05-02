@@ -19,6 +19,31 @@ class NewsController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/static/ckeditor/adapters/jquery.js');
         $this->view->headScript()->appendFile('/static/js/ckeditor.js');
 
+        $this->view->headScript()->appendScript("
+            $(function(){
+                var tagsform = $('#tagsform');
+                if(tagsform.length > 0) {
+                    tagsform.remove();
+                    $('#right').append(tagsform);
+                    tagsform = $('#tagsform');
+                    tagsform.submit(function(){
+                        var tags = $('#tags').val();
+                        $.post(
+                            '/admin/public/news-tags/ajax-add',
+                            {
+                                tags: tags
+                            },
+                            function(data) {
+                                console.log(data);
+                            },
+                            'json'
+                        );
+                        return false;
+                    });
+                }
+            });
+        ");
+
     }
 
     public function indexAction()
@@ -82,6 +107,8 @@ class NewsController extends Zend_Controller_Action
         }
 
         $this->view->addForm = $addForm;
+
+        $this->view->tagsForm = new Planet_Form_News_Tags();
 
         $this->view->pageTitle = 'Dodavanje vesti';
     }
