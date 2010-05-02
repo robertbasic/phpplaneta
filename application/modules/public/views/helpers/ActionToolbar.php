@@ -110,7 +110,7 @@ class Zend_View_Helper_ActionToolbar extends Zend_View_Helper_Abstract
                                                 'admin', true) . "'>Sve vesti</a> ";
                     $toolbar .= " <a href='" . $this->_view->url(array(
                                                 'action' => 'admin-list',
-                                                'controller' => 'news-source'),
+                                                'controller' => 'news-sources'),
                                                 'admin', true) . "'>Izvori vesti</a> ";
                 }
             }
