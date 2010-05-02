@@ -58,6 +58,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->_view->headTitle('PHPplaneta.net');
         $this->_view->headTitle()->setSeparator(' / ');
 
+        $this->_view->headScript()->appendFile(
+                'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
+                'text/javascript'
+                );
+
         $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
     }
 

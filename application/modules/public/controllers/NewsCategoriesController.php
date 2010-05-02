@@ -14,6 +14,16 @@ class NewsCategoriesController extends Zend_Controller_Action
         $this->redirector = $this->getHelper('redirector');
         $this->urlHelper = $this->getHelper('url');
         $this->fm = $this->getHelper('flashMessenger');
+
+        $this->view->headScript()->appendScript("
+            $(function(){
+                $('.delete').click(function(){
+                    if(!confirm('Obrisi kategoriju? Sve vesti iz ove kategorije ce takodje biti obrisane!')) {
+                        return false;
+                    }
+                });
+            });
+        ");
     }
 
     public function indexAction()

@@ -276,7 +276,6 @@ class Planet_Model_News extends PPN_Model_Abstract
         } else {
             return false;
         }
-        
     }
 
     public function deleteNewsSource($id)
