@@ -264,9 +264,19 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $this->getResource('News')->deleteNews($id);
     }
 
+    public function deleteNewsFromCategory($categoryId)
+    {
+        return $this->getResource('News')->deleteNewsFromCategory($categoryId);
+    }
+
     public function deleteNewsCategory($id)
     {
-        return $this->getResource('News_Categories')->deleteCategory($id);
+        if($this->deleteNewsFromCategory($id) !== false) {
+            return $this->getResource('News_Categories')->deleteCategory($id);
+        } else {
+            return false;
+        }
+        
     }
 
     public function deleteNewsSource($id)

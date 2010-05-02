@@ -41,6 +41,14 @@ class NewsController extends Zend_Controller_Action
             return $this->redirector->gotoRoute(null, 'login');
         }
 
+        if(null == $this->model->getAllNewsCategories()->toArray()) {
+            $this->fm->addMessage(array('fm-bad' => 'Mora postojati najmanje 1 kategorija vesti!'));
+            return $this->redirector->gotoRoute(
+                           array('action' => 'admin-list', 'controller' => 'news'),
+                           'admin', true
+                           );
+        }
+
         $addForm = $this->model->getForm('News_Add');
         $addForm->setAction($this->urlHelper->url(array(
                                                     'action' => 'add',

@@ -191,6 +191,13 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
         return $this->delete(array('id = ?' => $id));
     }
 
+    public function deleteNewsFromCategory($categoryId)
+    {
+        $categoryId = (int)$categoryId;
+
+        return $this->delete(array('fk_news_category_id = ?' => $categoryId));
+    }
+
     /**
      * Build the select object for news
      * optionally pass in an array for the where part
