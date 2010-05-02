@@ -18,7 +18,7 @@ class NewsCategoriesController extends Zend_Controller_Action
         $this->view->headScript()->appendScript("
             $(function(){
                 $('.delete').click(function(){
-                    if(!confirm('Obrisi kategoriju? Sve vesti iz ove kategorije ce takodje biti obrisane!')) {
+                    if(!confirm('Obriši kategoriju? Sve vesti iz ove kategorije će takođe biti obrisane!')) {
                         return false;
                     }
                 });

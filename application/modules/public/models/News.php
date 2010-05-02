@@ -84,12 +84,12 @@ class Planet_Model_News extends PPN_Model_Abstract
 
     public function getNewsCategoriesForSelectBox()
     {
-        $categories = $this->getResource('News_Categories')->fetchAll()->toArray();
+        $categories = $this->getAllNewsCategories();
 
         $categoriesSelectBox = array();
 
         foreach($categories as $category) {
-            $categoriesSelectBox[$category['id']] = $category['title'];
+            $categoriesSelectBox[$category->id] = $category->title;
         }
 
         return $categoriesSelectBox;
