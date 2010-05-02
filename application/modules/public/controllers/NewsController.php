@@ -14,6 +14,11 @@ class NewsController extends Zend_Controller_Action
         $this->redirector = $this->getHelper('redirector');
         $this->urlHelper = $this->getHelper('url');
         $this->fm = $this->getHelper('flashMessenger');
+
+        $this->view->headScript()->appendFile('/static/ckeditor/ckeditor.js');
+        $this->view->headScript()->appendFile('/static/ckeditor/adapters/jquery.js');
+        $this->view->headScript()->appendFile('/static/js/ckeditor.js');
+
     }
 
     public function indexAction()

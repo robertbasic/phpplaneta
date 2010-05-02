@@ -105,3 +105,8 @@ a:hover {
 	float: left;
 	width: 200px;
 }
+
+#left table.cke_editor {
+    display: table;
+    border: none;
+}
