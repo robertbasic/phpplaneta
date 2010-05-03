@@ -136,7 +136,8 @@ class Planet_Form_News extends PPN_Form_Abstract
             'hidden',
             'news_tag',
             array(
-                'decorators' => $this->hiddenElementDecorators
+                'decorators' => $this->hiddenElementDecorators,
+                'required' => false
             )
         );
 
@@ -156,6 +157,9 @@ class Planet_Form_News extends PPN_Form_Abstract
                             $this->getModel()
                                 ->getNewsSourcesForSelectBox()
                         );
+
+        $tagValidator = new Zend_Validate_Regex('/^(#\d+\#)+$/');
+        $this->getElement('news_tag')->addValidator($tagValidator);
 
     }
 }

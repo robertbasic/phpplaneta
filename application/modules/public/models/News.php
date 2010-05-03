@@ -169,9 +169,16 @@ class Planet_Model_News extends PPN_Model_Abstract
 
             $data = $form->getValues();
 
+            if(array_key_exists('news_tag', $data)) {
+                $newsTags = $data['news_tag'];
+                unset($data['news_tag']);
+            }
+
             $data['datetime_added'] = date('Y-m-d H:i:s');
 
             $return = $this->getResource('News')->insertNews($data);
+
+            $id = $this->getResource('News')->getAdapter()->lastInsertId();
         } else {
             $form = $this->getForm('News_Edit');
             $form->populate($data);
@@ -183,9 +190,20 @@ class Planet_Model_News extends PPN_Model_Abstract
 
             $data = $form->getValues();
 
+            if(array_key_exists('news_tag', $data)) {
+                $newsTags = $data['news_tag'];
+                unset($data['news_tag']);
+            }
+
             $return = $this->getResource('News')->updateNews($data);
+            $id = $data['id'];
         }
-        
+
+        /**
+         * @todo finish this...
+         */
+        $this->getResource('News_Tags_Relations')->makeNewsTagsRelation($id, $newsTags);
+
         return $return;
     }
 
