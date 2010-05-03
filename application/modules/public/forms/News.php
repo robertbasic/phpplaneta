@@ -132,6 +132,14 @@ class Planet_Form_News extends PPN_Form_Abstract
             )
         );
 
+        $this->addElement(
+            'hidden',
+            'news_tag',
+            array(
+                'decorators' => $this->hiddenElementDecorators
+            )
+        );
+
         $this->addSubmitAndResetButtons();
 
         $this->getElement('fk_news_category_id')

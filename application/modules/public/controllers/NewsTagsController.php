@@ -43,7 +43,7 @@ class NewsTagsController extends Zend_Controller_Action
         $data = $this->_request->getPost();
 
         try{
-            $tags = $this->model->saveNewsTags($data);
+            $tags['tags'] = $this->model->saveNewsTags($data);
             echo $this->_helper->json($tags);
         } catch (Exception $e) {
             $response['errors'] = $e->getMessage();

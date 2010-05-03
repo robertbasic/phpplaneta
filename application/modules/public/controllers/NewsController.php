@@ -27,21 +27,75 @@ class NewsController extends Zend_Controller_Action
                     $('#right').append(tagsform);
                     tagsform = $('#tagsform');
                     tagsform.submit(function(){
-                        var tags = $('#tags').val();
+                        var tags = $('#tags');
+                        var tagsVal = tags.val();
                         $.post(
                             '/admin/public/news-tags/ajax-add',
                             {
-                                tags: tags
+                                tags: tagsVal
                             },
                             function(data) {
-                                console.log(data);
+                                if('tags' in data) {
+                                    appendTags(data);
+                                } else if('errors' in data) {
+                                    console.log(data);
+                                }
+                                tags.val('');
                             },
                             'json'
                         );
                         return false;
                     });
                 }
+
+                $('.ul_tags li a').live('click', function(){
+                    var liTag = $(this).parent();
+                    var tagId = liTag.attr('rel').replace(/tag_id_/,'');
+                    removeTag(tagId);
+                    liTag.remove();
+                    return false;
+                });
+
             });
+
+            function appendTags(tags) {
+                tags = tags['tags'];
+                if($('.ul_tags').length == 0) {
+                    createUlTags();
+                }
+                var ulTags = $('.ul_tags');
+                var liTags = '';
+                var newsTag = $('#news_tag');
+
+                for(key in tags) {
+                    var tagId = tags[key]['id'];
+                    var rel = 'tag_id_' + tagId;
+                    if($('li[rel='+rel+']').length == 0) {
+
+                        var newsTagVal = newsTag.val();
+                        newsTag.val(newsTagVal + '#' + tagId + '#');
+
+                        liTags += '<li rel=\'' + rel + '\'>';
+                        liTags += tags[key]['title'];
+                        liTags += ' <a href=\'#\'>&otimes;</a>';
+                        liTags += '</li>';
+                    }
+                }
+                ulTags.append(liTags);
+            }
+
+            function removeTag(tagId) {
+                var newsTag = $('#news_tag');
+                var newsTagVal = newsTag.val();
+                newsTagVal = newsTagVal.replace('#'+tagId+'#','');
+                newsTag.val(newsTagVal);
+            }
+
+            function createUlTags()
+            {
+                $('#right').append('<ul class=\'ul_tags\'></ul>');
+            }
+
         ");
 
     }
@@ -108,7 +162,7 @@ class NewsController extends Zend_Controller_Action
 
         $this->view->addForm = $addForm;
 
-        $this->view->tagsForm = new Planet_Form_News_Tags();
+        $this->view->tagsForm = $this->model->getForm('News_Tags');
 
         $this->view->pageTitle = 'Dodavanje vesti';
     }
