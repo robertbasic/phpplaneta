@@ -1,13 +1,10 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  * Description of Tags
  *
  * @author robert
+ * @todo tidy up validation and filtering
  */
 class Planet_Form_News_Tags extends PPN_Form_Abstract
 {

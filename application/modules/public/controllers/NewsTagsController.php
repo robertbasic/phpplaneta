@@ -1,8 +1,13 @@
 <?php
 
 /**
- * @todo add messages to flashmessenger all over the place
- */
+ *   File: NewsTagsController.php
+ *
+ *   Description:
+ *      For working with news tags. This can turn out a bit ugly,
+ *      as the tags are in most cases added via ajax from the news controller,
+ *      add action.
+*/
 
 class NewsTagsController extends Zend_Controller_Action
 {
@@ -20,14 +25,24 @@ class NewsTagsController extends Zend_Controller_Action
     {
     }
 
+    /**
+     * @todo implement
+     */
     public function adminListAction()
     {
     }
-    
+
+    /**
+     * @todo implement
+     */
     public function addAction()
     {
     }
 
+    /**
+     * Adding one or more tags via ajax
+     * The check for already existsing tags is done in the model
+     */
     public function ajaxAddAction()
     {
         if(!$this->loggedInUser) {
@@ -51,10 +66,16 @@ class NewsTagsController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * @todo implement
+     */
     public function editAction()
     {
     }
 
+    /**
+     * @todo implement
+     */
     public function deleteAction()
     {
     }

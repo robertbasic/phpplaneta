@@ -1,8 +1,11 @@
 <?php
 
 /**
- * @todo add messages to flashmessenger all over the place
- */
+ *   File: NewsSourcesController.php
+ *
+ *   Description:
+ *      For working with news sources
+*/
 
 class NewsSourcesController extends Zend_Controller_Action
 {
@@ -20,6 +23,9 @@ class NewsSourcesController extends Zend_Controller_Action
     {
     }
 
+    /**
+     * List sources, paginated, for the admin panel
+     */
     public function adminListAction()
     {
         if(!$this->loggedInUser) {
@@ -33,7 +39,10 @@ class NewsSourcesController extends Zend_Controller_Action
 
         $this->view->pageTitle = 'Administracija izvora vesti';
     }
-    
+
+    /**
+     * Add a source
+     */
     public function addAction()
     {
         if(!$this->loggedInUser) {
@@ -71,6 +80,10 @@ class NewsSourcesController extends Zend_Controller_Action
         $this->view->pageTitle = 'Dodavanje izvora vesti';
     }
 
+    /**
+     * Edit a source
+     * @todo GET shouldn't edit
+     */
     public function editAction()
     {
         if(!$this->loggedInUser) {
@@ -78,6 +91,8 @@ class NewsSourcesController extends Zend_Controller_Action
             return $this->redirector->gotoRoute(null, 'login');
         }
 
+        // @todo move this ID checking to the model (getOneNewsSourceById)
+        // and just throw an exception from there
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {
@@ -118,13 +133,19 @@ class NewsSourcesController extends Zend_Controller_Action
         $this->view->pageTitle = 'Izmena izvora vesti';
     }
 
+    /**
+     * Delete a source
+     * @todo GET shouldn't delete
+     */
     public function deleteAction()
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(null, 'login');
         }
-        
+
+        // @todo move this ID checking to the model
+        // and just throw an exception from there
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {

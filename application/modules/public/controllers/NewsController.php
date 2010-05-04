@@ -1,9 +1,13 @@
 <?php
 
 /**
- * @todo add messages to flashmessenger all over the place
- */
-
+ *   File: NewsController.php
+ *
+ *   Description:
+ *      Both the front-end and admin for all news related stuff going
+ *      through this controller, as we're using "pseudo" module for the
+ *      admin panel
+*/
 class NewsController extends Zend_Controller_Action
 {
 
@@ -19,6 +23,8 @@ class NewsController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/static/ckeditor/adapters/jquery.js');
         $this->view->headScript()->appendFile('/static/js/ckeditor.js');
 
+        // some JS madness for working with the tags
+        // eventually will be moved out to a separate JS file
         $this->view->headScript()->appendScript("
             $(function(){
                 var tagsform = $('#tagsform');
@@ -104,6 +110,9 @@ class NewsController extends Zend_Controller_Action
     {
     }
 
+    /**
+     * List news, paginated, for the admin panel
+     */
     public function adminListAction()
     {
         if(!$this->loggedInUser) {
@@ -118,6 +127,10 @@ class NewsController extends Zend_Controller_Action
         $this->view->pageTitle = 'Administracija vesti';
     }
 
+    /**
+     * Adding news. There must be at least one news category,
+     * before a news can be added.
+     */
     public function addAction()
     {
         if(!$this->loggedInUser) {
@@ -125,6 +138,7 @@ class NewsController extends Zend_Controller_Action
             return $this->redirector->gotoRoute(null, 'login');
         }
 
+        // checking for existing categories
         if(null == $this->model->getAllNewsCategories()->toArray()) {
             $this->fm->addMessage(array('fm-bad' => 'Mora postojati najmanje 1 kategorija vesti!'));
             return $this->redirector->gotoRoute(
@@ -167,6 +181,10 @@ class NewsController extends Zend_Controller_Action
         $this->view->pageTitle = 'Dodavanje vesti';
     }
 
+    /**
+     * Plain ol' editing
+     * @todo GET shouldn't edit
+     */
     public function editAction()
     {
         if(!$this->loggedInUser) {
@@ -174,6 +192,8 @@ class NewsController extends Zend_Controller_Action
             return $this->redirector->gotoRoute(null, 'login');
         }
 
+        // @todo move this ID checking to the model
+        // and just throw an exception from there
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {
@@ -215,13 +235,19 @@ class NewsController extends Zend_Controller_Action
         $this->view->pageTitle = 'Izmena vesti';
     }
 
+    /**
+     * Delete one news
+     * @todo GET shouldn't delete
+     */
     public function deleteAction()
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(null, 'login');
         }
-        
+
+        // @todo move this ID checking to the model
+        // and just throw an exception from there
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {

@@ -1,8 +1,11 @@
 <?php
 
 /**
- * @todo add messages to flashmessenger all over the place
- */
+ *   File: NewsCategoriesController.php
+ *
+ *   Description:
+ *      For working with news categories
+*/
 
 class NewsCategoriesController extends Zend_Controller_Action
 {
@@ -30,6 +33,9 @@ class NewsCategoriesController extends Zend_Controller_Action
     {
     }
 
+    /**
+     * List categories, paginated, for the admin panel
+     */
     public function adminListAction()
     {
         if(!$this->loggedInUser) {
@@ -43,7 +49,10 @@ class NewsCategoriesController extends Zend_Controller_Action
 
         $this->view->pageTitle = 'Administracija kategorija vesti';
     }
-    
+
+    /**
+     * Add a category
+     */
     public function addAction()
     {
         if(!$this->loggedInUser) {
@@ -82,6 +91,10 @@ class NewsCategoriesController extends Zend_Controller_Action
         $this->view->pageTitle = 'Dodavanje kategorije vesti';
     }
 
+    /**
+     * Edit a category
+     * @todo GET shouldn't edit
+     */
     public function editAction()
     {
         if(!$this->loggedInUser) {
@@ -89,6 +102,8 @@ class NewsCategoriesController extends Zend_Controller_Action
             return $this->redirector->gotoRoute(null, 'login');
         }
 
+        // @todo move this ID checking to the model
+        // and just throw an exception from there
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {
@@ -130,13 +145,19 @@ class NewsCategoriesController extends Zend_Controller_Action
         $this->view->pageTitle = 'Izmena kategorije vesti';
     }
 
+    /**
+     * Delete a category
+     * @todo GET shouldn't delete
+     */
     public function deleteAction()
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(null, 'login');
         }
-        
+
+        // @todo move this ID checking to the model
+        // and just throw an exception from there
         $id = $this->_request->getParam('id', null);
 
         if($id === null) {

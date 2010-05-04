@@ -4,6 +4,7 @@
  * Base form for adding/editing news
  *
  * @author robert
+ * @todo tidy up validation and filtering
  */
 class Planet_Form_News_Sources extends PPN_Form_Abstract
 {

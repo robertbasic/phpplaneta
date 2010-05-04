@@ -17,16 +17,32 @@ class Planet_Model_News extends PPN_Model_Abstract
      * Getters
      */
 
+    /**
+     * Get active news.
+     * Pagination is to be decided within the resource, based on $page
+     * @param int|null $page
+     */
     public function getAllActiveNews($page=null)
     {
         return $this->getResource('News')->getAllActiveNews($page);
     }
 
+    /**
+     * Get all news.
+     * Pagination is to be decided within the resource, based on $page
+     * @param int|null $page
+     */
     public function getAllNews($page=null)
     {
         return $this->getResource('News')->getAllNews($page);
     }
 
+    /**
+     * Get active news from a category, by the categories slug.
+     * Pagination is to be decided within the resource, based on $page
+     * @param string $slug
+     * @param int|null $page
+     */
     public function getAllActiveNewsFromCategoryBySlug($slug,$page=null)
     {
         $category = $this->getResource('News_Categories')->getCategoryBySlug($slug);
@@ -38,6 +54,13 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $this->getResource('News')->getAllActiveNewsFromCategoryBySlug($slug,$page);
     }
 
+    /**
+     * Get active news from a category, by the categories id.
+     * Pagination is to be decided within the resource, based on $page
+     * I wonder will this ever be used?g Oh, well...
+     * @param int $id
+     * @param int|null $page
+     */
     public function getAllActiveNewsFromCategoryById($id,$page=null)
     {
         $category = $this->getResource("News_Categories")->getCategoryById($id);
@@ -49,6 +72,10 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $this->getResource('News')->getAllActiveNewsFromCategoryById($id,$page);
     }
 
+    /**
+     * Get one active news by it's slug
+     * @param string $slug
+     */
     public function getOneActiveNewsBySlug($slug)
     {
         $oneNews = $this->getResource('News')->getOneActiveNewsBySlug($slug);
@@ -60,6 +87,10 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneNews;
     }
 
+    /**
+     * Get one active news by it's id
+     * @param int $id
+     */
     public function getOneActiveNewsById($id)
     {
         $oneNews = $this->getResource('News')->getOneActiveNewsById($id);
@@ -71,6 +102,10 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneNews;
     }
 
+    /**
+     * Get one news by it's id
+     * @param int $id
+     */
     public function getOneNewsById($id)
     {
         $oneNews = $this->getResource('News')->getOneNewsById($id);
@@ -82,6 +117,10 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneNews;
     }
 
+    /**
+     * Get all news categories, ready to be consumed by a select box
+     * in a Zend_Form
+     */
     public function getNewsCategoriesForSelectBox()
     {
         $categories = $this->getAllNewsCategories();
@@ -111,9 +150,13 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneCategory;
     }
 
+    /**
+     * Get all news sources, ready to be consumed by a select box
+     * in a Zend_Form
+     */
     public function getNewsSourcesForSelectBox()
     {
-        $sources = $this->getResource('News_Sources')->fetchAll()->toArray();
+        $sources = $this->getAllNewsSources();
 
         $sourcesSelectBox = array();
 
