@@ -245,7 +245,7 @@ class Planet_Model_News extends PPN_Model_Abstract
         /**
          * @todo finish this...
          */
-        $this->getResource('News_Tags_Relations')->makeNewsTagsRelation($id, $newsTags);
+        $this->getResource('News_Tags_Relations')->makeRelation($id, $newsTags);
 
         return $return;
     }
