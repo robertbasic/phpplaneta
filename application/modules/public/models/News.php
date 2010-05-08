@@ -378,6 +378,12 @@ class Planet_Model_News extends PPN_Model_Abstract
 
     public function deleteNews($id)
     {
+        try {
+            $this->getResource('News_Tags_Relations')->deleteRelationsForNews($id);
+        } catch(Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode());
+        }
+
         return $this->getResource('News')->deleteNews($id);
     }
 
