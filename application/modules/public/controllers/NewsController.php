@@ -71,7 +71,7 @@ class NewsController extends Zend_Controller_Action
                 }
                 var ulTags = $('.ul_tags');
                 var liTags = '';
-                var newsTag = $('#news_tag');
+                var newsTag = $('#related_tags');
 
                 for(key in tags) {
                     var tagId = tags[key]['id'];
@@ -91,7 +91,7 @@ class NewsController extends Zend_Controller_Action
             }
 
             function removeTag(tagId) {
-                var newsTag = $('#news_tag');
+                var newsTag = $('#related_tags');
                 var newsTagVal = newsTag.val();
                 newsTagVal = newsTagVal.replace('#'+tagId+'#','');
                 newsTag.val(newsTagVal);

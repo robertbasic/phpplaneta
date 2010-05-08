@@ -135,7 +135,7 @@ class Planet_Form_News extends PPN_Form_Abstract
 
         $this->addElement(
             'hidden',
-            'news_tag',
+            'related_tags',
             array(
                 'decorators' => $this->hiddenElementDecorators,
                 'required' => false
@@ -160,7 +160,7 @@ class Planet_Form_News extends PPN_Form_Abstract
                         );
 
         $tagValidator = new Zend_Validate_Regex('/^(#\d+\#)+$/');
-        $this->getElement('news_tag')->addValidator($tagValidator);
+        $this->getElement('related_tags')->addValidator($tagValidator);
 
     }
 }

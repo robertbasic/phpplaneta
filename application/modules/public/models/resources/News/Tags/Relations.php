@@ -13,12 +13,12 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
 {
     protected $_name = 'news_tags_relations';
 
-    public function makeRelation($newsId, $tagIds)
+    public function makeRelation($newsId, $relatedTags)
     {
-        $tagIds = explode("##", trim($tagIds, '#'));
+        $relatedTags = explode("##", trim($relatedTags, '#'));
         
-        if(!is_array($tagIds)) {
-            throw new Exception("Tag IDs must be an array, got: " . gettype($tagIds));
+        if(!is_array($relatedTags)) {
+            throw new Exception("Tag IDs must be an array, got: " . gettype($relatedTags));
         }
 
         try {
@@ -27,13 +27,13 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
             throw new Exception($e->getMessage(), $e->getCode());
         }
 
-        if(empty($tagIds)
-                or (count($tagIds) == 1 and $tagIds[0] == '')) {
+        if(empty($relatedTags)
+                or (count($relatedTags) == 1 and $relatedTags[0] == '')) {
             return true;
         }
 
         try {
-            $this->insertRelations($newsId, $tagIds);
+            $this->insertRelations($newsId, $relatedTags);
         } catch (Exception $e) {
             throw new Exception($e->getMessage(), $e->getCode());
         }
@@ -41,7 +41,7 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
         return true;
     }
 
-    public function insertRelations($newsId, $tagIds)
+    public function insertRelations($newsId, $relatedTags)
     {
         $newsId = (int)$newsId;
 
@@ -49,7 +49,7 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
 
         $insertRelationsSql = "INSERT INTO " . $this->_name ." (`fk_news_id`, `fk_news_tag_id`) VALUES ";
 
-        foreach($tagIds as $tagId) {
+        foreach($relatedTags as $tagId) {
             $tagId = (int)$tagId;
             $insertRelationsSql .= "(" . $adapter->quote($newsId) . ", " . $adapter->quote($tagId) . "), ";
         }

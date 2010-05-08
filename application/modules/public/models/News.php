@@ -212,9 +212,9 @@ class Planet_Model_News extends PPN_Model_Abstract
 
             $data = $form->getValues();
 
-            if(array_key_exists('news_tag', $data)) {
-                $newsTags = $data['news_tag'];
-                unset($data['news_tag']);
+            if(array_key_exists('related_tags', $data)) {
+                $relatedTags = $data['related_tags'];
+                unset($data['related_tags']);
             }
 
             $data['datetime_added'] = date('Y-m-d H:i:s');
@@ -233,16 +233,16 @@ class Planet_Model_News extends PPN_Model_Abstract
 
             $data = $form->getValues();
 
-            if(array_key_exists('news_tag', $data)) {
-                $newsTags = $data['news_tag'];
-                unset($data['news_tag']);
+            if(array_key_exists('related_tags', $data)) {
+                $relatedTags = $data['related_tags'];
+                unset($data['related_tags']);
             }
 
             $return = $this->getResource('News')->updateNews($data);
             $id = $data['id'];
         }
         
-        $this->getResource('News_Tags_Relations')->makeRelation($id, $newsTags);
+        $this->getResource('News_Tags_Relations')->makeRelation($id, $relatedTags);
 
         return $return;
     }
