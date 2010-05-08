@@ -27,6 +27,11 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
             throw new Exception($e->getMessage(), $e->getCode());
         }
 
+        if(empty($tagIds)
+                or (count($tagIds) == 1 and $tagIds[0] == '')) {
+            return true;
+        }
+
         try {
             $this->insertRelations($newsId, $tagIds);
         } catch (Exception $e) {

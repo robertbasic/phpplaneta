@@ -241,10 +241,7 @@ class Planet_Model_News extends PPN_Model_Abstract
             $return = $this->getResource('News')->updateNews($data);
             $id = $data['id'];
         }
-
-        /**
-         * @todo finish this...
-         */
+        
         $this->getResource('News_Tags_Relations')->makeRelation($id, $newsTags);
 
         return $return;

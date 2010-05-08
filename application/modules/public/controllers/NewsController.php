@@ -232,6 +232,8 @@ class NewsController extends Zend_Controller_Action
 
         $this->view->editForm = $editForm;
 
+        $this->view->tagsForm = $this->model->getForm('News_Tags');
+
         $this->view->pageTitle = 'Izmena vesti';
     }
 
