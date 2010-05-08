@@ -32,6 +32,9 @@ class NewsController extends Zend_Controller_Action
                     tagsform.remove();
                     $('#right').append(tagsform);
                     tagsform = $('#tagsform');
+
+                    loadTags();
+
                     tagsform.submit(function(){
                         var tags = $('#tags');
                         var tagsVal = tags.val();
@@ -64,8 +67,41 @@ class NewsController extends Zend_Controller_Action
 
             });
 
+            function loadTags() {
+                var newsIdTag = $('#id');
+                if(newsIdTag.length != 1) {
+                    return false;
+                }
+
+                var newsId = newsIdTag.val();
+
+                if(newsId == '' || newsId == 0) {
+                    return false;
+                }
+
+                $.post(
+                    '/admin/public/news-tags/ajax-load',
+                    {
+                        newsId: newsId
+                    },
+                    function(data) {
+                        if('tags' in data) {
+                            appendTags(data);
+                        } else if('errors' in data) {
+                            console.log(data);
+                        }
+                    },
+                    'json'
+                );
+            }
+
             function appendTags(tags) {
                 tags = tags['tags'];
+
+                if(tags.length == 0) {
+                    return false;
+                }
+
                 if($('.ul_tags').length == 0) {
                     createUlTags();
                 }

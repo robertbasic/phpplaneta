@@ -39,6 +39,24 @@ class NewsTagsController extends Zend_Controller_Action
     {
     }
 
+    public function ajaxLoadAction()
+    {
+        if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
+            return $this->redirector->gotoRoute(null, 'login');
+        }
+
+        if(!$this->_request->isXmlHttpRequest()
+                and !$this->_request->isPost()) {
+            return $this->redirector->gotoRoute(array(), 'admin', true);
+        }
+
+        $data = $this->_request->getPost();
+
+        $tags['tags'] = $this->model->getTagsForNews($data)->toArray();
+        echo $this->_helper->json($tags);
+    }
+
     /**
      * Adding one or more tags via ajax
      * The check for already existsing tags is done in the model

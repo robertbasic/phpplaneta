@@ -13,6 +13,35 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
 {
     protected $_name = 'news_tags_relations';
 
+    public function getTagsForNewsById($newsId)
+    {
+        $newsId = (int)$newsId;
+
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+
+        $select->from(
+                    array(
+                        'relations' => $this->_name
+                    ),
+                    ''
+                )
+                ->join(
+                    array(
+                        'tags' => $this->getPrefix() . 'news_tags'
+                    ),
+                    'relations.fk_news_tag_id = tags.id',
+                    array(
+                        'id', 'title', 'slug'
+                    )
+                )
+                ->where('relations.fk_news_id = ?', $newsId)
+                ->order('tags.title ASC');
+
+
+        return $this->fetchAll($select);
+    }
+
     public function makeRelation($newsId, $relatedTags)
     {
         $relatedTags = explode("##", trim($relatedTags, '#'));
