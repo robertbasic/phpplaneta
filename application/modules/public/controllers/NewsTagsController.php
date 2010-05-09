@@ -25,9 +25,6 @@ class NewsTagsController extends Zend_Controller_Action
     {
     }
 
-    /**
-     * @todo implement
-     */
     public function adminListAction()
     {
         if(!$this->loggedInUser) {
@@ -42,9 +39,6 @@ class NewsTagsController extends Zend_Controller_Action
         $this->view->pageTitle = 'Administracija oznaka vesti';
     }
 
-    /**
-     * @todo implement
-     */
     public function addAction()
     {
         if(!$this->loggedInUser) {
@@ -127,9 +121,6 @@ class NewsTagsController extends Zend_Controller_Action
         }
     }
 
-    /**
-     * @todo implement
-     */
     public function editAction()
     {
         if(!$this->loggedInUser) {
