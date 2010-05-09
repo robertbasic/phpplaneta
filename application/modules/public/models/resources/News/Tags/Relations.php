@@ -13,6 +13,13 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
 {
     protected $_name = 'news_tags_relations';
 
+    /**
+     *
+     * @var Zend_Db_Table_Row_Abstract
+     */
+    protected $_rowClass = 'Planet_Model_Resource_News_Tags_Relations_Item';
+
+
     public function getTagsForNewsById($newsId)
     {
         $newsId = (int)$newsId;

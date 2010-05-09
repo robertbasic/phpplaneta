@@ -68,7 +68,7 @@ class Planet_Model_Resource_News_Tags extends PPN_Model_Resource_Abstract
                         array('tags.id = ?', $id)
                     )
                 );
-
+        
         return $this->fetchRow($select);
     }
 

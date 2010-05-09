@@ -183,6 +183,11 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneSource;
     }
 
+    public function getAllNewsTags($page=null)
+    {
+        return $this->getResource('News_Tags')->getAllNewsTags($page);
+    }
+
     public function getTagsForNews($data)
     {
         $tags = array();
@@ -199,6 +204,17 @@ class Planet_Model_News extends PPN_Model_Abstract
         $tags = $this->getResource('News_Tags_Relations')->getTagsForNewsById($newsId);
         
         return $tags;
+    }
+
+    public function getOneNewsTagById($tagId)
+    {
+        $oneTag = $this->getResource('News_Tags')->getTagById($tagId);
+
+        if($oneTag === null) {
+            throw new Exception("No such tag");
+        }
+
+        return $oneTag;
     }
 
     /**
@@ -335,12 +351,12 @@ class Planet_Model_News extends PPN_Model_Abstract
     {
         $return = false;
 
-        if(!array_key_exists('tags', $data)
-                or $data['tags'] == '') {
-            throw new Exception("No tags provided");
-        }
-
         if(!array_key_exists('id', $data)) {
+            if(!array_key_exists('tags', $data)
+                    or $data['tags'] == '') {
+                throw new Exception("No tags provided");
+            }
+            
             $tags = explode(",", $data['tags']);
 
             $tagsSanitized = array();
@@ -366,7 +382,17 @@ class Planet_Model_News extends PPN_Model_Abstract
 
             return $insertedTags;
         } else {
-            
+            $form = $this->getForm('News_Tags_Edit');
+            $form->populate($data);
+            $form->removeElement('csrf');
+
+            if(!$form->isValid($data)) {
+                return false;
+            }
+
+            $data = $form->getValues();
+
+            $return = $this->getResource('News_Tags')->updateTag($data);
         }
 
         return $data;
@@ -404,6 +430,15 @@ class Planet_Model_News extends PPN_Model_Abstract
     public function deleteNewsSource($id)
     {
         return $this->getResource('News_Sources')->deleteSource($id);
+    }
+
+    public function deleteNewsTag($id)
+    {
+        if($this->getResource('News_Tags_Relations')->deleteRelationsForTag($id) !== false) {
+            return $this->getResource('News_Tags')->deleteTag($id);
+        } else {
+            return false;
+        }
     }
 
 }
