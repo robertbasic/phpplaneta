@@ -247,7 +247,7 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
         }
 
         $select->order('news.datetime_added DESC');
-
+        
         return $select;
     }
 }

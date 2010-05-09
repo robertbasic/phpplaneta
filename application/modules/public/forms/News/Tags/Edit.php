@@ -1,17 +1,22 @@
 <?php
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
- * Base form for adding/editing news
+ * Description of Edit
  *
  * @author robert
- * @todo tidy up validation and filtering
  */
-class Planet_Form_News_Categories extends PPN_Form_Abstract
+class Planet_Form_News_Tags_Edit extends Planet_Form_News_Tags
 {
-
     public function init()
     {
         parent::init();
+
+        $this->removeElement('tags');
+        $this->removeDisplayGroup('buttons');
 
         $this->addElement(
             'text',
@@ -63,5 +68,22 @@ class Planet_Form_News_Categories extends PPN_Form_Abstract
         );
 
         $this->addSubmitAndResetButtons();
+
+    }
+
+    public function setSlugValidator()
+    {
+        $this->getElement('slug')->addValidator(
+                    'Db_NoRecordExists',
+                    false,
+                    array(
+                        'table' => $this->getModel()->getResource('News_Tags')->getPrefix() . 'news_categories',
+                        'field' => 'slug',
+                        'exclude' => array(
+                            'field' => 'id',
+                            'value' => $this->getElement('id')->getValue()
+                        )
+                    )
+                );
     }
 }

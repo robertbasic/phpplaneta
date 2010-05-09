@@ -2,10 +2,6 @@
 
 /**
  *   File: Bootstrap.php
- *   Ver : 1.0
- *   Created: Fri Dec 25 11:25:20 CET 2009 11:25:20
- *   Created by : Robert Basic
- *   E-mail : robert.basic@online.rs
  *
  *   Description:
  *       Application bootstraper, called by Zend_Application in index.php
@@ -27,6 +23,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                                 )
                             );
 
+        // adding model resources to the autoloader
         $moduleLoader->addResourceTypes(
                 array(
                 'modelResources' => array(
@@ -39,6 +36,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         return $moduleLoader;
     }
 
+    /**
+     * Initializing action helpers
+     */
     public function _initActionHelpers()
     {
         Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH .'/modules/public/controllers/helpers');

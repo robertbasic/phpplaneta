@@ -1,14 +1,15 @@
 <?php
 
 /**
- *   File: NewsController.php
+ *   File: NewsTagsController.php
  *
  *   Description:
- *      Both the front-end and admin for all news related stuff going
- *      through this controller, as we're using "pseudo" module for the
- *      admin panel
+ *      For working with news tags. This can turn out a bit ugly,
+ *      as the tags are in most cases added via ajax from the news controller,
+ *      add action.
 */
-class NewsController extends Zend_Controller_Action
+
+class NewsTagsController extends Zend_Controller_Action
 {
 
     public function init()
@@ -18,21 +19,12 @@ class NewsController extends Zend_Controller_Action
         $this->redirector = $this->getHelper('redirector');
         $this->urlHelper = $this->getHelper('url');
         $this->fm = $this->getHelper('flashMessenger');
-
-        $this->view->headScript()->appendFile('/static/ckeditor/ckeditor.js');
-        $this->view->headScript()->appendFile('/static/ckeditor/adapters/jquery.js');
-        $this->view->headScript()->appendFile('/static/js/ckeditor.js');
-        $this->view->headScript()->appendFile('/static/js/tags.js');
-
     }
 
     public function indexAction()
     {
     }
 
-    /**
-     * List news, paginated, for the admin panel
-     */
     public function adminListAction()
     {
         if(!$this->loggedInUser) {
@@ -42,15 +34,11 @@ class NewsController extends Zend_Controller_Action
 
         $page = $this->_getParam('page', 1);
 
-        $this->view->news = $this->model->getAllNews($page);
+        $this->view->tags = $this->model->getAllNewsTags($page);
 
-        $this->view->pageTitle = 'Administracija vesti';
+        $this->view->pageTitle = 'Administracija oznaka vesti';
     }
 
-    /**
-     * Adding news. There must be at least one news category,
-     * before a news can be added.
-     */
     public function addAction()
     {
         if(!$this->loggedInUser) {
@@ -58,34 +46,23 @@ class NewsController extends Zend_Controller_Action
             return $this->redirector->gotoRoute(null, 'login');
         }
 
-        // checking for existing categories
-        if(null == $this->model->getAllNewsCategories()->toArray()) {
-            $this->fm->addMessage(array('fm-bad' => 'Mora postojati najmanje 1 kategorija vesti!'));
-            return $this->redirector->gotoRoute(
-                           array('action' => 'admin-list', 'controller' => 'news'),
-                           'admin', true
-                           );
-        }
-
-        $addForm = $this->model->getForm('News_Add');
+        $addForm = $this->model->getForm('News_Tags');
         $addForm->setAction($this->urlHelper->url(array(
                                                     'action' => 'add',
-                                                    'controller' => 'news'
+                                                    'controller' => 'news-tags'
                                                 ),
                                                 'admin', true
                                             ));
-        $addForm->setSlugValidator();
-        $addForm->getElement('fk_user_id')->setValue($this->loggedInUser->id);
 
         if($this->_request->isPost()) {
             if($addForm->isValid($this->_request->getPost())) {
                 try {
-                   $this->model->saveNews($addForm->getValues());
+                   $this->model->saveNewsTags($addForm->getValues());
 
-                   $this->fm->addMessage(array('fm-good' => 'Vest uspešno dodata!'));
+                   $this->fm->addMessage(array('fm-good' => 'Oznaka uspešno dodata!'));
 
                    return $this->redirector->gotoRoute(
-                           array('action' => 'admin-list', 'controller' => 'news'),
+                           array('action' => 'admin-list', 'controller' => 'news-tags'),
                            'admin', true
                            );
                 } catch (Exception $e) {
@@ -96,15 +73,54 @@ class NewsController extends Zend_Controller_Action
 
         $this->view->addForm = $addForm;
 
-        $this->view->tagsForm = $this->model->getForm('News_Tags');
+        $this->view->pageTitle = 'Dodavanje oznake vesti';
+    }
 
-        $this->view->pageTitle = 'Dodavanje vesti';
+    public function ajaxLoadAction()
+    {
+        if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
+            return $this->redirector->gotoRoute(null, 'login');
+        }
+
+        if(!$this->_request->isXmlHttpRequest()
+                and !$this->_request->isPost()) {
+            return $this->redirector->gotoRoute(array(), 'admin', true);
+        }
+
+        $data = $this->_request->getPost();
+
+        $tags['tags'] = $this->model->getTagsForNews($data)->toArray();
+        echo $this->_helper->json($tags);
     }
 
     /**
-     * Plain ol' editing
-     * @todo GET shouldn't edit
+     * Adding one or more tags via ajax
+     * The check for already existsing tags is done in the model
      */
+    public function ajaxAddAction()
+    {
+        if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
+            return $this->redirector->gotoRoute(null, 'login');
+        }
+        
+        if(!$this->_request->isXmlHttpRequest()
+                and !$this->_request->isPost()) {
+            return $this->redirector->gotoRoute(array(), 'admin', true);
+        }
+        
+        $data = $this->_request->getPost();
+
+        try{
+            $tags['tags'] = $this->model->saveNewsTags($data);
+            echo $this->_helper->json($tags);
+        } catch (Exception $e) {
+            $response['errors'] = $e->getMessage();
+            echo $this->_helper->json($response);
+        }
+    }
+
     public function editAction()
     {
         if(!$this->loggedInUser) {
@@ -118,30 +134,30 @@ class NewsController extends Zend_Controller_Action
 
         if($id === null) {
             return $this->redirector->gotoRoute(
-                           array('action' => 'admin-list', 'controller' => 'news'),
+                           array('action' => 'admin-list', 'controller' => 'news-tags'),
                            'admin', true
                            );
         }
 
-        $editForm = $this->model->getForm('News_Edit');
+        $editForm = $this->model->getForm('News_Tags_Edit');
         $editForm->setAction($this->urlHelper->url(array(
                                                     'action' => 'edit',
-                                                    'controller' => 'news'
+                                                    'controller' => 'news-tags'
                                                 ),
                                                 'admin', true
                                             ));
-        $editForm->populate($this->model->getOneNewsById($id)->toArray())
-                ->setSlugValidator();
+        $editForm->populate($this->model->getOneNewsTagById($id)->toArray());
+        $editForm->setSlugValidator();
 
         if($this->_request->isPost()) {
             if($editForm->isValid($this->_request->getPost())) {
                 try {
-                   $this->model->saveNews($editForm->getValues());
+                   $this->model->saveNewsTags($editForm->getValues());
 
-                   $this->fm->addMessage(array('fm-good' => 'Vest uspešno promenjena!'));
+                   $this->fm->addMessage(array('fm-good' => 'Oznaka vesti uspešno promenjena!'));
 
                    return $this->redirector->gotoRoute(
-                           array('action' => 'admin-list', 'controller' => 'news'),
+                           array('action' => 'admin-list', 'controller' => 'news-tags'),
                            'admin', true
                            );
                 } catch (Exception $e) {
@@ -152,15 +168,9 @@ class NewsController extends Zend_Controller_Action
 
         $this->view->editForm = $editForm;
 
-        $this->view->tagsForm = $this->model->getForm('News_Tags');
-
-        $this->view->pageTitle = 'Izmena vesti';
+        $this->view->pageTitle = 'Izmena oznake vesti';
     }
 
-    /**
-     * Delete one news
-     * @todo GET shouldn't delete
-     */
     public function deleteAction()
     {
         if(!$this->loggedInUser) {
@@ -174,20 +184,20 @@ class NewsController extends Zend_Controller_Action
 
         if($id === null) {
             return $this->redirector->gotoRoute(
-                           array('action' => 'admin-list', 'controller' => 'news'),
+                           array('action' => 'admin-list', 'controller' => 'news-tags'),
                            'admin', true
                            );
         }
 
         try {
-            $this->model->deleteNews($id);
+            $this->model->deleteNewsTag($id);
 
-            $this->fm->addMessage(array('fm-good' => 'Vest uspešno obrisana!'));
+            $this->fm->addMessage(array('fm-good' => 'Oznaka vesti uspešno obrisana!'));
         } catch (Exception $e) {
             $this->fm->addMessage(array('fm-bad' => $e->getMessage()));
         }
         return $this->redirector->gotoRoute(
-                           array('action' => 'admin-list', 'controller' => 'news'),
+                           array('action' => 'admin-list', 'controller' => 'news-tags'),
                            'admin', true
                            );
     }

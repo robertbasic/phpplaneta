@@ -107,6 +107,9 @@ a:hover {
 }
 
 #left table.cke_editor {
-    display: table;
     border: none;
+}
+
+#left .cke_skin_v2 .cke_wrapper {
+    display: inline;
 }

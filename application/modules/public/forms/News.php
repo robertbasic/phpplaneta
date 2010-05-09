@@ -4,6 +4,7 @@
  * Base form for adding/editing news
  *
  * @author robert
+ * @todo tidy up validation and filtering
  */
 class Planet_Form_News extends PPN_Form_Abstract
 {
@@ -132,6 +133,15 @@ class Planet_Form_News extends PPN_Form_Abstract
             )
         );
 
+        $this->addElement(
+            'hidden',
+            'related_tags',
+            array(
+                'decorators' => $this->hiddenElementDecorators,
+                'required' => false
+            )
+        );
+
         $this->addSubmitAndResetButtons();
 
         $this->getElement('fk_news_category_id')
@@ -148,6 +158,9 @@ class Planet_Form_News extends PPN_Form_Abstract
                             $this->getModel()
                                 ->getNewsSourcesForSelectBox()
                         );
+
+        $tagValidator = new Zend_Validate_Regex('/^(#\d+\#)+$/');
+        $this->getElement('related_tags')->addValidator($tagValidator);
 
     }
 }
