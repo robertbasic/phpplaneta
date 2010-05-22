@@ -1,6 +1,25 @@
 <?php foreach($this->news as $news): ?>
 
-<?php echo $news->category_title; ?>: <?php echo $news->title; ?>
-<br />
+<div class="article">
+
+    <div class="article-title">
+        <h2>
+            <a href=""><?php echo $this->escape($news->title); ?></a>
+        </h2>
+    </div>
+
+    <div class="article-content">
+        <?php echo $news->text; ?>
+    </div>
+
+    <div class="article-footer">
+        Objavio: <?php echo $news->firstname; ?> <?php echo $news->lastname; ?>
+        dana <?php echo $news->datetime_added; ?>
+        u kategoriji <?php echo $news->category_title; ?>
+    </div>
+
+</div>
 
 <?php endforeach; ?>
+
+<?php echo $this->paginationControl($this->news, 'Sliding', 'paginator.phtml'); ?>

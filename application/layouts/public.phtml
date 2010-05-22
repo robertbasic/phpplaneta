@@ -4,7 +4,10 @@
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle(); ?>
 
-        <link rel="stylesheet" href="/static/css/reset-fonts-grids.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/reset.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/text.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/960.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/public.css" type="text/css" />
 
         <?php echo $this->headScript(); ?>
 
@@ -12,11 +15,25 @@
 
     <body>
 
-        <div id="doc3" class="yui-t7">
+        <div id="page" class="container_16">
 
-            <?php
-            echo $this->layout()->content;
-            ?>
+            <div id="header" class="grid_16">
+
+            </div>
+
+            <div id="body" class="container_16">
+
+                <div id="left" class="grid_11">
+                    <?php
+                        echo $this->layout()->content;
+                    ?>
+                </div>
+
+                <div id="right" class="grid_5">
+                    
+                </div>
+
+            </div>
 
         </div>
 

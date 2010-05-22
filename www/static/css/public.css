@@ -1,0 +1,67 @@
+body {
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
+    font-size: 13px;
+}
+
+a {
+    color: #0000ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p {
+    text-align: justify;
+}
+
+#left {
+    float: left;
+}
+
+.article {
+    float: left;
+    margin-bottom: 20px;
+}
+
+.article-title h2 {
+    margin-bottom: 10px;
+}
+
+.article-content p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-indent: 25px;
+}
+
+.article-footer {
+    float: right;
+}
+
+#right {
+    float: left;
+}
+
+.paginationControl {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.paginationControl a , .paginationControl .disabled {
+    padding: 10px;
+}
+
+.form_ul {
+    list-style-type: none;
+}
+
+.form_ul li {
+    margin: 0;
+    padding: 10px 0 5px 5px;
+}
+
+.form_ul label {
+    float: left;
+    width: 200px;
+}
