@@ -217,6 +217,20 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneTag;
     }
 
+    public function getCommentsForNews($data)
+    {
+        $comments = array();
+        $newsId = null;
+
+        if(is_array($data)
+                and array_key_exists('newsId', $data)) {
+            $newsId = (int)$data['newsId'];
+        } else if(is_string($data)
+                or is_int($data)) {
+            $newsId = (int)$data;
+        }
+    }
+
     /**
      * Saves
      */

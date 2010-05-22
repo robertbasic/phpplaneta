@@ -28,6 +28,8 @@
 
     Oznake: <?php echo $this->tags($news->id); ?>
 
+    <?php echo $this->numberOfComments($news->id); ?>
+
 </div>
 
 <?php endforeach; ?>
