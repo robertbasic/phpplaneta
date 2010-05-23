@@ -54,6 +54,17 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $this->getResource('News')->getAllActiveNewsFromCategoryBySlug($slug,$page);
     }
 
+    public function getAllActiveNewsByTagSlug($slug,$page=null)
+    {
+        $tag = $this->getResource('News_Tags')->getTagBySlug($slug);
+
+        if($tag === null) {
+            throw new Exception("No such tag");
+        }
+
+        return $this->getResource('News')->getNewsByTagId($tag->id, $page);
+    }
+
     /**
      * Get active news from a category, by the categories id.
      * Pagination is to be decided within the resource, based on $page

@@ -1,0 +1,31 @@
+<div class="article">
+
+    <div class="article-title">
+        <h2>
+            <a href="<?php echo $this->url(array(
+                'action' => 'view',
+                'controller' => 'news',
+                'slug' => $this->news->slug
+            ), '', true); ?>"><?php echo $this->escape($this->news->title); ?></a>
+        </h2>
+    </div>
+
+    <div class="article-content">
+        <?php echo $this->news->text; ?>
+    </div>
+
+    <div class="article-footer">
+        Objavio: <?php echo $this->news->firstname; ?> <?php echo $this->news->lastname; ?>
+        dana <?php echo $this->news->datetime_added; ?>
+        u kategoriji <a href="<?php echo $this->url(array(
+            'action' => 'browse',
+            'controller' => 'news',
+            'category' => $this->news->category_slug
+        ), '', true); ?>"><?php echo $this->news->category_title; ?></a>
+    </div>
+
+    Oznake: <?php echo $this->tags($this->news->id); ?>
+
+    <?php echo $this->numberOfComments($this->news->id); ?>
+
+</div>

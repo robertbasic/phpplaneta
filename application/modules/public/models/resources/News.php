@@ -164,6 +164,61 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
         return $this->fetchRow($select);
     }
 
+    public function getNewsByTagId($tagId,$page=null)
+    {
+        $tagId = (int)$tagId;
+
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+
+        $select->from(
+                    array(
+                        'news' => $this->_name
+                    ),
+                    array(
+                        'id', 'fk_news_category_id', 'fk_news_source_id',
+                        'fk_user_id', 'title', 'slug', 'text',
+                        'datetime_added', 'active', 'comments_enabled'
+                    )
+                )
+                ->join(
+                    array(
+                        'relations' => $this->getPrefix() . 'news_tags_relations'
+                    ),
+                    'relations.fk_news_tag_id = news.id',
+                    array(
+                        ''
+                    )
+                )
+                ->join(
+                    array(
+                        'category' => $this->getPrefix() . 'news_categories'
+                    ),
+                    'category.id = news.fk_news_category_id',
+                    array(
+                        'category_title' => 'title', 'category_slug' => 'slug'
+                    )
+                )
+                ->join(
+                    array(
+                        'author' => $this->getPrefix() . 'users'
+                    ),
+                    'author.id = news.fk_user_id',
+                    array(
+                        'firstname', 'lastname'
+                    )
+                )
+                ->where('relations.fk_news_tag_id = ?', $tagId)
+                ->where('news.active = ?', true)
+                ->order('news.datetime_added DESC');
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
     public function insertNews($data)
     {
         try {

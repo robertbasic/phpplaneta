@@ -30,6 +30,32 @@ class NewsController extends Zend_Controller_Action
     {
     }
 
+    public function viewAction()
+    {
+        $slug = $this->_getParam('slug', null);
+
+        $news = $this->model->getOneActiveNewsBySlug($slug);
+
+        $this->view->news = $news;
+    }
+
+    public function browseAction()
+    {
+        $page = $this->_getParam('page', 1);
+        $category = $this->_getParam('category', null);
+        $tag = $this->_getParam('tag', null);
+
+        $news = null;
+
+        if($category !== null) {
+            $news = $this->model->getAllActiveNewsFromCategoryBySlug($category, $page);
+        } elseif($tag !== null) {
+            $news = $this->model->getAllActiveNewsByTagSlug($tag, $page);
+        }
+
+        $this->view->news = $news;
+    }
+
     /**
      * List news, paginated, for the admin panel
      */
