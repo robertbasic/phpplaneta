@@ -185,7 +185,7 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
                     array(
                         'relations' => $this->getPrefix() . 'news_tags_relations'
                     ),
-                    'relations.fk_news_tag_id = news.id',
+                    'relations.fk_news_id = news.id',
                     array(
                         ''
                     )
