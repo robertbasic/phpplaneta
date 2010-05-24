@@ -110,10 +110,19 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
         );
 
         $this->addElement(
-            'hidden',
+            'text',
             'datetime_added',
             array(
-                'decorators' => $this->hiddenElementDecorators
+                'label' => 'Datum:',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'filter' => 'StringTrim',
+                    ),
+                    array(
+                        'filter' => 'StripTags'
+                    )
+                )
             )
         );
 
