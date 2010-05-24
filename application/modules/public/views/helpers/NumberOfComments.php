@@ -17,8 +17,6 @@ class Zend_View_Helper_NumberOfComments extends Zend_View_Helper_Abstract
 {
     protected $_model = null;
 
-    protected $_view = null;
-
     public function numberOfComments($newsId)
     {
         $return = '';
@@ -35,15 +33,6 @@ class Zend_View_Helper_NumberOfComments extends Zend_View_Helper_Abstract
         }
 
         return $return;
-    }
-
-    public function setView(Zend_View_Interface $view)
-    {
-        if($this->_view === null) {
-            $this->_view = $view;
-        }
-
-        return $this->_view;
     }
 
     protected function _getModel()

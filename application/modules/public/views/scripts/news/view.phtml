@@ -26,10 +26,27 @@
 
     Oznake: <?php echo $this->tags($this->news->id); ?>
 
-    <?php echo $this->numberOfComments($this->news->id); ?>
-
 </div>
 
 <div class="comments">
+
+    <?php $comments = $this->comments($this->news->id); ?>
+
+    <?php if(count($comments) > 0): ?>
+
+        <?php foreach($comments as $comment): ?>
+        <div>
+            <?php echo $this->escape($comment->name); ?>
+            <br />
+            <?php echo $this->escape($comment->datetime_added); ?>
+            <br />
+            <?php echo $this->escape($comment->comment); ?>
+        </div>
+        <?php endforeach; ?>
+
+    <?php else: ?>
+    Nema komentara
+    <?php endif; ?>
+
     <?php echo $this->commentsForm; ?>
 </div>
