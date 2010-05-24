@@ -228,6 +228,22 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneTag;
     }
 
+    public function getAllComments($page)
+    {
+        return $this->getResource('News_Comments')->getAllComments($page);
+    }
+
+    public function getOneCommentById($commentId)
+    {
+        $oneComment = $this->getResource('News_Comments')->getOneCommentById($commentId);
+
+        if($oneComment === null) {
+            throw new Exception("No such comment");
+        }
+
+        return $oneComment;
+    }
+
     public function getCommentsForNews($data)
     {
         $comments = array();
@@ -240,6 +256,10 @@ class Planet_Model_News extends PPN_Model_Abstract
                 or is_int($data)) {
             $newsId = (int)$data;
         }
+
+        $comments = $this->getResource('News_Comments')->getCommentsForNewsById($newsId);
+
+        return $comments;
     }
 
     /**
@@ -423,6 +443,42 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $data;
     }
 
+    public function saveComment($data)
+    {
+        $return = false;
+
+        if(!array_key_exists('id', $data)) {
+            $form = $this->getForm('News_Comments_Add');
+            $form->populate($data);
+            $form->removeElement('csrf');
+
+            if(!$form->isValid($data)) {
+                return false;
+            }
+
+            $data = $form->getValues();
+
+            $data['datetime_added'] = date('Y-m-d H:i:s');
+            $data['active'] = false;
+
+            $return = $this->getResource('News_Comments')->insertComment($data);
+        } else {
+            $form = $this->getForm('News_Comments_Edit');
+            $form->populate($data);
+            $form->removeElement('csrf');
+
+            if(!$form->isValid($data)) {
+                return false;
+            }
+
+            $data = $form->getValues();
+
+            $return = $this->getResource('News_Comments')->updateComment($data);
+        }
+
+        return $return;
+    }
+
     /**
      * Deletes
      */
@@ -464,6 +520,11 @@ class Planet_Model_News extends PPN_Model_Abstract
         } else {
             return false;
         }
+    }
+
+    public function deleteComment($id)
+    {
+        return $this->getResource('News_Comments')->deleteComment($id);
     }
 
 }

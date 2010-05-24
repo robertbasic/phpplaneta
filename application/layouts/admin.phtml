@@ -34,6 +34,12 @@
                     </li>
                     <li>
                         <a href="<?php echo $this->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-comments'),
+                                                'admin', true); ?>">Komentari</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
                                                 'action' => 'logout',
                                                 'controller' => 'user'),
                                                  null, true); ?>">Logout</a>

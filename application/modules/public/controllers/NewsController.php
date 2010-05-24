@@ -37,6 +37,35 @@ class NewsController extends Zend_Controller_Action
         $news = $this->model->getOneActiveNewsBySlug($slug);
 
         $this->view->news = $news;
+
+        $commentsForm = $this->model->getForm('News_Comments_Add');
+        $commentsForm->setAction($this->urlHelper->url(array(
+                                                    'action' => 'view',
+                                                    'controller' => 'news',
+                                                    'slug' => $slug
+                                                ),
+                                                '', true
+                                            ));
+        $commentsForm->getElement('fk_news_id')->setValue($news->id);
+
+        if($this->_request->isPost()) {
+            if($commentsForm->isValid($this->_request->getPost())) {
+                try {
+                   $this->model->saveComment($commentsForm->getValues());
+
+                   $this->fm->addMessage(array('fm-good' => 'Komentar uspešno dodat!'));
+
+                   return $this->redirector->gotoRoute(
+                           array('action' => 'view', 'controller' => 'news', 'slug' => $slug),
+                           '', true
+                           );
+                } catch (Exception $e) {
+                    $this->fm->addMessage(array('fm-bad' => $e->getMessage()));
+                }
+            }
+        }
+
+        $this->view->commentsForm = $commentsForm;
     }
 
     public function browseAction()
