@@ -94,6 +94,52 @@ class NewsController extends Zend_Controller_Action
         $this->view->keyword = $keyword;
     }
 
+    public function rssAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $category = $this->_getParam('category', null);
+        $tag = $this->_getParam('tag', null);
+
+        $news = null;
+
+        if($category !== null) {
+            $news = $this->model->getAllActiveNewsFromCategoryBySlug($category);
+            $feedLink = '/category/'.$category;
+        } elseif($tag !== null) {
+            $news = $this->model->getAllActiveNewsByTagSlug($tag);
+            $feedLink = '/tag/'.$tag;
+        } else {
+            $news = $this->model->getAllActiveNews();
+            $feedLink = '';
+        }
+
+        $url = $this->view->serverUrl();
+
+        $feed = new Zend_Feed_Writer_Feed();
+        $feed->setTitle('PHPPlaneta');
+        $feed->setLink($url.'/');
+        $feed->setDescription('PHPPlaneta');
+        $feed->setFeedLink($url.'/news/rss'.$feedLink, 'rss');
+        $feed->setDateModified(time());
+
+        $entry = null;
+
+        foreach($news as $n) {
+            $entry = $feed->createEntry();
+            $entry->setTitle($n->title);
+            $entry->setLink($url.'/news/view/slug/'.$n->slug);
+            $entry->setDateCreated(strtotime($n->datetime_added));
+            $entry->setContent($n->text);
+            $feed->addEntry($entry);
+        }
+
+        $out = $feed->export('rss');
+        $this->getResponse()->setHeader('Content-Type', 'text/xml; charset=utf-8');
+        echo $out;
+    }
+
     /**
      * List news, paginated, for the admin panel
      */
