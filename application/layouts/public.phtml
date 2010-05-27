@@ -30,7 +30,16 @@
                 </div>
 
                 <div id="right" class="grid_5">
-                    
+
+                    <div>
+                        <form name="search" action="<?php echo $this->url(array(
+                            'action' => 'search',
+                            'controller' => 'news'
+                            ), '', true); ?>" method="get">
+                            <input type="text" name="keyword" />
+                        </form>
+                    </div>
+
                 </div>
 
             </div>

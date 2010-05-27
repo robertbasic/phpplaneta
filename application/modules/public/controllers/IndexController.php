@@ -15,9 +15,4 @@ class IndexController extends Zend_Controller_Action
         $this->view->news = $this->model->getAllActiveNews($page);
     }
 
-    public function viewAction()
-    {
-        $this->view->news = $this->model->getOneActiveNewsById(1);
-    }
-
 }

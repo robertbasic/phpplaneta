@@ -27,6 +27,11 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $this->getResource('News')->getAllActiveNews($page);
     }
 
+    public function searchActiveNews($keyword,$page=null)
+    {
+        return $this->getResource('News')->searchActiveNews($keyword,$page);
+    }
+
     /**
      * Get all news.
      * Pagination is to be decided within the resource, based on $page

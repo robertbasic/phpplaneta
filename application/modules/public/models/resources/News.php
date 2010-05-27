@@ -47,6 +47,25 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
 
     }
 
+    public function searchActiveNews($keyword,$page=null)
+    {
+        $keyword = trim(strip_tags((string)$keyword));
+
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.title LIKE ? OR news.text LIKE ?', '%' . $keyword . '%'),
+                        array('news.active = ?', true),
+                        array('author.active = ?', true)
+                    )
+                );
+        
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
     public function getAllNews($page=null)
     {
         $select = $this->_getAllNewsSelect();
