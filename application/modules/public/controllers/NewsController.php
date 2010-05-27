@@ -85,6 +85,15 @@ class NewsController extends Zend_Controller_Action
         $this->view->news = $news;
     }
 
+    public function searchAction()
+    {
+        $page = $this->_getParam('page', 1);
+        $keyword = trim(strip_tags($this->_getParam('keyword', null)));
+
+        $this->view->news = $this->model->searchActiveNews($keyword,$page);
+        $this->view->keyword = $keyword;
+    }
+
     /**
      * List news, paginated, for the admin panel
      */

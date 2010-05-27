@@ -1,0 +1,45 @@
+<?php if(count($this->news) > 0): ?>
+    <?php foreach($this->news as $news): ?>
+
+    <div class="article">
+
+        <div class="article-title">
+            <h2>
+                <a href="<?php echo $this->url(array(
+                    'action' => 'view',
+                    'controller' => 'news',
+                    'slug' => $news->slug
+                ), '', true); ?>"><?php echo $this->escape($news->title); ?></a>
+            </h2>
+        </div>
+
+        <div class="article-content">
+            <?php echo $news->text; ?>
+        </div>
+
+        <div class="article-footer">
+            Objavio: <?php echo $news->firstname; ?> <?php echo $news->lastname; ?>
+            dana <?php echo $news->datetime_added; ?>
+            u kategoriji <a href="<?php echo $this->url(array(
+                'action' => 'browse',
+                'controller' => 'news',
+                'category' => $news->category_slug
+            ), '', true); ?>"><?php echo $news->category_title; ?></a>
+        </div>
+
+        Oznake: <?php echo $this->tags($news->id); ?>
+
+        <?php echo $this->numberOfComments($news->id); ?>
+
+    </div>
+
+    <?php endforeach; ?>
+
+    <?php echo $this->paginationControl($this->news,
+                                        'Sliding',
+                                        'paginator.phtml',
+                                        array('keyword' => $this->keyword)); ?>
+
+<?php else: ?>
+Nema rezultata
+<?php endif; ?>
