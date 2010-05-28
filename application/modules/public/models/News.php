@@ -233,6 +233,13 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneTag;
     }
 
+    public function getMostUsedTags($limit=20)
+    {
+        $tags = $this->getResource('News_Tags_Relations')->getMostUsedTags($limit);
+
+        return $tags;
+    }
+
     public function getAllComments($page)
     {
         return $this->getResource('News_Comments')->getAllComments($page);

@@ -19,7 +19,6 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
      */
     protected $_rowClass = 'Planet_Model_Resource_News_Tags_Relations_Item';
 
-
     public function getTagsForNewsById($newsId)
     {
         $newsId = (int)$newsId;
@@ -45,6 +44,33 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
                 ->where('relations.fk_news_id = ?', $newsId)
                 ->order('tags.title ASC');
 
+        return $this->fetchAll($select);
+    }
+
+    public function getMostUsedTags($limit=20)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+
+        $select->from(
+                    array(
+                        'relations' => $this->_name
+                    ),
+                    array('num' => 'COUNT(*)')
+                )
+                ->join(
+                    array(
+                        'tags' => $this->getPrefix() . 'news_tags'
+                    ),
+                    'relations.fk_news_tag_id = tags.id',
+                    array(
+                        'title', 'slug'
+                    )
+                )
+                ->group('tags.id')
+                ->order('num DESC')
+                ->order('tags.title ASC')
+                ->limit($limit);
 
         return $this->fetchAll($select);
     }
