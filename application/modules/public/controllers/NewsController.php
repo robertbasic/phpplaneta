@@ -19,11 +19,12 @@ class NewsController extends Zend_Controller_Action
         $this->urlHelper = $this->getHelper('url');
         $this->fm = $this->getHelper('flashMessenger');
 
-        $this->view->headScript()->appendFile('/static/ckeditor/ckeditor.js');
-        $this->view->headScript()->appendFile('/static/ckeditor/adapters/jquery.js');
-        $this->view->headScript()->appendFile('/static/js/ckeditor.js');
-        $this->view->headScript()->appendFile('/static/js/tags.js');
-
+        if($this->loggedInUser) {
+            $this->view->headScript()->appendFile('/static/ckeditor/ckeditor.js');
+            $this->view->headScript()->appendFile('/static/ckeditor/adapters/jquery.js');
+            $this->view->headScript()->appendFile('/static/js/ckeditor.js');
+            $this->view->headScript()->appendFile('/static/js/tags.js');
+        }
     }
 
     public function indexAction()
