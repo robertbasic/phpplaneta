@@ -67,6 +67,16 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
                         'title', 'slug'
                     )
                 )
+                ->join(
+                    array(
+                        'news' => $this->getPrefix() . 'news'
+                    ),
+                    'relations.fk_news_id = news.id',
+                    array(
+                        ''
+                    )
+                )
+                ->where('news.active = ?', true)
                 ->group('tags.id')
                 ->order('num DESC')
                 ->order('tags.title ASC')
