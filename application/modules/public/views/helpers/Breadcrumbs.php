@@ -45,6 +45,7 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
         $news = $this->_getParam('slug');
         $category = $this->_getParam('category');
         $tag = $this->_getParam('tag');
+        $keyword = $this->_getParam('keyword');
 
         if($news !== null) {
             $crumb = $this->_getCrumbForNews($news);
@@ -52,6 +53,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
             $crumb = $this->_getCrumbForCategory($category, $page);
         } elseif($tag !== null) {
             $crumb = $this->_getCrumbForTag($tag, $page);
+        } elseif($keyword !== null) {
+            $crumb = $this->_getCrumbForSearch($keyword, $page);
         } else {
             $crumb = $this->_getCrumbForOther($page);
         }
@@ -155,6 +158,37 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                     'tag' => $tag->slug,
                     'page' => $page
                 ), '', true)
+            );
+        }
+
+        return $crumb;
+    }
+
+    protected function _getCrumbForSearch($keyword,$page=null)
+    {
+        $crumb = array();
+
+        $crumb['root'] = array(
+            'title' => "Početna",
+            'href' => '/'
+        );
+
+        $crumb['first'] = array(
+            'title' => 'Pretraga',
+            'href' => $this->_view->url(array(
+                'action' => 'search',
+                'controller' => 'news'
+            ), '', true) . '/?keyword=' . $keyword
+        );
+
+        if($page !== null) {
+            $crumb['second'] = array(
+                'title' => 'Strana ' . $page,
+                'href' => $this->_view->url(array(
+                    'action' => 'search',
+                    'controller' => 'news',
+                    'page' => $page
+                ), '', true) . '/?keyword=' . $keyword
             );
         }
 
