@@ -181,6 +181,19 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneCategory;
     }
 
+    public function getOneNewsCategoryBySlug($slug)
+    {
+        $oneCategory = $this->getResource('News_Categories')->getCategoryBySlug($slug);
+
+        if($oneCategory === null) {
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_CATEGORY, $slug)
+                    );
+        }
+
+        return $oneCategory;
+    }
+
     /**
      * Get all news sources, ready to be consumed by a select box
      * in a Zend_Form
@@ -244,6 +257,19 @@ class Planet_Model_News extends PPN_Model_Abstract
         if($oneTag === null) {
             throw new PPN_Exception_NotFound(
                         sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $id)
+                    );
+        }
+
+        return $oneTag;
+    }
+
+    public function getOneNewsTagBySlug($slug)
+    {
+        $oneTag = $this->getResource('News_Tags')->getTagBySlug($slug);
+
+        if($oneTag === null) {
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $slug)
                     );
         }
 
