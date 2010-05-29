@@ -7,6 +7,13 @@ class ErrorController extends Zend_Controller_Action
     {
         $errors = $this->_getParam('error_handler');
 
+        $errorCode = $errors->exception->getCode();
+
+        if($errorCode == 404) {
+            $this->_setParam('error_handler', $errors);
+            return $this->_forward('not-found');
+        }
+
         switch (get_class($errors->exception)) {
             case 'Zend_Controller_Dispatcher_Exception':
                 // send 404
@@ -26,6 +33,14 @@ class ErrorController extends Zend_Controller_Action
         $this->view->request   = $errors->request;
     }
 
+    public function notFoundAction()
+    {
+        $errors = $this->_getParam('error_handler');
+
+        $this->getResponse()
+             ->setRawHeader('HTTP/1.1 404 Not Found');
+        $this->view->message = $errors->exception->getMessage();
+    }
 
 }
 
