@@ -8,6 +8,7 @@
  */
 class Planet_Model_News extends PPN_Model_Abstract
 {
+
     public function __construct()
     {
         
@@ -53,7 +54,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $category = $this->getResource('News_Categories')->getCategoryBySlug($slug);
 
         if($category === null) {
-            throw new Exception("No such category");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_CATEGORY, $slug)
+                    );
         }
 
         return $this->getResource('News')->getAllActiveNewsFromCategoryBySlug($slug,$page);
@@ -64,7 +67,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $tag = $this->getResource('News_Tags')->getTagBySlug($slug);
 
         if($tag === null) {
-            throw new Exception("No such tag");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $slug)
+                    );
         }
 
         return $this->getResource('News')->getNewsByTagId($tag->id, $page);
@@ -82,7 +87,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $category = $this->getResource("News_Categories")->getCategoryById($id);
 
         if($category === null) {
-            throw new Exception("No such category");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_CATEGORY, $id)
+                    );
         }
 
         return $this->getResource('News')->getAllActiveNewsFromCategoryById($id,$page);
@@ -97,7 +104,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $oneNews = $this->getResource('News')->getOneActiveNewsBySlug($slug);
 
         if($oneNews === null) {
-            throw new Exception("No such news");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_NEWS, $slug)
+                    );
         }
 
         return $oneNews;
@@ -112,7 +121,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $oneNews = $this->getResource('News')->getOneActiveNewsById($id);
 
         if($oneNews === null) {
-            throw new Exception("No such news");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_NEWS, $id)
+                    );
         }
         
         return $oneNews;
@@ -127,7 +138,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $oneNews = $this->getResource('News')->getOneNewsById($id);
 
         if($oneNews === null) {
-            throw new Exception("No such news");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_NEWS, $id)
+                    );
         }
 
         return $oneNews;
@@ -160,7 +173,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $oneCategory = $this->getResource('News_Categories')->getCategoryById($id);
 
         if($oneCategory === null) {
-            throw new Exception("No such category");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_CATEGORY, $id)
+                    );
         }
 
         return $oneCategory;
@@ -227,7 +242,9 @@ class Planet_Model_News extends PPN_Model_Abstract
         $oneTag = $this->getResource('News_Tags')->getTagById($tagId);
 
         if($oneTag === null) {
-            throw new Exception("No such tag");
+            throw new PPN_Exception_NotFound(
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $id)
+                    );
         }
 
         return $oneTag;
@@ -458,8 +475,6 @@ class Planet_Model_News extends PPN_Model_Abstract
     public function saveComment($data)
     {
         $return = false;
-
-        
 
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Comments_Add');
