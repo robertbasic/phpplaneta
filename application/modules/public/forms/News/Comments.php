@@ -127,6 +127,22 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
         );
 
         $this->addElement(
+            'text',
+            'honeypot',
+            array(
+                'label' => 'Honeypot:',
+                'required' => false,
+                'class' => 'honeypot',
+                'decorators' => array('ViewHelper'),
+                'validators' => array(
+                    array(
+                        'validator' => 'Honeypot'
+                    )
+                )
+            )
+        );
+
+        $this->addElement(
             'hidden',
             'id',
             array(

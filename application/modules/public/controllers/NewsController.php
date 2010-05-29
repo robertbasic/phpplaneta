@@ -61,6 +61,7 @@ class NewsController extends Zend_Controller_Action
                            '', true
                            );
                 } catch (Exception $e) {
+                    var_dump($e->getMessage());
                     $this->fm->addMessage(array('fm-bad' => $e->getMessage()));
                 }
             }

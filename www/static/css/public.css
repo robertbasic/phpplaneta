@@ -65,3 +65,7 @@ p {
     float: left;
     width: 200px;
 }
+
+.honeypot {
+    display: none;
+}

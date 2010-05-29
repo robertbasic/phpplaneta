@@ -459,6 +459,8 @@ class Planet_Model_News extends PPN_Model_Abstract
     {
         $return = false;
 
+        
+
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Comments_Add');
             $form->populate($data);
@@ -469,6 +471,10 @@ class Planet_Model_News extends PPN_Model_Abstract
             }
 
             $data = $form->getValues();
+
+            if(array_key_exists('honeypot', $data)) {
+                unset($data['honeypot']);
+            }
 
             $data['datetime_added'] = date('Y-m-d H:i:s');
             $data['active'] = false;
@@ -484,6 +490,10 @@ class Planet_Model_News extends PPN_Model_Abstract
             }
 
             $data = $form->getValues();
+
+            if(array_key_exists('honeypot', $data)) {
+                unset($data['honeypot']);
+            }
 
             $return = $this->getResource('News_Comments')->updateComment($data);
         }
