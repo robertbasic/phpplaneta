@@ -148,7 +148,7 @@ class NewsController extends Zend_Controller_Action
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
-            return $this->redirector->gotoRoute(null, 'login');
+            return $this->redirector->gotoRoute(array(), 'login');
         }
 
         $page = $this->_getParam('page', 1);
@@ -166,7 +166,7 @@ class NewsController extends Zend_Controller_Action
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
-            return $this->redirector->gotoRoute(null, 'login');
+            return $this->redirector->gotoRoute(array(), 'login');
         }
 
         // checking for existing categories
@@ -220,7 +220,7 @@ class NewsController extends Zend_Controller_Action
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
-            return $this->redirector->gotoRoute(null, 'login');
+            return $this->redirector->gotoRoute(array(), 'login');
         }
 
         // @todo move this ID checking to the model
@@ -276,7 +276,7 @@ class NewsController extends Zend_Controller_Action
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
-            return $this->redirector->gotoRoute(null, 'login');
+            return $this->redirector->gotoRoute(array(), 'login');
         }
 
         // @todo move this ID checking to the model
