@@ -27,6 +27,13 @@ class UserController extends Zend_Controller_Action
                     $this->fm->addMessage(array('fm-good' => 'Uspešno ste se prijavili!'));
                     return $this->_helper->redirector->gotoUrl('/admin');
                 } else {
+                    try {
+                        $logger = Zend_Registry::get('logger');
+                        $logger->log("Login attempt \n" .
+                                var_export($data, true),
+                                4);
+                    } catch (Exception $e) {
+                    }
                     $this->fm->addMessage(array('fm-bad' => 'Pogrešno korisniško ime i/ili lozinka!'));
                 }
             }

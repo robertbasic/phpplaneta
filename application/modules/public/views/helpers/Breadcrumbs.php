@@ -35,10 +35,11 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 
         $page = $this->_getParam('page');
 
-        if($this->_module == 'public'
+        if(($this->_module == 'public'
                 and $this->_controller == 'index'
                 and $this->_action == 'index'
-                and ($page === null or $page == 1)) {
+                and ($page === null or $page == 1))
+            or $this->_controller == 'error') {
             return false;
         }
 
@@ -65,7 +66,7 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
     protected function _getCrumbForNews($newsSlug)
     {
         $crumb = array();
-        
+
         $news = $this->_getModel()->getOneActiveNewsBySlug($newsSlug);
 
         $crumb['root'] = array(

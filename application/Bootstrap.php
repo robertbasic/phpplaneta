@@ -43,6 +43,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         Zend_Controller_Action_HelperBroker::addPath(APPLICATION_PATH .'/modules/public/controllers/helpers');
     }
+
+    public function _initLogger()
+    {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+
+        if($config->settings->logs->enabled) {
+            $writer = new Zend_Log_Writer_Stream(realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml');
+
+            $formatter = new Zend_Log_Formatter_Xml();
+            $writer->setFormatter($formatter);
+        } else {
+            $writer = new Zend_Log_Writer_Null();
+        }
+        
+        $logger = new Zend_Log();
+        $logger->addWriter($writer);
+
+        Zend_Registry::set('logger', $logger);
+    }
     
     /**
      * Initializing the View, setting the doctype, charset, et al.
