@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="/static/css/960.css" type="text/css" />
         <link rel="stylesheet" href="/static/css/public.css" type="text/css" />
 
-        <?php echo $this->headScript(); ?>
+        <?php echo $this->jQuery(); ?>
+
+        <?php $this->headScript(); ?>
 
     </head>
 
@@ -47,11 +49,15 @@
                         <?php echo $this->mostUsedTags(); ?>
                     </div>
 
+                    <div id="calendar"></div>
+
                 </div>
 
             </div>
 
         </div>
+
+        <script type="text/javascript" src="/static/js/calendar.js"></script>
 
     </body>
 </html>

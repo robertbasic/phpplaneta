@@ -77,12 +77,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->_view->headTitle('PHPplaneta.net');
         $this->_view->headTitle()->setSeparator(' / ');
 
-        $this->_view->headScript()->appendFile(
-                'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
-                'text/javascript'
-                );
-
         $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
+        $this->_view->addHelperPath('ZendX/JQuery/View/Helper','ZendX_JQuery_View_Helper');
+
+        $this->_view->jQuery()
+                        ->addStylesheet('/static/css/smoothness/jquery-ui-1.8.1.custom.css')
+                        ->setVersion('1.4.2')
+                        ->enable()
+                        ->setUiVersion('1.8.1')
+                        ->uiEnable();
     }
 
     public function _initAdminRoute()
