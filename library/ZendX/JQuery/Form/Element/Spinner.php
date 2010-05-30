@@ -23,7 +23,7 @@
 /**
  * @see ZendX_JQuery_Form_Element_UiWidget
  */
-require_once "UiWidget.php";
+// require_once "UiWidget.php";
 
 /**
  * Form Element for jQuery Spinner View Helper

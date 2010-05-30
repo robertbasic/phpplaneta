@@ -118,4 +118,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $router->addRoute('login', $loginRoute);
     }
 
+    public function _initDbCache()
+    {
+        $frontendOptions = array(
+            'automatic_serialization' => true
+        );
+
+        $backendOptions = array(
+            'cache_dir' => realpath(APPLICATION_PATH . '/../data/cache/db/')
+        );
+
+        $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
+
+        Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+    }
+
 }

@@ -20,7 +20,7 @@
  * @version     $Id: UiWidget.php 20165 2010-01-09 18:57:56Z bkarwin $
  */
 
-require_once "Zend/Form/Element.php";
+// require_once "Zend/Form/Element.php";
 
 /**
  * Base Form Element for jQuery View Helpers
@@ -165,7 +165,7 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
                 }
             }
             if($foundUiWidgetElementMarker === false) {
-                require_once "ZendX/JQuery/Form/Exception.php";
+                // require_once "ZendX/JQuery/Form/Exception.php";
                 throw new ZendX_JQuery_Form_Exception(
                     "Cannot render jQuery form element without at least one decorator ".
                     "implementing the 'ZendX_JQuery_Form_Decorator_UiWidgetElementMarker' interface. ".

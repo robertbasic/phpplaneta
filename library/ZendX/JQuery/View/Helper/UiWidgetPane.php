@@ -23,7 +23,7 @@
 /**
  * @see ZendX_JQuery_View_Helper_UiWidget
  */
-require_once "UiWidget.php";
+// require_once "UiWidget.php";
 
 /**
  * jQuery Pane Base class, adds captureStart/captureEnd functionality for panes.
@@ -61,7 +61,7 @@ abstract class ZendX_JQuery_View_Helper_UiWidgetPane extends ZendX_JQuery_View_H
     public function captureStart($id, $name, array $options=array())
     {
         if (array_key_exists($id, $this->_captureLock)) {
-            require_once 'ZendX/JQuery/View/Exception.php';
+            // require_once 'ZendX/JQuery/View/Exception.php';
             throw new ZendX_JQuery_View_Exception(sprintf('Lock already exists for id "%s"', $id));
         }
 
@@ -83,7 +83,7 @@ abstract class ZendX_JQuery_View_Helper_UiWidgetPane extends ZendX_JQuery_View_H
     public function captureEnd($id)
     {
         if (!array_key_exists($id, $this->_captureLock)) {
-            require_once 'ZendX/JQuery/View/Exception.php';
+            // require_once 'ZendX/JQuery/View/Exception.php';
             throw new ZendX_JQuery_View_Exception(sprintf('No capture lock exists for id "%s"; nothing to capture', $id));
         }
 

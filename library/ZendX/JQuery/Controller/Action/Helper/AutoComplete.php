@@ -20,7 +20,7 @@
  * @version     $Id: AutoComplete.php 20165 2010-01-09 18:57:56Z bkarwin $
  */
 
-require_once "Zend/Controller/Action/Helper/AutoComplete/Abstract.php";
+// require_once "Zend/Controller/Action/Helper/AutoComplete/Abstract.php";
 
 class ZendX_JQuery_Controller_Action_Helper_AutoComplete
 extends Zend_Controller_Action_Helper_AutoComplete_Abstract
@@ -53,7 +53,7 @@ extends Zend_Controller_Action_Helper_AutoComplete_Abstract
             /**
              * @see Zend_Controller_Action_Exception
              */
-            require_once 'Zend/Controller/Action/Exception.php';
+            // require_once 'Zend/Controller/Action/Exception.php';
             throw new Zend_Controller_Action_Exception('Invalid data passed for autocompletion');
         }
 

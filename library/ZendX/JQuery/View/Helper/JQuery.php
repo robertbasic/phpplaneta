@@ -23,22 +23,22 @@
 /**
  * @see ZendX_JQuery
  */
-require_once "ZendX/JQuery.php";
+// require_once "ZendX/JQuery.php";
 
 /**
  * @see Zend_Registry
  */
-require_once 'Zend/Registry.php';
+// require_once 'Zend/Registry.php';
 
 /**
  * @see Zend_View_Helper_Abstract
  */
-require_once 'Zend/View/Helper/Abstract.php';
+// require_once 'Zend/View/Helper/Abstract.php';
 
 /**
  * @see ZendX_JQuery_View_Helper_JQuery_Container
  */
-require_once "ZendX/JQuery/View/Helper/JQuery/Container.php";
+// require_once "ZendX/JQuery/View/Helper/JQuery/Container.php";
 
 /**
  * jQuery Helper. Functions as a stack for code and loads all jQuery dependencies.
@@ -76,7 +76,7 @@ class ZendX_JQuery_View_Helper_JQuery extends Zend_View_Helper_Abstract
     {
         $registry = Zend_Registry::getInstance();
         if (!isset($registry[__CLASS__])) {
-            require_once 'ZendX/JQuery/View/Helper/JQuery/Container.php';
+            // require_once 'ZendX/JQuery/View/Helper/JQuery/Container.php';
             $container = new ZendX_JQuery_View_Helper_JQuery_Container();
             $registry[__CLASS__] = $container;
         }
@@ -116,7 +116,7 @@ class ZendX_JQuery_View_Helper_JQuery extends Zend_View_Helper_Abstract
     public function __call($method, $args)
     {
         if (!method_exists($this->_container, $method)) {
-            require_once 'Zend/View/Exception.php';
+            // require_once 'Zend/View/Exception.php';
             throw new Zend_View_Exception(sprintf('Invalid method "%s" called on jQuery view helper', $method));
         }
 

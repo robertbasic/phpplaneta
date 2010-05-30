@@ -23,7 +23,7 @@
 /**
  * @see Zend_Json
  */
-require_once "Zend/Json.php";
+// require_once "Zend/Json.php";
 
 /**
  * jQuery Global Class holding constants and static convienience methods.
@@ -150,7 +150,7 @@ class ZendX_JQuery
             /**
              * @see Zend_Json
              */
-            require_once "Zend/Json.php";
+            // require_once "Zend/Json.php";
         }
         return Zend_Json::encode($value, false, array('enableJsonExprFinder' => true));
     }

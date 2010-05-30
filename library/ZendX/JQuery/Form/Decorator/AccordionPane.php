@@ -23,7 +23,7 @@
 /**
  * @see ZendX_JQuery_Form_Decorator_UiWidgetContainer
  */
-require_once "UiWidgetPane.php";
+// require_once "UiWidgetPane.php";
 
 /**
  * Form Decorator for jQuery Accordion Pane View Helper

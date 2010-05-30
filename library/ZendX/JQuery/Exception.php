@@ -20,7 +20,7 @@
  * @version     $Id: Exception.php 20165 2010-01-09 18:57:56Z bkarwin $
  */
 
-require_once "Zend/Exception.php";
+// require_once "Zend/Exception.php";
 
 /**
  * jQuery Exception

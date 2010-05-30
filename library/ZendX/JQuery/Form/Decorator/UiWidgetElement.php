@@ -23,12 +23,12 @@
 /**
  * @see Zend_Form_Decorator_ViewHelper
  */
-require_once "Zend/Form/Decorator/ViewHelper.php";
+// require_once "Zend/Form/Decorator/ViewHelper.php";
 
 /**
  * @see ZendX_JQuery_Form_Decorator_UiWidgetElementMarker
  */
-require_once "ZendX/JQuery/Form/Decorator/UiWidgetElementMarker.php";
+// require_once "ZendX/JQuery/Form/Decorator/UiWidgetElementMarker.php";
 
 /**
  * Abstract Form Decorator for all jQuery UI Form Elements
@@ -147,7 +147,7 @@ class ZendX_JQuery_Form_Decorator_UiWidgetElement
         $element = $this->getElement();
         $view = $element->getView();
         if (null === $view) {
-            require_once 'Zend/Form/Decorator/Exception.php';
+            // require_once 'Zend/Form/Decorator/Exception.php';
             throw new Zend_Form_Decorator_Exception('UiWidgetElement decorator cannot render without a registered view object');
         }
 

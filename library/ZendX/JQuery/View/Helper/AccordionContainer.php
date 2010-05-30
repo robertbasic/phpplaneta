@@ -23,7 +23,7 @@
 /**
  * @see ZendX_JQuery_View_Helper_UiWidget
  */
-require_once "ZendX/JQuery/View/Helper/UiWidget.php";
+// require_once "ZendX/JQuery/View/Helper/UiWidget.php";
 
 /**
  * jQuery Accordion View Helper
@@ -160,7 +160,7 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
     public function setElementHtmlTemplate($htmlTemplate)
     {
         if(substr_count($htmlTemplate, '%s') != 2) {
-            require_once "ZendX/JQuery/View/Exception.php";
+            // require_once "ZendX/JQuery/View/Exception.php";
             throw new ZendX_JQuery_View_Exception(
                 "Accordion Container HTML Template requires two sprintf() string replace markers '%s'."
             );

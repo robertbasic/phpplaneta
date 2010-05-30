@@ -23,7 +23,7 @@
 /**
  * @see ZendX_JQuery
  */
-require_once "ZendX/JQuery.php";
+// require_once "ZendX/JQuery.php";
 
 /**
  * jQuery View Helper. Transports all jQuery stack and render information across all views.
@@ -423,7 +423,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     public function onLoadCaptureStart()
     {
         if ($this->_captureLock) {
-            require_once 'Zend/Exception.php';
+            // require_once 'Zend/Exception.php';
             throw new Zend_Exception('Cannot nest onLoad captures');
         }
 
@@ -453,7 +453,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     public function javascriptCaptureStart()
     {
         if ($this->_captureLock) {
-            require_once 'Zend/Exception.php';
+            // require_once 'Zend/Exception.php';
             throw new Zend_Exception('Cannot nest captures');
         }
 

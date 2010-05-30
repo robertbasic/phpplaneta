@@ -20,7 +20,7 @@
  * @version     $Id: TabPane.php 20165 2010-01-09 18:57:56Z bkarwin $
  */
 
-require_once "UiWidgetPane.php";
+// require_once "UiWidgetPane.php";
 
 /**
  * jQuery Tabs Pane View Helper, goes with Tab Container
