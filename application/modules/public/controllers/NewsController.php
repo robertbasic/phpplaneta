@@ -141,6 +141,20 @@ class NewsController extends Zend_Controller_Action
         echo $out;
     }
 
+    public function ajaxLoadDatesAction()
+    {
+        if(!$this->_request->isXmlHttpRequest()) {
+            return $this->redirector->gotoRoute(array(), '', true);
+        }
+
+        $year = $this->_request->getQuery('year', null);
+        $month = $this->_request->getQuery('month', null);
+        
+        $response = $this->model->getNewsForYearAndMonth($year,$month);
+
+        echo $this->_helper->json($response);
+    }
+
     /**
      * List news, paginated, for the admin panel
      */

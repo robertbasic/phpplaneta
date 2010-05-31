@@ -238,6 +238,23 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
         return $this->fetchAll($select);
     }
 
+    public function getNewsByDate($date, $page=null)
+    {
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.active = ?', true),
+                        array('author.active = ?', true),
+                        array('news.datetime_added LIKE ?', $date . "%")
+                    )
+                );
+
+        if($page !== null) {
+            return $this->_getPaginatorForSelect($select, $page);
+        }
+
+        return $this->fetchAll($select);
+    }
+
     public function insertNews($data)
     {
         try {

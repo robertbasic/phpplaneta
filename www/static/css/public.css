@@ -69,3 +69,7 @@ p {
 .honeypot {
     display: none;
 }
+
+.ui-datepicker td span.has-news {
+    background: #f00;
+}

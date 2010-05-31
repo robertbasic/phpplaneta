@@ -82,9 +82,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $this->_view->jQuery()
                         ->addStylesheet('/static/css/smoothness/jquery-ui-1.8.1.custom.css')
-                        ->setVersion('1.4.2')
+//                        ->setVersion('1.4.2')
                         ->enable()
-                        ->setUiVersion('1.8.1')
+//                        ->setUiVersion('1.8.1')
+                        ->setLocalPath('/static/js/jquery-1.4.2.min.js')
+                        ->setUiLocalPath('/static/js/jquery-ui-1.8.1.custom.min.js')
                         ->uiEnable();
     }
 
