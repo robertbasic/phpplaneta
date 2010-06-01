@@ -40,7 +40,9 @@ $(document).ready(function(){
     }
     );
 
-    setCalendarDate();
+    if(typeof(setCalendarDate) != 'undefined') {
+        $("#calendar").datepicker("setDate", setCalendarDate);
+    }
 
     var currentDate = $("#calendar").datepicker("getDate");
     var currentYear = currentDate.getFullYear();
@@ -85,12 +87,4 @@ function highlite(date) {
         "json"
     );
 
-}
-
-function setCalendarDate() {
-    var dateInUrl = window.location.pathname.split('/').pop();
-    if(dateInUrl.match(/\b\d{4}-\d{1,2}-\d{1,2}\b/)) {
-        var date = dateInUrl.split('-').reverse().join('/');
-        $("#calendar").datepicker("setDate", date);
-    }
 }

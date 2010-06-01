@@ -84,6 +84,9 @@ class NewsController extends Zend_Controller_Action
             $news = $this->model->getAllActiveNewsByTagSlug($tag, $page);
         } elseif($date !== null) {
             $news = $this->model->getAllActiveNewsByDate($date, $page);
+            $this->view->headScript('SCRIPT', '
+                        var setCalendarDate = "'.date('d/m/Y', strtotime($date)).'";
+                    ');
         }
 
         $this->view->news = $news;
