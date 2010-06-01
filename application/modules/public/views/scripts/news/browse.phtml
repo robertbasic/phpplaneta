@@ -1,37 +1,45 @@
-<?php foreach($this->news as $news): ?>
+<?php if(count($this->news) > 0): ?>
 
-<div class="article">
+    <?php foreach($this->news as $news): ?>
 
-    <div class="article-title">
-        <h2>
-            <a href="<?php echo $this->url(array(
-                'action' => 'view',
+    <div class="article">
+
+        <div class="article-title">
+            <h2>
+                <a href="<?php echo $this->url(array(
+                    'action' => 'view',
+                    'controller' => 'news',
+                    'slug' => $news->slug
+                ), '', true); ?>"><?php echo $this->escape($news->title); ?></a>
+            </h2>
+        </div>
+
+        <div class="article-content">
+            <?php echo $news->text; ?>
+        </div>
+
+        <div class="article-footer">
+            Objavio: <?php echo $news->firstname; ?> <?php echo $news->lastname; ?>
+            dana <?php echo $news->datetime_added; ?>
+            u kategoriji <a href="<?php echo $this->url(array(
+                'action' => 'browse',
                 'controller' => 'news',
-                'slug' => $news->slug
-            ), '', true); ?>"><?php echo $this->escape($news->title); ?></a>
-        </h2>
+                'category' => $news->category_slug
+            ), '', true); ?>"><?php echo $news->category_title; ?></a>
+        </div>
+
+        Oznake: <?php echo $this->tags($news->id); ?>
+
+        <?php echo $this->numberOfComments($news->id); ?>
+
     </div>
 
-    <div class="article-content">
-        <?php echo $news->text; ?>
-    </div>
+    <?php endforeach; ?>
 
-    <div class="article-footer">
-        Objavio: <?php echo $news->firstname; ?> <?php echo $news->lastname; ?>
-        dana <?php echo $news->datetime_added; ?>
-        u kategoriji <a href="<?php echo $this->url(array(
-            'action' => 'browse',
-            'controller' => 'news',
-            'category' => $news->category_slug
-        ), '', true); ?>"><?php echo $news->category_title; ?></a>
-    </div>
+    <?php echo $this->paginationControl($this->news, 'Sliding', 'paginator.phtml'); ?>
 
-    Oznake: <?php echo $this->tags($news->id); ?>
+<?php else: ?>
 
-    <?php echo $this->numberOfComments($news->id); ?>
+Ništa nije pronađeno.
 
-</div>
-
-<?php endforeach; ?>
-
-<?php echo $this->paginationControl($this->news, 'Sliding', 'paginator.phtml'); ?>
+<?php endif; ?>

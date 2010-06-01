@@ -25,10 +25,13 @@ jQuery(function($){
 $(document).ready(function(){
     $.datepicker.setDefaults($.datepicker.regional['sr-SR']);
 
+    var dateShown = null;
+
     $("#calendar").datepicker(
     {
         onChangeMonthYear: function(year, month, inst){
-                                highlite(year, month);
+                                dateShown = [year, month];
+                                highlite(dateShown);
                                 return true;
                             },
         beforeShowDay: function(date){
@@ -37,22 +40,34 @@ $(document).ready(function(){
     }
     );
 
-    $(".has-news").live('click', function(){
-        console.log('a');
-    });
+    setCalendarDate();
 
     var currentDate = $("#calendar").datepicker("getDate");
+    var currentYear = currentDate.getFullYear();
+    var currentMonth = currentDate.getMonth()+1;
 
-    highlite(currentDate.getFullYear(), currentDate.getMonth()+1);
+    dateShown = [currentYear, currentMonth];
+
+    highlite(dateShown);
+
+    $(".has-news").live('click', function(){
+        var clickedDay = parseInt($(this).text());
+        var date = dateShown[0]+'-'+dateShown[1]+'-'+clickedDay;
+
+        $("body").append('<form name="date" method="get" action="/news/browse/date/'+date+'"></form>');
+        $("form[name=date]").submit();
+    });
 });
 
-function highlite(year, month) {
+function highlite(date) {
+
+    $(".has-news").removeClass('has-news');
 
     $.get(
         '/news/ajax-load-dates/',
         {
-            year: year,
-            month: month
+            year: date[0],
+            month: date[1]
         },
         function(responseData) {
             if(responseData.length > 0) {
@@ -70,4 +85,12 @@ function highlite(year, month) {
         "json"
     );
 
+}
+
+function setCalendarDate() {
+    var dateInUrl = window.location.pathname.split('/').pop();
+    if(dateInUrl.match(/\b\d{4}-\d{1,2}-\d{1,2}\b/)) {
+        var date = dateInUrl.split('-').reverse().join('/');
+        $("#calendar").datepicker("setDate", date);
+    }
 }

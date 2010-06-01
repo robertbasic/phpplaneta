@@ -74,6 +74,7 @@ class NewsController extends Zend_Controller_Action
         $page = $this->_getParam('page', 1);
         $category = $this->_getParam('category', null);
         $tag = $this->_getParam('tag', null);
+        $date = $this->_getParam('date', null);
 
         $news = null;
 
@@ -81,6 +82,8 @@ class NewsController extends Zend_Controller_Action
             $news = $this->model->getAllActiveNewsFromCategoryBySlug($category, $page);
         } elseif($tag !== null) {
             $news = $this->model->getAllActiveNewsByTagSlug($tag, $page);
+        } elseif($date !== null) {
+            $news = $this->model->getAllActiveNewsByDate($date, $page);
         }
 
         $this->view->news = $news;

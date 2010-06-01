@@ -146,6 +146,13 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneNews;
     }
 
+    public function getAllActiveNewsByDate($date,$page=null)
+    {
+        $date = date('Y-m-d', strtotime($date));
+
+        return $this->getResource('News')->getNewsByDate($date, $page);
+    }
+
     public function getNewsForYearAndMonth($year,$month)
     {
         if($year === null) {
