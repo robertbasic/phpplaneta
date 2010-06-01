@@ -146,6 +146,44 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneNews;
     }
 
+    public function getAllActiveNewsByDate($date,$page=null)
+    {
+        $date = date('Y-m-d', strtotime($date));
+
+        return $this->getResource('News')->getNewsByDate($date, $page);
+    }
+
+    public function getNewsForYearAndMonth($year,$month)
+    {
+        if($year === null) {
+            $year = date('Y');
+        } else {
+            $year = (int)$year;
+        }
+
+        if($month === null) {
+            $month = date('m');
+        } else {
+            $month = (int)$month;
+        }
+
+        $day = 1;
+
+        $date = date('Y-m', strtotime($year . '-' . $month . '-' . $day));
+
+        $news = array();
+
+        $newsTmp = $this->getResource('News')->getNewsByDate($date);
+
+        foreach($newsTmp as $k => $n) {
+            $news[$k]['title'] = $n->title;
+            $news[$k]['slug'] = $n->slug;
+            $news[$k]['day'] = date('j', strtotime($n->datetime_added));
+        }
+
+        return $news;
+    }
+
     /**
      * Get all news categories, ready to be consumed by a select box
      * in a Zend_Form

@@ -77,12 +77,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->_view->headTitle('PHPplaneta.net');
         $this->_view->headTitle()->setSeparator(' / ');
 
-        $this->_view->headScript()->appendFile(
-                'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
-                'text/javascript'
-                );
-
         $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
+        $this->_view->addHelperPath('ZendX/JQuery/View/Helper','ZendX_JQuery_View_Helper');
+
+        $this->_view->jQuery()
+                        ->addStylesheet('/static/css/smoothness/jquery-ui-1.8.1.custom.css')
+//                        ->setVersion('1.4.2')
+                        ->enable()
+//                        ->setUiVersion('1.8.1')
+                        ->setLocalPath('/static/js/jquery-1.4.2.min.js')
+                        ->setUiLocalPath('/static/js/jquery-ui-1.8.1.custom.min.js')
+                        ->uiEnable();
     }
 
     public function _initAdminRoute()
@@ -113,6 +118,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     )
                 );
         $router->addRoute('login', $loginRoute);
+    }
+
+    public function _initDbCache()
+    {
+        $frontendOptions = array(
+            'automatic_serialization' => true
+        );
+
+        $backendOptions = array(
+            'cache_dir' => realpath(APPLICATION_PATH . '/../data/cache/db/')
+        );
+
+        $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
+
+        Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
     }
 
 }

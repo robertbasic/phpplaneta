@@ -74,6 +74,7 @@ class NewsController extends Zend_Controller_Action
         $page = $this->_getParam('page', 1);
         $category = $this->_getParam('category', null);
         $tag = $this->_getParam('tag', null);
+        $date = $this->_getParam('date', null);
 
         $news = null;
 
@@ -81,6 +82,11 @@ class NewsController extends Zend_Controller_Action
             $news = $this->model->getAllActiveNewsFromCategoryBySlug($category, $page);
         } elseif($tag !== null) {
             $news = $this->model->getAllActiveNewsByTagSlug($tag, $page);
+        } elseif($date !== null) {
+            $news = $this->model->getAllActiveNewsByDate($date, $page);
+            $this->view->headScript('SCRIPT', '
+                        var setCalendarDate = "'.date('d/m/Y', strtotime($date)).'";
+                    ');
         }
 
         $this->view->news = $news;
@@ -139,6 +145,20 @@ class NewsController extends Zend_Controller_Action
         $out = $feed->export('rss');
         $this->getResponse()->setHeader('Content-Type', 'text/xml; charset=utf-8');
         echo $out;
+    }
+
+    public function ajaxLoadDatesAction()
+    {
+        if(!$this->_request->isXmlHttpRequest()) {
+            return $this->redirector->gotoRoute(array(), '', true);
+        }
+
+        $year = $this->_request->getQuery('year', null);
+        $month = $this->_request->getQuery('month', null);
+        
+        $response = $this->model->getNewsForYearAndMonth($year,$month);
+
+        echo $this->_helper->json($response);
     }
 
     /**

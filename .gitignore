@@ -1,1 +1,3 @@
 library/Zend
+data/cache
+data/logz
