@@ -5,6 +5,8 @@ class ErrorController extends Zend_Controller_Action
 
     public function errorAction()
     {
+        $this->_cancelFullPageCache();
+
         $errors = $this->_getParam('error_handler');
 
         $errorCode = $errors->exception->getCode();
@@ -54,6 +56,12 @@ class ErrorController extends Zend_Controller_Action
                     $level);
         } catch (Exception $e) {
         }
+    }
+
+    protected function _cancelFullPageCache()
+    {
+        $cache = Zend_Registry::get('pageCache');
+        $cache->cancel();
     }
 
 }

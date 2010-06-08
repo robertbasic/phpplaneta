@@ -120,6 +120,69 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $router->addRoute('login', $loginRoute);
     }
 
+    public function _initFullPageCache()
+    {
+        $this->bootstrap('FrontController');
+        $fc = $this->getResource('FrontController');
+        $fc->setParam('disableOutputBuffering', true);
+
+        if(APPLICATION_ENV == 'development') {
+            $debugHeader = true;
+        } else {
+            $debugHeader = false;
+        }
+
+        $frontendOptions = array(
+            'lifetime' => 1800,
+            'debug_header' => $debugHeader,
+            'default_options' => array(
+                'cache' => false
+            ),
+            'regexps' => array(
+                '^/$' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
+                '^/index/index/' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
+                '^/news/view/' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
+                '^/news/browse/' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
+                '^/news/ajax-load-dates/' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                )
+            )
+        );
+
+        $backendOptions = array(
+            'cache_dir' => realpath(APPLICATION_PATH . '/../data/cache/page/')
+        );
+
+        $cache = Zend_Cache::factory(
+                    'Page',
+                    'File',
+                    $frontendOptions,
+                    $backendOptions
+                );
+
+        Zend_Registry::set('pageCache', $cache);
+
+        $cache->start();
+    }
+
     public function _initDbCache()
     {
         $frontendOptions = array(
