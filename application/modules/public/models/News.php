@@ -368,6 +368,8 @@ class Planet_Model_News extends PPN_Model_Abstract
     {
         $return = false;
 
+        $this->_cleanFullPageCache();
+
         if(array_key_exists('fk_news_source_id', $data)
                 and $data['fk_news_source_id'] == '') {
             unset($data['fk_news_source_id']);
@@ -423,6 +425,8 @@ class Planet_Model_News extends PPN_Model_Abstract
     {
         $return = false;
 
+        $this->_cleanFullPageCache();
+
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Categories_Add');
             $form->populate($data);
@@ -456,6 +460,8 @@ class Planet_Model_News extends PPN_Model_Abstract
     {
         $return = false;
 
+        $this->_cleanFullPageCache();
+
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Sources_Add');
             $form->populate($data);
@@ -488,6 +494,8 @@ class Planet_Model_News extends PPN_Model_Abstract
     public function saveNewsTags($data)
     {
         $return = false;
+
+        $this->_cleanFullPageCache();
 
         if(!array_key_exists('id', $data)) {
             if(!array_key_exists('tags', $data)
@@ -540,6 +548,8 @@ class Planet_Model_News extends PPN_Model_Abstract
     {
         $return = false;
 
+        $this->_cleanFullPageCache();
+
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Comments_Add');
             $form->populate($data);
@@ -586,6 +596,8 @@ class Planet_Model_News extends PPN_Model_Abstract
 
     public function deleteNews($id)
     {
+        $this->_cleanFullPageCache();
+        
         try {
             $this->getResource('News_Tags_Relations')->deleteRelationsForNews($id);
         } catch(Exception $e) {
@@ -602,6 +614,8 @@ class Planet_Model_News extends PPN_Model_Abstract
 
     public function deleteNewsCategory($id)
     {
+        $this->_cleanFullPageCache();
+
         if($this->deleteNewsFromCategory($id) !== false) {
             return $this->getResource('News_Categories')->deleteCategory($id);
         } else {
@@ -611,11 +625,15 @@ class Planet_Model_News extends PPN_Model_Abstract
 
     public function deleteNewsSource($id)
     {
+        $this->_cleanFullPageCache();
+
         return $this->getResource('News_Sources')->deleteSource($id);
     }
 
     public function deleteNewsTag($id)
     {
+        $this->_cleanFullPageCache();
+        
         if($this->getResource('News_Tags_Relations')->deleteRelationsForTag($id) !== false) {
             return $this->getResource('News_Tags')->deleteTag($id);
         } else {
@@ -625,6 +643,8 @@ class Planet_Model_News extends PPN_Model_Abstract
 
     public function deleteComment($id)
     {
+        $this->_cleanFullPageCache();
+        
         return $this->getResource('News_Comments')->deleteComment($id);
     }
 

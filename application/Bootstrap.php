@@ -178,6 +178,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     $backendOptions
                 );
 
+        Zend_Registry::set('pageCache', $cache);
+
         $cache->start();
     }
 
