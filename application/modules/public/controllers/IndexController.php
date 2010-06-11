@@ -22,7 +22,8 @@ class IndexController extends Zend_Controller_Action
         if($this->_request->isPost()) {
             if($contactForm->isValid($this->_request->getPost())) {
                 try {
-                    
+                    $contactService = new Planet_Service_Contact($contactForm->getValues());
+                    $contactService->sendMail();
                 } catch (Exception $e) {
                     
                 }
