@@ -15,4 +15,21 @@ class IndexController extends Zend_Controller_Action
         $this->view->news = $this->model->getAllActiveNews($page);
     }
 
+    public function contactAction()
+    {
+        $contactForm = new Planet_Form_Contact();
+
+        if($this->_request->isPost()) {
+            if($contactForm->isValid($this->_request->getPost())) {
+                try {
+                    
+                } catch (Exception $e) {
+                    
+                }
+            }
+        }
+
+        $this->view->contactForm = $contactForm;
+    }
+
 }
