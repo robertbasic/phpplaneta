@@ -36,6 +36,11 @@ class IndexController extends Zend_Controller_Action
                     
                 } catch (Exception $e) {
                     $this->fm->addMessage(array('fm-good' => 'Greška prilikom slanja E-maila! Molim Vas pokušajte ponovo!'));
+                    try {
+                        $logger = Zend_Registry::get('logger');
+                        $logger->log($e->getMessage(),2);
+                    } catch (Exception $e) {
+                    }
                 }
             }
         }
