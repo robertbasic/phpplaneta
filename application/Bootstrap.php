@@ -149,6 +149,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     'cache_with_get_variables' => true,
                     'cache_with_cookie_variables' => true
                 ),
+                '^/index/about' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
                 '^/news/view/' => array(
                     'cache' => true,
                     'cache_with_get_variables' => true,

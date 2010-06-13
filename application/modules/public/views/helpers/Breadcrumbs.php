@@ -247,6 +247,14 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                     'controller' => 'index'
                 ), '', true)
             );
+        } elseif($this->_action == 'about') {
+            $crumb['first'] = array(
+                'title' => 'O PHP planeti',
+                'href' => $this->_view->url(array(
+                    'action' => 'about',
+                    'controller' => 'index'
+                ), '', true)
+            );
         } else {
             $crumb['first'] = array(
                 'title' => 'Strana ' . $page,
