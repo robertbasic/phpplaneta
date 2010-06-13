@@ -20,7 +20,33 @@
         <div id="page" class="container_16">
 
             <div id="header" class="grid_16">
-
+                <ul class="navigation">
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'index',
+                                                'controller' => 'index'),
+                                                '', true); ?>">Početna</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'browse',
+                                                'controller' => 'news',
+                                                'category' => 'vesti'),
+                                                '', true); ?>">Vesti</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'about',
+                                                'controller' => 'index'),
+                                                '', true); ?>">O PHP planeti</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'contact',
+                                                'controller' => 'index'),
+                                                 '', true); ?>">Kontakt</a>
+                    </li>
+                </ul>
             </div>
 
             <div id="body" class="container_16">

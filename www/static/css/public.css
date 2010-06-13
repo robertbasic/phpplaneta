@@ -16,6 +16,20 @@ p {
     text-align: justify;
 }
 
+.navigation {
+	margin-top: 25px;
+	float: right;
+}
+
+.navigation li {
+	display: inline;
+	margin: 0;
+}
+
+.navigation li a {
+	padding: 5px 10px;
+}
+
 #left {
     float: left;
 }
