@@ -6,6 +6,8 @@ class IndexController extends Zend_Controller_Action
     public function init()
     {
         $this->model = new Planet_Model_News();
+        $this->fm = $this->getHelper('flashMessenger');
+        $this->redirector = $this->getHelper('redirector');
     }
 
     public function indexAction()
@@ -24,8 +26,16 @@ class IndexController extends Zend_Controller_Action
                 try {
                     $contactService = new Planet_Service_Contact($contactForm->getValues());
                     $contactService->sendMail();
-                } catch (Exception $e) {
                     
+                    $this->fm->addMessage(array('fm-good' => 'E-mail uspešno poslat!'));
+
+                    return $this->redirector->gotoRoute(
+                           array('action' => 'contact', 'controller' => 'index'),
+                           '', true
+                           );
+                    
+                } catch (Exception $e) {
+                    $this->fm->addMessage(array('fm-good' => 'Greška prilikom slanja E-maila! Molim Vas pokušajte ponovo!'));
                 }
             }
         }
