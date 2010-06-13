@@ -239,14 +239,24 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
             'href' => '/'
         );
 
-        $crumb['first'] = array(
-            'title' => 'Strana ' . $page,
-            'href' => $this->_view->url(array(
-                'action' => 'index',
-                'controller' => 'index',
-                'page' => $page
-            ), '', true)
-        );
+        if($this->_action == 'contact') {
+            $crumb['first'] = array(
+                'title' => 'Kontakt',
+                'href' => $this->_view->url(array(
+                    'action' => 'contact',
+                    'controller' => 'index'
+                ), '', true)
+            );
+        } else {
+            $crumb['first'] = array(
+                'title' => 'Strana ' . $page,
+                'href' => $this->_view->url(array(
+                    'action' => 'index',
+                    'controller' => 'index',
+                    'page' => $page
+                ), '', true)
+            );
+        }
 
         return $crumb;
     }
