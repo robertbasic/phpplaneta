@@ -77,6 +77,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $this->_view->headTitle('PHPplaneta.net');
         $this->_view->headTitle()->setSeparator(' / ');
 
+        $this->_view->headLink(array(
+            'rel' => 'alternate',
+            'type' => 'application/rss+xml',
+            'title' => 'PHPPlaneta glavni feed',
+            'href' => '/news/rss'
+        ));
+
         $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
         $this->_view->addHelperPath('ZendX/JQuery/View/Helper','ZendX_JQuery_View_Helper');
 

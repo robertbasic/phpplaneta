@@ -78,15 +78,31 @@ class NewsController extends Zend_Controller_Action
 
         $news = null;
 
+        $feedLink = '';
+        $feedTitle = '';
+
         if($category !== null) {
             $news = $this->model->getAllActiveNewsFromCategoryBySlug($category, $page);
+            $feedLink = 'category/'.$category;
+            $feedTitle = 'PHPPlaneta feed za kategoriju ' . $category;
         } elseif($tag !== null) {
             $news = $this->model->getAllActiveNewsByTagSlug($tag, $page);
+            $feedLink = 'tag/'.$tag;
+            $feedTitle = 'PHPPlaneta feed za oznaku ' . $tag;
         } elseif($date !== null) {
             $news = $this->model->getAllActiveNewsByDate($date, $page);
             $this->view->headScript('SCRIPT', '
                         var setCalendarDate = "'.date('d/m/Y', strtotime($date)).'";
                     ');
+        }
+
+        if($feedLink != '') {
+            $this->view->headLink(array(
+                'rel' => 'alternate',
+                'type' => 'application/rss+xml',
+                'title' => $feedTitle,
+                'href' => '/news/rss/' . $feedLink
+            ));
         }
 
         $this->view->news = $news;
