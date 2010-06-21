@@ -129,6 +129,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     public function _initFullPageCache()
     {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+
+        if(!$config->settings->cache->enabled) {
+            return false;
+        }
+
         $this->bootstrap('FrontController');
         $fc = $this->getResource('FrontController');
         $fc->setParam('disableOutputBuffering', true);
