@@ -42,6 +42,8 @@ class Planet_Model_Resource_Logs
             $logs[$key] = $log;
         }
 
+        $logs = array_reverse($logs);
+
         if($page !== null) {
             $page = (int)$page;
             if($page < 1) {
