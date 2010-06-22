@@ -56,7 +56,7 @@ class Planet_Model_Resource_Logs
         return $logs;
     }
 
-    public function purgeLogs()
+    public function deleteLogs()
     {
         $file = realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml';
 

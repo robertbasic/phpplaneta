@@ -16,8 +16,8 @@ class Planet_Model_Logs extends PPN_Model_Abstract
         return $this->getResource('Logs')->getAllLogs($page);
     }
 
-    public function purgeLogs()
+    public function deleteLogs()
     {
-        return $this->getResource('Logs')->purgeLogs();
+        return $this->getResource('Logs')->deleteLogs();
     }
 }

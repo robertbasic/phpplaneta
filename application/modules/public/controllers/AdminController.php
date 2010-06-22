@@ -17,7 +17,7 @@ class AdminController extends Zend_Controller_Action
         
         $this->view->environment = APPLICATION_ENV;
         $this->view->cacheSetting = $config->settings->cache->enabled;
-        $this->view->logSetting = $config->settings->log->enabled;
+        $this->view->logSetting = $config->settings->logs->enabled;
     }
 
 }

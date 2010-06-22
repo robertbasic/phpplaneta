@@ -46,14 +46,14 @@ class LogsController extends Zend_Controller_Action
         $this->view->pageTitle = 'Pregled logova';
     }
 
-    public function adminPurgeLogsAction()
+    public function adminDeleteLogsAction()
     {
         if(!$this->loggedInUser) {
             $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
             return $this->redirector->gotoRoute(array(), 'login');
         }
 
-        if($this->model->purgeLogs()) {
+        if($this->model->deleteLogs()) {
             $this->fm->addMessage(array('fm-good' => 'Logovi uspešno obrisani!'));
         } else {
             $this->fm->addMessage(array('fm-bad' => 'Neuspelo brisanje logova!'));
