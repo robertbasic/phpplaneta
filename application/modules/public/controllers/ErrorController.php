@@ -60,8 +60,11 @@ class ErrorController extends Zend_Controller_Action
 
     protected function _cancelFullPageCache()
     {
-        $cache = Zend_Registry::get('pageCache');
-        $cache->cancel();
+        try {
+            $cache = Zend_Registry::get('pageCache');
+            $cache->cancel();
+        } catch(Exception $e) {
+        }
     }
 
 }
