@@ -55,4 +55,15 @@ class Planet_Model_Resource_Logs
 
         return $logs;
     }
+
+    public function purgeLogs()
+    {
+        $file = realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml';
+
+        if(file_put_contents($file,'') !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

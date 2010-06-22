@@ -17,6 +17,7 @@ class LogsController extends Zend_Controller_Action
         $this->loggedInUser = $this->_helper->loggedInUser();
         $this->redirector = $this->getHelper('redirector');
         $this->urlHelper = $this->getHelper('url');
+        $this->fm = $this->getHelper('flashMessenger');
     }
 
     public function indexAction()
@@ -43,5 +44,24 @@ class LogsController extends Zend_Controller_Action
         $this->view->logs = $this->model->getAllLogs($page);
 
         $this->view->pageTitle = 'Pregled logova';
+    }
+
+    public function adminPurgeLogsAction()
+    {
+        if(!$this->loggedInUser) {
+            $this->fm->addMessage(array('fm-bad' => 'Nemate pravo pristupa!'));
+            return $this->redirector->gotoRoute(array(), 'login');
+        }
+
+        if($this->model->purgeLogs()) {
+            $this->fm->addMessage(array('fm-good' => 'Logovi uspešno obrisani!'));
+        } else {
+            $this->fm->addMessage(array('fm-bad' => 'Neuspelo brisanje logova!'));
+        }
+
+        return $this->redirector->gotoRoute(
+                           array('action' => 'admin-list', 'controller' => 'logs'),
+                           'admin', true
+                           );
     }
 }

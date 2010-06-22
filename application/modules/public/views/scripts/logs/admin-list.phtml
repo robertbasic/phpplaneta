@@ -1,4 +1,10 @@
 <?php if(count($this->logs) > 0): ?>
+
+<a href="<?php echo $this->url(array(
+                                'action' => 'admin-purge-logs',
+                                'controller' => 'logs'),
+                                'admin', true); ?>">Obriši logove</a>
+
 <table>
     <thead>
         <tr>
@@ -27,5 +33,5 @@
 <?php echo $this->paginationControl($this->logs, 'Sliding', 'paginator.phtml'); ?>
 
 <?php else: ?>
-Nema vesti
+Nema logova
 <?php endif; ?>
