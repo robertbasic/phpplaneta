@@ -1,0 +1,13 @@
+TODO stuff before pushing to github:
+
+1. Rename "public" module to "news"
+2. Rework the admin panel so it doesn't use that ugly ActionToolbar helper
+3. Take out Categories, Sources, Tags, Comments to separate models (DI)
+4. Move logs to it's own module
+5. Move users to it's own module
+6. Comments + license
+
+After pushing to github:
+
+1. Use wibble http://github.com/padraic/wibble
+2. Implement model level ACL
