@@ -1,3 +1,4 @@
 library/Zend
 data/cache
-data/logz
+data/logs
+data/logs/logs.xml

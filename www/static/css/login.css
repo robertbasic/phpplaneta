@@ -25,6 +25,10 @@ a:hover {
     background: #eee;
 }
 
+#middle h2 {
+    text-align: center;
+}
+
 .flashMessenger {
 	width: 100%;
 	float: left;
