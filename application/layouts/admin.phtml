@@ -59,9 +59,32 @@
             </div>
 
             <div id="action_toolbar" class="grid_16">
-                <span>
-                    <?php echo $this->actionToolbar(); ?>
-                </span>
+                <ul class="sub-navigation">
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news'),
+                                                    'admin', true); ?>">Vesti</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news-categories'),
+                                                    'admin', true); ?>">Kategorije</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news-tags'),
+                                                    'admin', true); ?>">Oznake</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news-sources'),
+                                                    'admin', true); ?>">Izvori</a>
+                    </li>
+                </ul>
             </div>
 
             <div id="body" class="container_16">

@@ -1,3 +1,12 @@
+<div>
+    <a href="<?php echo $this->url(
+                                array(
+                                    'action' => 'add',
+                                    'controller' => 'news-sources'
+                                ),
+                                'admin', true); ?>">Dodaj izvor</a>
+</div>
+
 <?php if(count($this->sources) > 0): ?>
 <table>
     <thead>

@@ -1,10 +1,10 @@
 TODO stuff before pushing to github:
 
-1. Rename "public" module to "news"
+1. Rename "public" module to "news" ** will wait for zf2
 2. Rework the admin panel so it doesn't use that ugly ActionToolbar helper
-3. Take out Categories, Sources, Tags, Comments to separate models (DI)
+3. Take out Categories, Sources, Tags, Comments to separate models (DI) ** will wait for zf2
 4. Move logs to it's own module
-5. Move users to it's own module
+5. Move users to it's own module ** will wait for zf2
 6. Comments + license
 
 After pushing to github:

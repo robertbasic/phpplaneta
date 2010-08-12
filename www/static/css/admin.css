@@ -36,9 +36,18 @@ a:hover {
 	padding: 5px 10px;
 }
 
-#action_toolbar span {
+.sub-navigation {
+	margin: 10px 0;
 	float: left;
-	margin: 5px 10px;
+}
+
+.sub-navigation li {
+	display: inline;
+	margin: 0;
+}
+
+.sub-navigation li a {
+	padding: 5px 10px;
 }
 
 #left {

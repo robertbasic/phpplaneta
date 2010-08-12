@@ -1,3 +1,12 @@
+<div>
+    <a href="<?php echo $this->url(
+                                array(
+                                    'action' => 'add',
+                                    'controller' => 'news'
+                                ),
+                                'admin', true); ?>">Dodaj vest</a>
+</div>
+
 <?php if(count($this->news) > 0): ?>
 <table>
     <thead>
