@@ -19,37 +19,55 @@
 
     <body>
 
+        <div id="header">
+            <div id="logo" class="container_16">
+                <a href="/">
+                    <img src="/static/img/logo.jpg" alt="PHPPlaneta.net" />
+                </a>
+            </div>
+        </div>
+
         <div id="page" class="container_16">
 
-            <div id="header" class="grid_16">
-                <ul class="navigation">
-                    <li>
-                        <a href="<?php echo $this->url(array(
-                                                'action' => 'index',
-                                                'controller' => 'index'),
-                                                '', true); ?>">Početna</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->url(array(
-                                                'action' => 'browse',
-                                                'controller' => 'news',
-                                                'category' => 'vesti'),
-                                                '', true); ?>">Vesti</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->url(array(
-                                                'action' => 'about',
-                                                'controller' => 'index'),
-                                                '', true); ?>">O PHP planeti</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->url(array(
-                                                'action' => 'contact',
-                                                'controller' => 'index'),
-                                                 '', true); ?>">Kontakt</a>
-                    </li>
-                </ul>
-            </div>
+            <ul class="navigation">
+                <li class="active">
+                    <a href="<?php echo $this->url(array(
+                                            'action' => 'index',
+                                            'controller' => 'index'),
+                                            '', true); ?>">Početna</a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url(array(
+                                            'action' => 'browse',
+                                            'controller' => 'news',
+                                            'category' => 'vesti'),
+                                            '', true); ?>">Vesti</a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Sub 1
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Sub 1
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url(array(
+                                            'action' => 'about',
+                                            'controller' => 'index'),
+                                            '', true); ?>">O planeti</a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url(array(
+                                            'action' => 'contact',
+                                            'controller' => 'index'),
+                                             '', true); ?>">Kontakt</a>
+                </li>
+            </ul>
 
             <div id="body" class="container_16">
 
@@ -86,6 +104,7 @@
         </div>
 
         <script type="text/javascript" src="/static/js/calendar.js"></script>
+        <script type="text/javascript" src="/static/js/script.js"></script>
 
     </body>
 </html>

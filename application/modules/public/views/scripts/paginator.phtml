@@ -13,14 +13,12 @@
     <a href="<?php echo $this->url(array('page' => $this->first)) . $linkAdd; ?>"> &laquo; </a>
     <a href="<?php echo $this->url(array('page' => $this->previous)) . $linkAdd; ?>"> &lsaquo; </a>
 <?php else: ?>
-  <span class="disabled"> &laquo; </span>
-  <span class="disabled"> &lsaquo; </span>
 <?php endif; ?>
 
 <!-- Numbered page links -->
 <?php foreach ($this->pagesInRange as $page): ?>
   <?php if ($page != $this->current): ?>
-    <a href="<?php echo $this->url(array('page' => $page)) . $linkAdd; ?>"><?php echo $page; ?></a>
+    <a href="<?php echo $this->url(array('page' => $page)) . $linkAdd; ?>"> <?php echo $page; ?> </a>
   <?php else: ?>
     <span class="disabled"> <?php echo $page; ?> </span>
   <?php endif; ?>
@@ -30,9 +28,7 @@
 <?php if (isset($this->next)): ?>
   <a href="<?php echo $this->url(array('page' => $this->next)) . $linkAdd; ?>"> &rsaquo; </a>
   <a href="<?php echo $this->url(array('page' => $this->last)) . $linkAdd; ?>"> &raquo; </a>
-<?php else: ?>
-  <span class="disabled"> &raquo; </span>
-  <span class="disabled"> &rsaquo; </span>
 <?php endif; ?>
 </div>
+
 <?php endif; ?>
