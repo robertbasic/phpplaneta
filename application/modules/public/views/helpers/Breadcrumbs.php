@@ -74,7 +74,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 
         $crumb['root'] = array(
             'title' => "Početna",
-            'href' => '/'
+            'href' => '/',
+            'class' => 'breadcrumbs-level-1'
         );
 
         $crumb['first'] = array(
@@ -83,7 +84,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 'action' => 'browse',
                 'controller' => 'news',
                 'category' => $news->category_slug
-            ), '', true)
+            ), '', true),
+            'class' => 'breadcrumbs-level-2'
         );
 
         $crumb['second'] = array(
@@ -92,7 +94,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 'action' => 'view',
                 'controller' => 'news',
                 'slug' => $news->slug
-            ), '', true)
+            ), '', true),
+            'class' => 'breadcrumbs-level-3'
         );
 
         return $crumb;
@@ -106,7 +109,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 
         $crumb['root'] = array(
             'title' => "Početna",
-            'href' => '/'
+            'href' => '/',
+            'class' => 'breadcrumbs-level-1'
         );
 
         $crumb['first'] = array(
@@ -115,7 +119,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 'action' => 'browse',
                 'controller' => 'news',
                 'category' => $category->slug
-            ), '', true)
+            ), '', true),
+            'class' => 'breadcrumbs-level-2'
         );
 
         if($page !== null) {
@@ -126,7 +131,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                     'controller' => 'news',
                     'category' => $category->slug,
                     'page' => $page
-                ), '', true)
+                ), '', true),
+                'class' => 'breadcrumbs-level-3'
             );
         }
 
@@ -141,7 +147,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 
         $crumb['root'] = array(
             'title' => "Početna",
-            'href' => '/'
+            'href' => '/',
+            'class' => 'breadcrumbs-level-1'
         );
 
         $crumb['first'] = array(
@@ -150,7 +157,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 'action' => 'browse',
                 'controller' => 'news',
                 'tag' => $tag->slug
-            ), '', true)
+            ), '', true),
+            'class' => 'breadcrumbs-level-2'
         );
 
         if($page !== null) {
@@ -161,7 +169,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                     'controller' => 'news',
                     'tag' => $tag->slug,
                     'page' => $page
-                ), '', true)
+                ), '', true),
+                'class' => 'breadcrumbs-level-3'
             );
         }
 
@@ -174,7 +183,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 
         $crumb['root'] = array(
             'title' => "Početna",
-            'href' => '/'
+            'href' => '/',
+            'class' => 'breadcrumbs-level-1'
         );
 
         $crumb['first'] = array(
@@ -183,7 +193,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 'action' => 'browse',
                 'controller' => 'news',
                 'date' => $date
-            ), '', true)
+            ), '', true),
+            'class' => 'breadcrumbs-level-2'
         );
 
         if($page !== null) {
@@ -194,7 +205,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                     'controller' => 'news',
                     'tag' => $tag->slug,
                     'page' => $page
-                ), '', true)
+                ), '', true),
+                'class' => 'breadcrumbs-level-3'
             );
         }
 
@@ -207,7 +219,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
 
         $crumb['root'] = array(
             'title' => "Početna",
-            'href' => '/'
+            'href' => '/',
+            'class' => 'breadcrumbs-level-1'
         );
 
         $crumb['first'] = array(
@@ -215,7 +228,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
             'href' => $this->_view->url(array(
                 'action' => 'search',
                 'controller' => 'news'
-            ), '', true) . '/?keyword=' . $keyword
+            ), '', true) . '/?keyword=' . $keyword,
+            'class' => 'breadcrumbs-level-2'
         );
 
         if($page !== null) {
@@ -225,7 +239,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                     'action' => 'search',
                     'controller' => 'news',
                     'page' => $page
-                ), '', true) . '/?keyword=' . $keyword
+                ), '', true) . '/?keyword=' . $keyword,
+                'class' => 'breadcrumbs-level-3'
             );
         }
 
@@ -236,7 +251,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
     {
         $crumb['root'] = array(
             'title' => "Početna",
-            'href' => '/'
+            'href' => '/',
+            'class' => 'breadcrumbs-level-1'
         );
 
         if($this->_action == 'contact') {
@@ -245,7 +261,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 'href' => $this->_view->url(array(
                     'action' => 'contact',
                     'controller' => 'index'
-                ), '', true)
+                ), '', true),
+                'class' => 'breadcrumbs-level-2'
             );
         } elseif($this->_action == 'about') {
             $crumb['first'] = array(
@@ -253,7 +270,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                 'href' => $this->_view->url(array(
                     'action' => 'about',
                     'controller' => 'index'
-                ), '', true)
+                ), '', true),
+                'class' => 'breadcrumbs-level-2'
             );
         } else {
             $crumb['first'] = array(
@@ -262,7 +280,8 @@ class Zend_View_Helper_Breadcrumbs extends Zend_View_Helper_Abstract
                     'action' => 'index',
                     'controller' => 'index',
                     'page' => $page
-                ), '', true)
+                ), '', true),
+                'class' => 'breadcrumbs-level-2'
             );
         }
 

@@ -17,7 +17,7 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
             'text',
             'name',
             array(
-                'label' => 'Ime:',
+                'label' => 'Ime',
                 'required' => true,
                 'validators' => array(
                     array(
@@ -39,7 +39,7 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
             'text',
             'email',
             array(
-                'label' => 'Email:',
+                'label' => 'Email',
                 'required' => true,
                 'validators' => array(
                     array(
@@ -61,7 +61,7 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
             'text',
             'url',
             array(
-                'label' => 'URL:',
+                'label' => 'Website',
                 'required' => false,
                 'filters' => array(
                     array(
@@ -78,7 +78,7 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
             'textarea',
             'comment',
             array(
-                'label' => 'Komentar:',
+                'label' => '',
                 'required' => true,
                 'options' => array(
                     'rows' => 10,
@@ -174,5 +174,7 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
 
         $this->addSubmitAndResetButtons();
 
+        $this->removeElement('reset');
+        $this->getElement('submit')->setLabel('Ostavi komentar');
     }
 }

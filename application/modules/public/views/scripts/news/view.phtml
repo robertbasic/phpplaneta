@@ -14,38 +14,64 @@
         <?php echo $this->news->text; ?>
     </div>
 
-    <div class="article-footer">
-        Objavio: <?php echo $this->news->firstname; ?> <?php echo $this->news->lastname; ?>
-        dana <?php echo $this->news->datetime_added; ?>
-        u kategoriji <a href="<?php echo $this->url(array(
-            'action' => 'browse',
-            'controller' => 'news',
-            'category' => $this->news->category_slug
-        ), '', true); ?>"><?php echo $this->news->category_title; ?></a>
+    <div class="article-footer-outer">
+        <div class="article-footer">
+            <span>
+                <a href="<?php echo $this->url(array(
+                    'action' => 'browse',
+                    'controller' => 'news',
+                    'category' => $this->news->category_slug
+                ), '', true); ?>"><?php echo $this->news->category_title; ?></a>
+            </span>
+
+            <span>
+                <a href="#comments">
+                    <?php echo $this->numberOfComments($this->news->id); ?>
+                </a>
+            </span>
+
+            <span>
+                <a href="<?php echo $this->url(array(
+                    'action' => 'browse',
+                    'controller' => 'news',
+                    'date' => date('Y-m-d', strtotime($this->news->datetime_added))
+                        ), '', true); ?>">
+                    <?php echo date('d.m.Y.', strtotime($this->news->datetime_added)); ?>
+                </a>
+            </span>
+        </div>
     </div>
 
-    Oznake: <?php echo $this->tags($this->news->id); ?>
+    <div class="article-tags">
+        Oznake: <?php echo $this->tags($this->news->id); ?>
+    </div>
 
 </div>
 
-<div class="comments">
+<div id="comments">
 
     <?php $comments = $this->comments($this->news->id); ?>
 
     <?php if(count($comments) > 0): ?>
 
         <?php foreach($comments as $comment): ?>
-        <div>
-            <?php echo $this->escape($comment->name); ?>
-            <br />
-            <?php echo $this->escape($comment->datetime_added); ?>
-            <br />
-            <?php echo $this->escape($comment->comment); ?>
+        <div class="comments">
+            <span>
+                <?php echo $this->escape($comment->name); ?>
+            </span>
+            <span>
+                <?php echo $this->escape($comment->datetime_added); ?>
+            </span>
+            <div>
+                <?php echo $this->escape($comment->comment); ?>
+            </div>
         </div>
         <?php endforeach; ?>
 
     <?php else: ?>
-    Nema komentara
+    <div class="comments">
+        Nema komentara.
+    </div>
     <?php endif; ?>
 
     <?php echo $this->flashMessenger(); ?>

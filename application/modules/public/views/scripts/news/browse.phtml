@@ -18,19 +18,41 @@
             <?php echo $news->text; ?>
         </div>
 
-        <div class="article-footer">
-            Objavio: <?php echo $news->firstname; ?> <?php echo $news->lastname; ?>
-            dana <?php echo $news->datetime_added; ?>
-            u kategoriji <a href="<?php echo $this->url(array(
-                'action' => 'browse',
-                'controller' => 'news',
-                'category' => $news->category_slug
-            ), '', true); ?>"><?php echo $news->category_title; ?></a>
+        <div class="article-footer-outer">
+            <div class="article-footer">
+                <span>
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'browse',
+                        'controller' => 'news',
+                        'category' => $news->category_slug
+                    ), '', true); ?>"><?php echo $news->category_title; ?></a>
+                </span>
+
+                <span>
+                    <a href="<?php echo $this->url(array(
+                    'action' => 'view',
+                    'controller' => 'news',
+                    'slug' => $news->slug
+                            ), '', true); ?>#comments">
+                        <?php echo $this->numberOfComments($news->id); ?>
+                    </a>
+                </span>
+
+                <span>
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'browse',
+                        'controller' => 'news',
+                        'date' => date('Y-m-d', strtotime($news->datetime_added))
+                            ), '', true); ?>">
+                        <?php echo date('d.m.Y.', strtotime($news->datetime_added)); ?>
+                    </a>
+                </span>
+            </div>
         </div>
 
-        Oznake: <?php echo $this->tags($news->id); ?>
-
-        <?php echo $this->numberOfComments($news->id); ?>
+        <div class="article-tags">
+            Oznake: <?php echo $this->tags($news->id); ?>
+        </div>
 
     </div>
 

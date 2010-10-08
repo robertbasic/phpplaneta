@@ -26,10 +26,12 @@ body {
 
 #left {
     background-color: #ffffff;
+    float: left;
 }
 
 #right {
     background-color: #49464d;
+    float: left;
 }
 
 a {
@@ -97,17 +99,38 @@ p {
     margin-left: -1px;
 }
 
-#left {
-    float: left;
-}
-
 .article {
     float: left;
-    margin-bottom: 20px;
+    margin: 10px 15px;
+}
+
+.article-title {
+    display: block;
+    margin-left: -25px;
+    width: 100%;
+    float: left;
+    background-color: #869fb3;
 }
 
 .article-title h2 {
-    margin-bottom: 10px;
+    margin: 8px 10px;
+    padding: 10px;
+    background-color: #8ca6b7;
+}
+
+.article-title h2 a {
+    color: #49464d;
+}
+
+.article-title h2 a:hover {
+    color: #ffffff;
+}
+
+.article-content {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    float: left;
 }
 
 .article-content p {
@@ -116,12 +139,128 @@ p {
     text-indent: 25px;
 }
 
-.article-footer {
+.article-footer-outer {
+    display: block;
     float: right;
+    padding: 5px 20px;
+    margin: 5px -35px 5px 5px;
+    background-color: #49464d;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    width: 335px;
 }
 
-#right {
+.article-footer {
+    display: block;
+    float: right;
+    margin-right: 15px;
+}
+
+.article-footer span {
+    margin: 0 8px;
+}
+
+.article-footer a {
+    color: #FFFFFF;
+}
+
+.article-footer a:hover {
+    color: #a9becf;
+}
+
+.article-tags {
+    display: block;
+    width: 100%;
+    float: right;
+    text-align: right;
+    margin-right: 25px;
+    font-weight: bold;
+}
+
+.article-tags a {
+    font-weight: normal;
+    color: #869fb3;
+}
+
+.article-tags a:hover {
+    font-weight: normal;
+    color: #a9becf;
+}
+
+#comments {
     float: left;
+    display: block;
+    width: 100%;
+    background-color: #a9becf;
+}
+
+.comments {
+    background-color: #ffffff;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.comments span {
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.comments div {
+    display: block;
+}
+
+#comments .form_ul {
+    background-color: #ffffff;
+    float: left;
+    padding-bottom: 10px;
+}
+
+#comments .form_ul li {
+    float: left;
+    padding: 10px 0 5px 10px;
+}
+
+#comments textarea, #comments input {
+    border: none;
+    background-color: #a9becf;
+}
+
+#comments input {
+    float: left;
+    height: 28px;
+    padding: 2px;
+}
+
+#comments label {
+    float: right;
+    padding: 7px 0 0 10px;
+}
+
+#comments textarea {
+    width: 100%;
+    height: 200px;
+    width: 616px;
+    padding: 2px;
+}
+
+.breadcrumbs {
+    float: left;
+    display: block;
+    width: 100%;
+    padding: 10px 5px 0;
+}
+
+.breadcrumbs-level-1 {
+    color: #49464d;
+}
+
+.breadcrumbs-level-2 {
+    color: #a9becf;
+}
+
+.breadcrumbs-level-3 {
+    color: #869fb3;
 }
 
 .paginationControl {
