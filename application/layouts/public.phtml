@@ -29,52 +29,14 @@
 
         <div id="page" class="container_16">
 
-            <ul class="navigation">
-                <li class="active">
-                    <a href="<?php echo $this->url(array(
-                                            'action' => 'index',
-                                            'controller' => 'index'),
-                                            '', true); ?>">Početna</a>
-                </li>
-                <li>
-                    <a href="<?php echo $this->url(array(
-                                            'action' => 'browse',
-                                            'controller' => 'news',
-                                            'category' => 'vesti'),
-                                            '', true); ?>">Vesti</a>
-                    <ul>
-                        <li>
-                            <a href="#">
-                                Sub 1
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Sub 1
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="<?php echo $this->url(array(
-                                            'action' => 'about',
-                                            'controller' => 'index'),
-                                            '', true); ?>">O planeti</a>
-                </li>
-                <li>
-                    <a href="<?php echo $this->url(array(
-                                            'action' => 'contact',
-                                            'controller' => 'index'),
-                                             '', true); ?>">Kontakt</a>
-                </li>
-            </ul>
+            <?php echo $this->navigation()->menu($this->navigationContainer()); ?>
 
             <div id="body" class="container_16">
 
                 <div id="left" class="grid_11">
 
                     <div class="breadcrumbs">
-                        <?php echo $this->breadcrumbs(); ?>
+                        <?php echo $this->customBreadcrumbs(); ?>
                     </div>
 
                     <?php

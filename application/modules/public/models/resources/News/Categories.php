@@ -34,6 +34,22 @@ class Planet_Model_Resource_News_Categories extends PPN_Model_Resource_Abstract
         return $this->fetchAll($select);
     }
 
+    public function getAllNewsCategoriesWithPosts()
+    {
+        $select = $this->_getCategorySelect();
+        $select->distinct()
+                ->join(
+                    array(
+                        'news' => $this->getPrefix() . 'news'
+                    ),
+                    'categories.id = news.fk_news_category_id',
+                    array()
+                )
+                ->where('news.active = ?', true);
+
+        return $this->fetchAll($select);
+    }
+
     /**
      * Get a category by slug
      *

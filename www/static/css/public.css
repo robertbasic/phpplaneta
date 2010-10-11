@@ -66,7 +66,7 @@ p {
     border-right: none;
 }
 
-.navigation li a {
+.navigation li a, ul.navigation li.active ul li a {
     display: block;
     padding: 10px;
     color: #ffffff;
@@ -74,7 +74,7 @@ p {
     background-color: #869fb3;
 }
 
-.navigation li a:hover {
+.navigation li a:hover, ul.navigation li.active ul li a:hover {
     background-color: #a9becf;
     color: #49464d;
 }

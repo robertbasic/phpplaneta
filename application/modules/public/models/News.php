@@ -206,6 +206,11 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $this->getResource('News_Categories')->getAllNewsCategories($page);
     }
 
+    public function getAllNewsCategoriesWithPosts()
+    {
+        return $this->getResource('News_Categories')->getAllNewsCategoriesWithPosts();
+    }
+
     public function getOneNewsCategoryById($id)
     {
         $oneCategory = $this->getResource('News_Categories')->getCategoryById($id);
