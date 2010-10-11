@@ -4,4 +4,10 @@ $(document).ready(function(){
     }, function(){
         $(this).children("ul").hide();
     });
+
+    var left = $("#left");
+    var right = $("#right");
+    if(left.innerHeight() > right.innerHeight()) {
+        right.height(left.innerHeight());
+    }
 });

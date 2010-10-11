@@ -84,7 +84,7 @@ class PPN_View_Helper_SpanTag extends Zend_Tag_Cloud_Decorator_Tag
      *
      * @var integer
      */
-    protected $_minFontSize = 10;
+    protected $_minFontSize = 12;
 
     /**
      * Set a list of classes to use instead of fontsizes

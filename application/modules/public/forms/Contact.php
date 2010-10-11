@@ -17,7 +17,7 @@ class Planet_Form_Contact extends PPN_Form_Abstract
             'text',
             'name',
             array(
-                'label' => 'Ime:',
+                'label' => 'Ime',
                 'required' => true,
                 'validators' => array(
                     array(
@@ -39,7 +39,7 @@ class Planet_Form_Contact extends PPN_Form_Abstract
             'text',
             'email',
             array(
-                'label' => 'Email:',
+                'label' => 'Email',
                 'required' => true,
                 'validators' => array(
                     array(
@@ -61,7 +61,7 @@ class Planet_Form_Contact extends PPN_Form_Abstract
             'text',
             'subject',
             array(
-                'label' => 'Tema:',
+                'label' => 'Tema',
                 'required' => true,
                 'validators' => array(
                     array(
@@ -83,7 +83,7 @@ class Planet_Form_Contact extends PPN_Form_Abstract
             'textarea',
             'message',
             array(
-                'label' => 'Tekst:',
+                'label' => '',
                 'required' => true,
                 'options' => array(
                     'rows' => 10,
@@ -109,7 +109,7 @@ class Planet_Form_Contact extends PPN_Form_Abstract
             'text',
             'honeypot',
             array(
-                'label' => 'Honeypot:',
+                'label' => 'Honeypot',
                 'required' => false,
                 'class' => 'honeypot',
                 'decorators' => array('ViewHelper'),
@@ -123,5 +123,7 @@ class Planet_Form_Contact extends PPN_Form_Abstract
 
         $this->addSubmitAndResetButtons();
 
+        $this->removeElement('reset');
+        $this->getElement('submit')->setLabel('Pošalji');
     }
 }
