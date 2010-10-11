@@ -56,7 +56,7 @@ $(document).ready(function(){
         var clickedDay = parseInt($(this).text());
         var date = dateShown[0]+'-'+dateShown[1]+'-'+clickedDay;
 
-        $("body").append('<form name="date" method="get" action="/news/browse/date/'+date+'"></form>');
+        $("body").append('<form name="date" method="get" action="/datum/'+date+'/1"></form>');
         $("form[name=date]").submit();
     });
 });

@@ -31,7 +31,7 @@ class Zend_View_Helper_Tags extends Zend_View_Helper_Abstract
                     'action' => 'browse',
                     'controller' => 'news',
                     'tag' => $tag->slug
-                ), '', true) . "'>";
+                ), 'tag', true) . "'>";
                 $return .= $tag->title;
                 $return .= "</a>, ";
             }

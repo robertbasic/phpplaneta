@@ -8,7 +8,7 @@
                 'action' => 'view',
                 'controller' => 'news',
                 'slug' => $news->slug
-            ), '', true); ?>"><?php echo $this->escape($news->title); ?></a>
+            ), 'news', true); ?>"><?php echo $this->escape($news->title); ?></a>
         </h2>
     </div>
 
@@ -23,7 +23,7 @@
                     'action' => 'browse',
                     'controller' => 'news',
                     'category' => $news->category_slug
-                ), '', true); ?>"><?php echo $news->category_title; ?></a>
+                ), 'category', true); ?>"><?php echo $news->category_title; ?></a>
             </span>
 
             <span>
@@ -31,7 +31,7 @@
                 'action' => 'view',
                 'controller' => 'news',
                 'slug' => $news->slug
-                        ), '', true); ?>#comments">
+                        ), 'news', true); ?>#comments">
                     <?php echo $this->numberOfComments($news->id); ?>
                 </a>
             </span>
@@ -41,7 +41,7 @@
                     'action' => 'browse',
                     'controller' => 'news',
                     'date' => date('Y-m-d', strtotime($news->datetime_added))
-                        ), '', true); ?>">
+                        ), 'date', true); ?>">
                     <?php echo date('d.m.Y.', strtotime($news->datetime_added)); ?>
                 </a>
             </span>

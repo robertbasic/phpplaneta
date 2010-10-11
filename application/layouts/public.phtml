@@ -50,7 +50,7 @@
                         <form name="search" action="<?php echo $this->url(array(
                             'action' => 'search',
                             'controller' => 'news'
-                            ), '', true); ?>" method="get">
+                            ), 'search', true); ?>" method="get">
                             <input type="text" name="keyword" class="search-field" />
                             <input type="image" name="search" src="/static/img/search.jpg" class="search-image" />
                         </form>
@@ -61,7 +61,10 @@
                             <img src="/static/img/twitter.jpg" alt="Prati na Twitter-u" />
                         </a>
 
-                        <a href="/news/rss" class="rss">
+                        <a href="<?php echo $this->url(array(
+                            'action' => 'rss',
+                            'controller' => 'news'
+                        ), 'rss', true); ?>" class="rss">
                             <img src="/static/img/rss.jpg" alt="Preuzmi RSS feed" />
                         </a>
                     </div>
@@ -73,7 +76,7 @@
                             <a href="<?php echo $this->url(array(
                                             'action' => 'contact',
                                             'controller' => 'index'),
-                                             '', true); ?>">
+                                             'contact', true); ?>">
                             <img src="/static/img/banner1.jpg" alt="banner" />
                             </a>
                         </div>
@@ -82,7 +85,7 @@
                             <a href="<?php echo $this->url(array(
                                             'action' => 'contact',
                                             'controller' => 'index'),
-                                             '', true); ?>">
+                                             'contact', true); ?>">
                             <img src="/static/img/banner2.jpg" alt="banner" />
                             </a>
                         </div>

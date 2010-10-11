@@ -37,6 +37,7 @@ class Zend_View_Helper_NavigationContainer extends Zend_View_Helper_Abstract
                     'label' => $category->title,
                     'action' => 'browse',
                     'controller' => 'news',
+                    'route' => 'category',
                     'params' => array(
                         'category' => $category->slug,
                     )
@@ -53,14 +54,14 @@ class Zend_View_Helper_NavigationContainer extends Zend_View_Helper_Abstract
         $pages = array(
             array(
                 'label' => "Početna",
-                'action' => 'index',
-                'controller' => 'index'
+                'uri' => '/'
             ),
             array(
                 'label' => 'Vesti',
                 'action' => 'browse',
                 'controller' => 'news',
                 'active' => $newsActive,
+                'route' => 'category',
                 'params' => array(
                     'category' => 'vesti',
                 ),
@@ -69,12 +70,14 @@ class Zend_View_Helper_NavigationContainer extends Zend_View_Helper_Abstract
             array(
                 'label' => "O planeti",
                 'action' => 'about',
-                'controller' => 'index'
+                'controller' => 'index',
+                'route' => 'about'
             ),
             array(
                 'label' => "Kontakt",
                 'action' => 'contact',
-                'controller' => 'index'
+                'controller' => 'index',
+                'route' => 'contact'
             ),
         );
 

@@ -81,7 +81,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             'rel' => 'alternate',
             'type' => 'application/rss+xml',
             'title' => 'PHPPlaneta glavni feed',
-            'href' => '/news/rss'
+            'href' => '/rss'
         ));
 
         $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
@@ -125,6 +125,122 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     )
                 );
         $router->addRoute('login', $loginRoute);
+    }
+
+    public function _initPublicRoutes()
+    {
+        $this->bootstrap('FrontController');
+        $fc = $this->getResource('FrontController');
+
+        $router = $fc->getRouter();
+
+        $contactRoute = new Zend_Controller_Router_Route_Static(
+                    'kontakt',
+                    array(
+                        'action' => 'contact',
+                        'controller' => 'index',
+                        'module' => 'public'
+                    )
+                );
+
+        $aboutRoute = new Zend_Controller_Router_Route_Static(
+                    'o-php-planeti',
+                    array(
+                        'action' => 'about',
+                        'controller' => 'index',
+                        'module' => 'public'
+                    )
+                );
+
+        $rssRoute = new Zend_Controller_Router_Route_Static(
+                    'rss',
+                    array(
+                        'action' => 'rss',
+                        'controller' => 'news',
+                        'module' => 'public'
+                    )
+                );
+
+        $categoryRoute = new Zend_Controller_Router_Route_Regex(
+                    'kategorija/([\w-]+)/strana/(\d+)',
+                    array(
+                        'action' => 'browse',
+                        'controller' => 'news',
+                        'module' => 'public',
+                        'page' => 1
+                    ),
+                    array(
+                        '1' => 'category',
+                        '2' => 'page'
+                    ),
+                    'kategorija/%s/strana/%d'
+                );
+
+        $tagRoute = new Zend_Controller_Router_Route_Regex(
+                    'oznaka/([\w-]+)/strana/(\d+)',
+                    array(
+                        'action' => 'browse',
+                        'controller' => 'news',
+                        'module' => 'public',
+                        'page' => 1
+                    ),
+                    array(
+                        '1' => 'tag',
+                        '2' => 'page'
+                    ),
+                    'oznaka/%s/strana/%d'
+                );
+
+        $dateRoute = new Zend_Controller_Router_Route_Regex(
+                    'datum/([\d-]+)/strana/(\d+)',
+                    array(
+                        'action' => 'browse',
+                        'controller' => 'news',
+                        'module' => 'public',
+                        'page' => 1
+                    ),
+                    array(
+                        '1' => 'date',
+                        '2' => 'page'
+                    ),
+                    'datum/%s/strana/%d'
+                );
+
+        $searchRoute = new Zend_Controller_Router_Route_Regex(
+                    'pretraga/strana/(\d+)',
+                    array(
+                        'action' => 'search',
+                        'controller' => 'news',
+                        'module' => 'public',
+                        'page' => 1
+                    ),
+                    array(
+                        '1' => 'page'
+                    ),
+                    'pretraga/strana/%d'
+                );
+
+        $newsRoute = new Zend_Controller_Router_Route_Regex(
+                    '([\w-\d]+)',
+                    array(
+                        'action' => 'view',
+                        'controller' => 'news',
+                        'module' => 'public'
+                    ),
+                    array(
+                        '1' => 'slug'
+                    ),
+                    '%s'
+                );
+
+        $router->addRoute('news', $newsRoute);
+        $router->addRoute('contact', $contactRoute);
+        $router->addRoute('about', $aboutRoute);
+        $router->addRoute('rss', $rssRoute);
+        $router->addRoute('category', $categoryRoute);
+        $router->addRoute('tag', $tagRoute);
+        $router->addRoute('date', $dateRoute);
+        $router->addRoute('search', $searchRoute);
     }
 
     public function _initFullPageCache()

@@ -84,7 +84,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                 'action' => 'browse',
                 'controller' => 'news',
                 'category' => $news->category_slug
-            ), '', true),
+            ), 'category', true),
             'class' => 'breadcrumbs-level-2'
         );
 
@@ -94,7 +94,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                 'action' => 'view',
                 'controller' => 'news',
                 'slug' => $news->slug
-            ), '', true),
+            ), 'news', true),
             'class' => 'breadcrumbs-level-3'
         );
 
@@ -118,8 +118,9 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
             'href' => $this->_view->url(array(
                 'action' => 'browse',
                 'controller' => 'news',
-                'category' => $category->slug
-            ), '', true),
+                'category' => $category->slug,
+                'page' => 1
+            ), 'category', true),
             'class' => 'breadcrumbs-level-2'
         );
 
@@ -131,7 +132,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                     'controller' => 'news',
                     'category' => $category->slug,
                     'page' => $page
-                ), '', true),
+                ), 'category', true),
                 'class' => 'breadcrumbs-level-3'
             );
         }
@@ -156,8 +157,9 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
             'href' => $this->_view->url(array(
                 'action' => 'browse',
                 'controller' => 'news',
-                'tag' => $tag->slug
-            ), '', true),
+                'tag' => $tag->slug,
+                'page' => 1
+            ), 'tag', true),
             'class' => 'breadcrumbs-level-2'
         );
 
@@ -169,7 +171,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                     'controller' => 'news',
                     'tag' => $tag->slug,
                     'page' => $page
-                ), '', true),
+                ), 'tag', true),
                 'class' => 'breadcrumbs-level-3'
             );
         }
@@ -192,8 +194,9 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
             'href' => $this->_view->url(array(
                 'action' => 'browse',
                 'controller' => 'news',
-                'date' => $date
-            ), '', true),
+                'date' => $date,
+                'page' => 1
+            ), 'date', true),
             'class' => 'breadcrumbs-level-2'
         );
 
@@ -205,7 +208,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                     'controller' => 'news',
                     'tag' => $tag->slug,
                     'page' => $page
-                ), '', true),
+                ), 'date', true),
                 'class' => 'breadcrumbs-level-3'
             );
         }
@@ -227,8 +230,9 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
             'title' => 'Pretraga',
             'href' => $this->_view->url(array(
                 'action' => 'search',
-                'controller' => 'news'
-            ), '', true) . '/?keyword=' . $keyword,
+                'controller' => 'news',
+                'page' => 1
+            ), 'search', true) . '/?keyword=' . $keyword,
             'class' => 'breadcrumbs-level-2'
         );
 
@@ -239,7 +243,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                     'action' => 'search',
                     'controller' => 'news',
                     'page' => $page
-                ), '', true) . '/?keyword=' . $keyword,
+                ), 'search', true) . '/?keyword=' . $keyword,
                 'class' => 'breadcrumbs-level-3'
             );
         }
@@ -261,7 +265,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                 'href' => $this->_view->url(array(
                     'action' => 'contact',
                     'controller' => 'index'
-                ), '', true),
+                ), 'contact', true),
                 'class' => 'breadcrumbs-level-2'
             );
         } elseif($this->_action == 'about') {
@@ -270,7 +274,7 @@ class Zend_View_Helper_CustomBreadcrumbs extends Zend_View_Helper_Abstract
                 'href' => $this->_view->url(array(
                     'action' => 'about',
                     'controller' => 'index'
-                ), '', true),
+                ), 'about', true),
                 'class' => 'breadcrumbs-level-2'
             );
         } else {
