@@ -97,36 +97,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                         ->uiEnable();
     }
 
-    public function _initAdminRoute()
-    {
-        $this->bootstrap('FrontController');
-        $fc = $this->getResource('FrontController');
-
-        $router = $fc->getRouter();
-
-        $adminRoute = new Zend_Controller_Router_Route(
-                    'admin/:module/:controller/:action/*',
-                    array(
-                        'action' => 'index',
-                        'controller' => 'admin',
-                        'module' => 'public',
-                        'isAdmin' => true
-                    )
-                );
-
-        $router->addRoute('admin', $adminRoute);
-
-        $loginRoute = new Zend_Controller_Router_Route_Static(
-                    'login',
-                    array(
-                        'action' => 'login',
-                        'controller' => 'user',
-                        'module' => 'public'
-                    )
-                );
-        $router->addRoute('login', $loginRoute);
-    }
-
     public function _initPublicRoutes()
     {
         $this->bootstrap('FrontController');
@@ -233,6 +203,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     '%s'
                 );
 
+        $homePaginationRoute = new Zend_Controller_Router_Route_Regex(
+                    'strana/(\d+)',
+                    array(
+                        'action' => 'index',
+                        'controller' => 'index',
+                        'module' => 'public',
+                        'page' => 1
+                    ),
+                    array(
+                        '1' => 'page'
+                    ),
+                    'strana/%d'
+                );
+
         $router->addRoute('news', $newsRoute);
         $router->addRoute('contact', $contactRoute);
         $router->addRoute('about', $aboutRoute);
@@ -241,6 +225,37 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         $router->addRoute('tag', $tagRoute);
         $router->addRoute('date', $dateRoute);
         $router->addRoute('search', $searchRoute);
+        $router->addRoute('homePagination', $homePaginationRoute);
+    }
+
+    public function _initAdminRoute()
+    {
+        $this->bootstrap('FrontController');
+        $fc = $this->getResource('FrontController');
+
+        $router = $fc->getRouter();
+
+        $adminRoute = new Zend_Controller_Router_Route(
+                    'admin/:module/:controller/:action/*',
+                    array(
+                        'action' => 'index',
+                        'controller' => 'admin',
+                        'module' => 'public',
+                        'isAdmin' => true
+                    )
+                );
+
+        $router->addRoute('admin', $adminRoute);
+
+        $loginRoute = new Zend_Controller_Router_Route_Static(
+                    'login',
+                    array(
+                        'action' => 'login',
+                        'controller' => 'user',
+                        'module' => 'public'
+                    )
+                );
+        $router->addRoute('login', $loginRoute);
     }
 
     public function _initFullPageCache()

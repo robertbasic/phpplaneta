@@ -30,7 +30,8 @@ class Zend_View_Helper_Tags extends Zend_View_Helper_Abstract
                 $return .= "<a href='" . $this->_view->url(array(
                     'action' => 'browse',
                     'controller' => 'news',
-                    'tag' => $tag->slug
+                    'tag' => $tag->slug,
+                    'page' => 1
                 ), 'tag', true) . "'>";
                 $return .= $tag->title;
                 $return .= "</a>, ";

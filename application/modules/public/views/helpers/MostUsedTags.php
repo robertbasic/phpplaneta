@@ -37,7 +37,7 @@ class Zend_View_Helper_MostUsedTags extends Zend_View_Helper_Abstract
                 'title' => $tag->title,
                 'weight' => $tag->num,
                 'params' => array(
-                    'url' => '/oznaka/' . $tag->slug . '/1'
+                    'url' => '/oznaka/' . $tag->slug . '/strana/1'
                 )
             ));
         }

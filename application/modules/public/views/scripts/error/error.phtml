@@ -1,3 +1,36 @@
+<div class="article">
+
+    <div class="article-title">
+        <h2>
+            Greška u aplikaciji
+        </h2>
+    </div>
+
+    <div class="article-content">
+        <p>
+            Ajoj, ovo već ne sluti na dobro. Došlo je do neke greške u samoj aplikaciji.
+            Najviše što mogu učiniti u ovom trenutku je da ti ponudim
+            da se vratiš <a href="javascript:history.go(-1);">odakle si došao</a>,
+            <a href="/">odeš na početnu stranu</a>
+            ili možda da probaš da pretražiš dokumente pomoću forme za pretragu:
+        </p>
+
+        <form name="search" action="<?php echo $this->url(array(
+            'action' => 'search',
+            'controller' => 'news'
+            ), 'search', true); ?>" method="get">
+            <label for="keyword">Ključna reč</label>: <input type="text" name="keyword" />
+            <input type="submit" name="search" value="Vadi me odavde" />
+        </form>
+
+        <p>
+            Ova greška je prijavljena i daću sve od sebe da je otklonim što pre
+            i da se više ovakve neprijatnosti više ne ponove :)
+        </p>
+    </div>
+
+</div>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>

@@ -75,6 +75,7 @@ class PPN_Model_Resource_Abstract extends Zend_Db_Table_Abstract
             $page = 1;
         }
         $paginator = Zend_Paginator::factory($select);
+        $paginator->setItemCountPerPage(5);
         $paginator->setCurrentPageNumber($page);
 
         return $paginator;
