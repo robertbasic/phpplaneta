@@ -62,7 +62,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         Zend_Registry::set('logger', $logger);
     }
-    
+
+    public function _initTranslator()
+    {
+        $currentLocale = 'sr';
+
+        $translator = new Zend_Translate('array', realpath(APPLICATION_PATH . '/../resources/languages/sr/Zend_Validate.php'), 'sr');
+        $translator->setLocale($currentLocale);
+
+        Zend_Validate_Abstract::setDefaultTranslator($translator);
+
+        Zend_Registry::set('Zend_Translate', $translator);
+
+        return $translator;
+    }
+
     /**
      * Initializing the View, setting the doctype, charset, et al.
      */

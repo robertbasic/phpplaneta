@@ -68,8 +68,12 @@ class PPN_Model_Abstract
 
     protected function _cleanFullPageCache()
     {
-        $cache = Zend_Registry::get('pageCache');
-        $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
+        try {
+            $cache = Zend_Registry::get('pageCache');
+            $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
+        } catch(Exception $e) {
+            
+        }
     }
 
 }

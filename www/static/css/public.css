@@ -5,6 +5,10 @@ body {
     color: #403e31;
 }
 
+a:focus {
+    outline: none;
+}
+
 #header {
     width: 100%;
     height: 120px;
