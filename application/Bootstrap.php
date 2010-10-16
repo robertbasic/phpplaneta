@@ -95,7 +95,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             'rel' => 'alternate',
             'type' => 'application/rss+xml',
             'title' => 'PHPPlaneta glavni feed',
-            'href' => '/rss'
+            'href' => 'http://feeds.feedburner.com/PHPPlaneta'
         ));
 
         $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
@@ -103,11 +103,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
         $this->_view->jQuery()
                         ->addStylesheet('/static/css/smoothness/jquery-ui-1.8.1.custom.css')
-//                        ->setVersion('1.4.2')
+                        ->setVersion('1.4.2')
                         ->enable()
-//                        ->setUiVersion('1.8.1')
-                        ->setLocalPath('/static/js/jquery-1.4.2.min.js')
-                        ->setUiLocalPath('/static/js/jquery-ui-1.8.1.custom.min.js')
+                        ->setUiVersion('1.8.1')
+//                        ->setLocalPath('/static/js/jquery-1.4.2.min.js')
+//                        ->setUiLocalPath('/static/js/jquery-ui-1.8.1.custom.min.js')
                         ->uiEnable();
     }
 
