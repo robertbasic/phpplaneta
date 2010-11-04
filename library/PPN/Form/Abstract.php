@@ -53,17 +53,18 @@ class PPN_Form_Abstract extends Zend_Form
     public function init()
     {
         $this->addElementPrefixPath(
-                    'PPN_Filter',
-                    realpath(APPLICATION_PATH . '/../library/PPN/Filter'),
-                    'filter'
-                );
-        /*$this->addElementPrefixPath(
-            'DBS_Validate',
-            realpath(APPLICATION_PATH . '/../library/DBS/Validator'),
+            'PPN_Filter',
+            realpath(APPLICATION_PATH . '/../library/PPN/Filter'),
+            'filter'
+        );
+
+        $this->addElementPrefixPath(
+            'PPN_Validate',
+            realpath(APPLICATION_PATH . '/../library/PPN/Validate'),
             'validate'
         );
 
-        $this->addPrefixPath(
+        /*$this->addPrefixPath(
             'DBS_Form_Element',
             realpath(APPLICATION_PATH . '/../library/DBS/Form/Element'),
             'element'

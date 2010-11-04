@@ -1,6 +1,6 @@
 <?php
 
-class App_Validate_Honeypot extends Zend_Validate_Abstract
+class PPN_Validate_Honeypot extends Zend_Validate_Abstract
 {
     const SPAM = 'spam';
 
