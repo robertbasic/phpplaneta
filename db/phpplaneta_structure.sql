@@ -65,6 +65,8 @@ CREATE TABLE IF NOT EXISTS `ppn_news_comments` (
   `fk_news_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  `comment` text NOT NULL,
   `datetime_added` datetime NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)

@@ -69,7 +69,7 @@ class Planet_Service_Contact
             $config = array(
                 'auth' => 'login',
                 'username' => 'phpplaneta@gmail.com',
-                'password' => 'Pl4n374PHP',
+                'password' => 'password (not really)',
                 'ssl' => 'tls',
                 'port' => 587
             );
