@@ -1,0 +1,10 @@
+Okruženje: <?php echo $this->environment; ?>
+<br />
+Cache: <?php if($this->cacheSetting): ?>Uključeno<?php else: ?>Isključeno<?php endif; ?>
+<br />
+Log: <?php if($this->logSetting): ?>Uključeno<?php else: ?>Isključeno<?php endif; ?>
+<br />
+<a href="<?php echo $this->url(array(
+                                'action' => 'admin-list',
+                                'controller' => 'logs'),
+                                'admin', true); ?>">Logovi</a>

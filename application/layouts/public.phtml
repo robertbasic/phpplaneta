@@ -4,19 +4,145 @@
         <?php echo $this->headMeta(); ?>
         <?php echo $this->headTitle(); ?>
 
-        <link rel="stylesheet" href="/static/css/reset-fonts-grids.css" type="text/css" />
+        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+
+        <link rel="stylesheet" href="/static/css/reset.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/text.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/960.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/public.css" type="text/css" />
+
+        <?php echo $this->headLink(); ?>
+
+        <?php echo $this->jQuery(); ?>
+
+        <?php echo $this->headScript(); ?>
+
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-19141826-1']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
 
     </head>
 
     <body>
 
-        <div id="doc3" class="yui-t7">
+        <div id="header">
+            <div id="logo" class="container_16">
+                <a href="/">
+                    <img src="/static/img/logo.jpg" alt="PHPPlaneta.net" />
+                </a>
+            </div>
+        </div>
 
-            <?php
-            echo $this->layout()->content;
-            ?>
+        <div id="page" class="container_16">
+
+            <?php echo $this->navigation()->menu($this->navigationContainer()); ?>
+
+            <div id="body" class="container_16">
+
+                <div id="left" class="grid_11">
+
+                    <div class="breadcrumbs">
+                        <?php echo $this->customBreadcrumbs(); ?>
+                    </div>
+
+                    <?php
+                        echo $this->layout()->content;
+                    ?>
+                </div>
+
+                <div id="right" class="grid_5">
+
+                    <div id="search">
+                        <form name="search" action="<?php echo $this->url(array(
+                            'action' => 'search',
+                            'controller' => 'news'
+                            ), 'search', true); ?>" method="get">
+                            <input type="text" name="keyword" class="search-field" />
+                            <input type="image" name="search" src="/static/img/search.jpg" class="search-image" />
+                        </form>
+                    </div>
+
+                    <div id="social">
+                        <a href="http://twitter.com/phpplaneta" class="twitter">
+                            <img src="/static/img/twitter.jpg" alt="Prati na Twitter-u" />
+                        </a>
+
+                        <a href="http://feeds.feedburner.com/PHPPlaneta" class="rss">
+                            <img src="/static/img/rss.jpg" alt="Preuzmi RSS feed" />
+                        </a>
+                    </div>
+
+                    <div id="calendar"></div>
+
+                    <div id="banners">
+                        <div class="banner">
+                            <a href="<?php echo $this->url(array(
+                                            'action' => 'contact',
+                                            'controller' => 'index'),
+                                             'contact', true); ?>">
+                            <img src="/static/img/banner1.jpg" alt="banner" />
+                            </a>
+                        </div>
+                        
+                        <div class="banner">
+                            <a href="<?php echo $this->url(array(
+                                            'action' => 'contact',
+                                            'controller' => 'index'),
+                                             'contact', true); ?>">
+                            <img src="/static/img/banner2.jpg" alt="banner" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="tag-cloud">
+                        <h4>Oznake</h4>
+                        <?php echo $this->mostUsedTags(); ?>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
+
+        <div id="footer">
+            <div class="container_16">
+                <a href="/">
+                    PHPPlaneta.net
+                </a>
+                &copy 2010 &mdash; <?php echo date('Y'); ?>
+                <br />
+                Planetu dizajnirala Livia Radvanski &mdash; Lady L.
+                <br />
+                Planetu osmislio i napravio
+                <a href="http://robertbasic.com/">
+                    Robert Bašić
+                </a>
+                &mdash;
+                <a href="http://twitter/robertbasic">
+                    @robertbasic
+                </a>
+                <br />
+                Planeta napravljena pomoću:
+                <a href="http://framework.zend.com" target="_blank">Zend Framework</a>,
+                <a href="http://jquery.com" target="_blank">jQuery</a>,
+                <a href="http://960.gs" target="_blank">960 Grid System</a>
+                framework-a
+            </div>
+        </div>
+
+        <script type="text/javascript" src="/static/js/calendar.js"></script>
+        <script type="text/javascript" src="/static/js/script.js"></script>
 
     </body>
 </html>

@@ -1,0 +1,67 @@
+<div>
+    <a href="<?php echo $this->url(
+                                array(
+                                    'action' => 'add',
+                                    'controller' => 'news'
+                                ),
+                                'admin', true); ?>">Dodaj vest</a>
+</div>
+
+<?php if(count($this->news) > 0): ?>
+<table>
+    <thead>
+        <tr>
+            <th>Naslov</th>
+            <th>Datum</th>
+            <th>Kategorija</th>
+            <th>Aktivno?</th>
+            <th colspan="2">Akcija</th>
+        </tr>
+    </thead>
+    <?php foreach($this->news as $news): ?>
+    <tr style="background-color:<?php echo $this->cycle(array("#FFFFFF","#F1F1F1"))->next()?>">
+        <td>
+            <?php echo $this->escape($news->title); ?>
+        </td>
+
+        <td>
+            <?php echo $this->escape($news->datetime_added); ?>
+        </td>
+
+        <td>
+            <?php echo $this->escape($news->category_title); ?>
+        </td>
+
+        <td>
+            <?php if($news->active == 1): ?>
+                &#10004;
+            <?php else: ?>
+                &#10008;
+            <?php endif; ?>
+        </td>
+
+        <td>
+            <a href="<?php echo $this->url(array(
+                                            'action' => 'edit',
+                                            'controller' => 'news',
+                                            'id' => $news->id
+                                        ),
+                                        'admin', true); ?>">Izmeni</a>
+        </td>
+        <td>
+            <a class="delete" href="<?php echo $this->url(array(
+                                            'action' => 'delete',
+                                            'controller' => 'news',
+                                            'id' => $news->id
+                                        ),
+                                        'admin', true); ?>">Obriši</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+<?php echo $this->paginationControl($this->news, 'Sliding', 'paginator.phtml'); ?>
+
+<?php else: ?>
+Nema vesti
+<?php endif; ?>

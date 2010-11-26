@@ -1,0 +1,124 @@
+#header {
+	background: #eee;
+	font-size: 14px;
+}
+
+#header h2 {
+	display: inline;
+	float: left;
+	margin: 10px 0 0 20px;;
+}
+
+a {
+	color: #0000ff;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.delete {
+	color: #ff0000;
+}
+
+.navigation {
+	margin-top: 25px;
+	float: right;
+}
+
+.navigation li {
+	display: inline;
+	margin: 0;
+}
+
+.navigation li a {
+	padding: 5px 10px;
+}
+
+.sub-navigation {
+	margin: 10px 0;
+	float: left;
+}
+
+.sub-navigation li {
+	display: inline;
+	margin: 0;
+}
+
+.sub-navigation li a {
+	padding: 5px 10px;
+}
+
+#left {
+	float: left;
+}
+
+#right {
+	float: left;
+}
+
+.flashMessenger {
+	width: 100%;
+	float: left;
+	text-align: center;
+	color: #ffffff;
+}
+
+.fm-good {
+	background: #00B35B;
+}
+
+.fm-good:before {
+	content: "\2714 \00a0 "; /*a check mark and a nbsp*/
+}
+
+.fm-bad {
+	background: #990000;
+}
+
+.fm-bad:before {
+	content: "\2718 \00a0 "; /*a check mark and a nbsp*/
+}
+
+#left table {
+	width: 100%;
+	text-align: center;
+	border: 1px solid #000;
+}
+
+#left th {
+	padding: 10px 0;
+	background: #eee;
+}
+
+.paginationControl {
+	text-align: center;
+	padding: 10px 0;
+}
+
+.paginationControl a , .paginationControl .disabled {
+	padding: 10px;
+}
+
+.form_ul {
+	list-style-type: none;
+}
+
+.form_ul li {
+	margin: 0;
+	padding: 10px 0 5px 5px;
+}
+
+.form_ul label {
+	float: left;
+	width: 200px;
+}
+
+#left table.cke_editor {
+    border: none;
+}
+
+#left .cke_skin_v2 .cke_wrapper {
+    display: inline;
+}

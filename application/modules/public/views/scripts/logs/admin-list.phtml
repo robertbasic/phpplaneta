@@ -1,0 +1,37 @@
+<?php if(count($this->logs) > 0): ?>
+
+<a href="<?php echo $this->url(array(
+                                'action' => 'admin-delete-logs',
+                                'controller' => 'logs'),
+                                'admin', true); ?>">Obriši logove</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Naslov</th>
+            <th>Datum</th>
+            <th>Kategorija</th>
+        </tr>
+    </thead>
+    <?php foreach($this->logs as $log): ?>
+    <tr style="background-color:<?php echo $this->cycle(array("#FFFFFF","#F1F1F1"))->next()?>">
+        <td>
+            <?php echo $this->escape($log->timestamp); ?>
+        </td>
+
+        <td>
+            <?php echo $this->escape($log->message); ?>
+        </td>
+
+        <td>
+            <?php echo $this->escape($log->priority); ?>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+<?php echo $this->paginationControl($this->logs, 'Sliding', 'paginator.phtml'); ?>
+
+<?php else: ?>
+Nema logova
+<?php endif; ?>

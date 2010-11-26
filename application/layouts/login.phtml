@@ -1,0 +1,40 @@
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+
+        <link rel="stylesheet" href="/static/css/reset.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/text.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/960.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/login.css" type="text/css" />
+
+        <?php echo $this->headScript(); ?>
+
+    </head>
+
+    <body>
+
+        <div id="page" class="container_16">
+
+            <div id="header" class="grid_16">
+                
+            </div>
+
+            <div id="body" class="container_16">
+
+                <div id="middle" class="grid_7">
+                    <h2>PHPplaneta.net admin area</h2>
+                    
+                    <?php echo $this->flashMessenger(); ?>
+                    <?php
+                    echo $this->layout()->content;
+                    ?>
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

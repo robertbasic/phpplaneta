@@ -1,0 +1,53 @@
+<div>
+    <a href="<?php echo $this->url(
+                                array(
+                                    'action' => 'add',
+                                    'controller' => 'news-categories'
+                                ),
+                                'admin', true); ?>">Dodaj kategoriju</a>
+</div>
+
+<?php if(count($this->categories) > 0): ?>
+<table>
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Slug</th>
+            <th colspan="2">Akcija</th>
+        </tr>
+    </thead>
+    <?php foreach($this->categories as $category): ?>
+    <tr style="background-color:<?php echo $this->cycle(array("#FFFFFF","#F1F1F1"))->next()?>">
+        <td>
+            <?php echo $this->escape($category->title); ?>
+        </td>
+
+        <td>
+            <?php echo $this->escape($category->slug); ?>
+        </td>
+
+        <td>
+            <a href="<?php echo $this->url(array(
+                                            'action' => 'edit',
+                                            'controller' => 'news-categories',
+                                            'id' => $category->id
+                                        ),
+                                        'admin', true); ?>">Izmeni</a>
+        </td>
+        <td>
+            <a class="delete" href="<?php echo $this->url(array(
+                                            'action' => 'delete',
+                                            'controller' => 'news-categories',
+                                            'id' => $category->id
+                                        ),
+                                        'admin', true); ?>">Obriši</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+<?php echo $this->paginationControl($this->categories, 'Sliding', 'paginator.phtml'); ?>
+
+<?php else: ?>
+Nema kategorija vesti
+<?php endif; ?>

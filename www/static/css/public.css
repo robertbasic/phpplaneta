@@ -1,0 +1,505 @@
+body {
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
+    font-size: 13px;
+    background-color: #869fb3;
+    color: #403e31;
+}
+
+a:focus {
+    outline: none;
+}
+
+#header {
+    width: 100%;
+    height: 120px;
+    background-color: #8ca6b7;
+    margin-top: 60px;
+}
+
+#footer {
+    width: 100%;
+    background-color: #8ca6b7;
+    margin: 20px 0 20px 0;
+    float: left;
+}
+
+#logo {
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 27px;
+}
+
+#footer div {
+    padding: 20px 0 20px 0;
+    text-align: center;
+}
+
+#footer a {
+    color: #ffffff;
+}
+
+#body {
+    float: left;
+    background-color: #a9becf;
+    padding: 10px 0;
+}
+
+#left {
+    background-color: #ffffff;
+    float: left;
+}
+
+#right {
+    background-color: #49464d;
+    float: left;
+}
+
+a {
+    color: #0000ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+p {
+    text-align: justify;
+}
+
+.navigation {
+    margin: 10px 0 0;
+    float: right;
+    border-right: 1px solid #a9becf;
+    font-size: 14px;
+}
+
+.navigation li {
+    display: inline;
+    margin: 0;
+    width: 110px;
+    float: left;
+    text-align: center;
+    text-transform: uppercase;
+    height: 40px;
+    border: 1px solid #a9becf;
+    border-right: none;
+}
+
+.navigation li a, ul.navigation li.active ul li a {
+    display: block;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #869fb3;
+}
+
+.navigation li a:hover, ul.navigation li.active ul li a:hover {
+    background-color: #a9becf;
+    color: #49464d;
+}
+
+.navigation li.active a {
+    background-color: #a9becf;
+    color: #49464d;
+}
+
+.navigation ul {
+    margin: 0;
+    display: none;
+    position: absolute;
+    border-bottom: 1px solid #a9becf;
+    width: 110px;
+    z-index: 2;
+}
+
+.navigation ul li {
+    width: 110px;
+    border-right: 1px solid #a9becf;
+    margin-left: -1px;
+}
+
+.article {
+    float: left;
+    margin: 10px 15px;
+}
+
+.article-title {
+    display: block;
+    margin-left: -25px;
+    width: 610px;
+    float: left;
+    background-color: #869fb3;
+}
+
+.article-title h2 {
+    margin: 8px 10px;
+    padding: 10px;
+    background-color: #8ca6b7;
+}
+
+.article-title h2 a {
+    color: #49464d;
+}
+
+.article-title h2 a:hover {
+    color: #ffffff;
+}
+
+.article-content {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    float: left;
+}
+
+.article-content p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-indent: 25px;
+}
+
+.article-content a {
+    font-weight: bold;
+    color: #869fb3;
+}
+
+.article-content a:hover {
+    font-weight: bold;
+    color: #a9becf;
+}
+
+.article-footer-outer {
+    display: block;
+    float: right;
+    padding: 5px 20px;
+    margin: 5px -35px 5px 5px;
+    background-color: #49464d;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    width: 335px;
+}
+
+.article-footer {
+    display: block;
+    float: right;
+    margin-right: 15px;
+}
+
+.article-footer span {
+    margin: 0 8px;
+}
+
+.article-footer a {
+    color: #FFFFFF;
+}
+
+.article-footer a:hover {
+    color: #a9becf;
+}
+
+.article-tags {
+    display: block;
+    width: 100%;
+    float: right;
+    text-align: right;
+    margin-right: 25px;
+    font-weight: bold;
+}
+
+.article-tags a {
+    font-weight: normal;
+    color: #869fb3;
+}
+
+.article-tags a:hover {
+    font-weight: normal;
+    color: #a9becf;
+}
+
+#comments, #contact {
+    float: left;
+    display: block;
+    width: 100%;
+    background-color: #a9becf;
+}
+
+.comments {
+    background-color: #ffffff;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.comments span {
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.comments div {
+    display: block;
+}
+
+#comments .form_ul, #contact .form_ul {
+    background-color: #ffffff;
+    float: left;
+    padding-bottom: 10px;
+}
+
+#comments .form_ul li, #contact .form_ul li {
+    float: left;
+    padding: 10px 0 5px 10px;
+}
+
+#comments textarea, #comments input, #contact textarea, #contact input {
+    border: none;
+    background-color: #a9becf;
+}
+
+#comments input, #contact input {
+    float: left;
+    height: 28px;
+    padding: 2px;
+}
+
+#comments label, #contact label {
+    float: right;
+    padding: 7px 0 0 10px;
+}
+
+#comments textarea, #contact textarea {
+    width: 100%;
+    height: 200px;
+    width: 616px;
+    padding: 2px;
+}
+
+#comments ul.errors, #contact ul.errors {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+#comments .submit_button {
+    margin-left: 500px;
+}
+
+#contact .submit_button {
+    margin-left: 565px;
+}
+
+.breadcrumbs {
+    float: left;
+    display: block;
+    width: 100%;
+    padding: 10px 5px 0;
+}
+
+.breadcrumbs-level-1 {
+    color: #49464d;
+}
+
+.breadcrumbs-level-2 {
+    color: #a9becf;
+}
+
+.breadcrumbs-level-3 {
+    color: #869fb3;
+}
+
+.paginationControl {
+    text-align: center;
+    padding: 5px 0 0 40px;
+    float: left;
+}
+
+.paginationControl a , .paginationControl .disabled {
+    padding: 10px 5px 5px;
+    float: left;
+    width: 25px;
+    color: #49464d;
+}
+
+.paginationControl .disabled, .paginationControl a:hover {
+    background-color: #a9becf;
+    color: #ffffff;
+}
+
+.form_ul {
+    list-style-type: none;
+}
+
+.form_ul li {
+    margin: 0;
+    padding: 10px 0 5px 5px;
+}
+
+.form_ul label {
+    float: left;
+    width: 200px;
+}
+
+.honeypot {
+    display: none;
+}
+
+#search, #social {
+    display: block;
+    float: left;
+    height: 65px;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #a9becf;
+    padding-top: 20px;
+}
+
+.search-image {
+    vertical-align: middle;
+}
+
+.search-field {
+    height: 32px;
+    width: 160px;
+    margin-left: 10px;
+    background-color: #a9becf;
+    border: 1px solid #869FB3;
+}
+
+.search-field:focus {
+    background-color: #869FB3;
+    border: 1px solid #a9becf;
+}
+
+#social {
+    height: 100px;
+    padding-top: 20px;
+}
+
+#social a.twitter {
+    float: left;
+    margin-left: 65px;
+}
+
+#social a.rss {
+    float: right;
+    margin-right: 65px;
+}
+
+#calendar {
+    padding: 16px;
+    height: 180px;
+    float: left;
+    border-bottom: 1px solid #a9becf;
+}
+
+#calendar .ui-datepicker {
+    height: 100%;
+    font-family: 'Trebuchet MS', 'Arial', sans-serif;
+}
+
+#calendar .ui-datepicker-header {
+    top: 140px;
+}
+
+#calendar .ui-datepicker-calendar {
+    top: -35px;
+    position: relative;
+}
+
+#calendar .ui-widget-content, #calendar .ui-widget-header,
+#calendar .ui-widget-header span, #calendar .ui-state-hover {
+    background: none;
+    color: #8ca6b7;
+    border: none;
+}
+
+#calendar .ui-state-disabled {
+    opacity: 1;
+}
+
+#calendar span {
+    border: none;
+    background: none;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    padding: 0;
+}
+
+#calendar .ui-datepicker-week-end span {
+    color: #869FB3;
+}
+
+#calendar thead th {
+    padding: 2px 4px;
+}
+
+#calendar thead th span, #calendar thead th.ui-datepicker-week-end span {
+    color: #8ca6b7;
+}
+
+#calendar .ui-icon {
+    text-indent: 0;
+}
+
+#calendar .ui-datepicker .ui-datepicker-prev {
+    left: 47px;
+    top: 0px;
+    cursor: pointer;
+}
+
+#calendar .ui-datepicker .ui-datepicker-next {
+    right: 40px;
+    top: 0px;
+    cursor: pointer;
+}
+
+#calendar .ui-datepicker td span.has-news {
+    background: #8ca6b7;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+#banners {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    border-bottom: 1px solid #a9becf;
+}
+
+.banner {
+    width: 234px;
+    height: 60px;
+    margin: 20px 0 20px 25px;
+    background-color: #8ca6b7;
+}
+
+#tag-cloud {
+    display: block;
+    float: left;
+    border-bottom: 1px solid #a9becf;
+    padding: 20px 0;
+}
+
+#tag-cloud h4 {
+    padding: 0 0 5px 30px;
+    margin: 0;
+    color: #8ca6b7;
+}
+
+#tag-cloud div {
+    width: 75%;
+    float: right;
+    margin-right: 10px;
+    color: #8ca6b7;
+}
+
+#tag-cloud a {
+    color: #8ca6b7;
+}
+
+#tag-cloud a:hover {
+    color: #a9becf;
+}

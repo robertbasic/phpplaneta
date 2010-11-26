@@ -1,0 +1,107 @@
+<?php echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <?php echo $this->headMeta(); ?>
+        <?php echo $this->headTitle(); ?>
+
+        <link rel="stylesheet" href="/static/css/reset.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/text.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/960.css" type="text/css" />
+        <link rel="stylesheet" href="/static/css/admin.css" type="text/css" />
+
+        <?php echo $this->jQuery(); ?>
+
+        <?php echo $this->headScript(); ?>
+
+    </head>
+
+    <body>
+
+        <div id="page" class="container_16">
+
+            <div id="header" class="grid_16">
+
+                <ul class="navigation">
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'index',
+                                                'controller' => 'admin'),
+                                                'admin', true); ?>">Admin</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news'),
+                                                'admin', true); ?>">Vesti</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'admin-list',
+                                                'controller' => 'news-comments'),
+                                                'admin', true); ?>">Komentari</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'settings',
+                                                'controller' => 'admin'),
+                                                'admin', true); ?>">Podešavanja</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                'action' => 'logout',
+                                                'controller' => 'user'),
+                                                 null, true); ?>">Logout</a>
+                    </li>
+                </ul>
+
+                <h2><?php echo $this->pageTitle; ?></h2>
+                
+            </div>
+
+            <div id="action_toolbar" class="grid_16">
+                <ul class="sub-navigation">
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news'),
+                                                    'admin', true); ?>">Vesti</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news-categories'),
+                                                    'admin', true); ?>">Kategorije</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news-tags'),
+                                                    'admin', true); ?>">Oznake</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url(array(
+                                                    'action' => 'admin-list',
+                                                    'controller' => 'news-sources'),
+                                                    'admin', true); ?>">Izvori</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="body" class="container_16">
+
+                <div id="left" class="grid_12">
+                    <?php
+                    echo $this->layout()->content;
+                    ?>
+                </div>
+
+                <div id="right" class="grid_4">
+                    <?php echo $this->flashMessenger(); ?>
+                </div>
+
+            </div>
+
+        </div>
+
+    </body>
+</html>

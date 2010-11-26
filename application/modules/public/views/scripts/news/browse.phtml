@@ -1,0 +1,67 @@
+<?php if(count($this->news) > 0): ?>
+
+    <?php foreach($this->news as $news): ?>
+
+    <div class="article">
+
+        <div class="article-title">
+            <h2>
+                <a href="<?php echo $this->url(array(
+                    'action' => 'view',
+                    'controller' => 'news',
+                    'slug' => $news->slug
+                ), 'news', true); ?>"><?php echo $this->escape($news->title); ?></a>
+            </h2>
+        </div>
+
+        <div class="article-content">
+            <?php echo $news->text; ?>
+        </div>
+
+        <div class="article-footer-outer">
+            <div class="article-footer">
+                <span>
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'browse',
+                        'controller' => 'news',
+                        'category' => $news->category_slug
+                    ), 'category', true); ?>"><?php echo $news->category_title; ?></a>
+                </span>
+
+                <span>
+                    <a href="<?php echo $this->url(array(
+                    'action' => 'view',
+                    'controller' => 'news',
+                    'slug' => $news->slug
+                            ), 'news', true); ?>#comments">
+                        <?php echo $this->numberOfComments($news->id); ?>
+                    </a>
+                </span>
+
+                <span>
+                    <a href="<?php echo $this->url(array(
+                        'action' => 'browse',
+                        'controller' => 'news',
+                        'date' => date('Y-m-d', strtotime($news->datetime_added))
+                            ), 'date', true); ?>">
+                        <?php echo date('d.m.Y.', strtotime($news->datetime_added)); ?>
+                    </a>
+                </span>
+            </div>
+        </div>
+
+        <div class="article-tags">
+            Oznake: <?php echo $this->tags($news->id); ?>
+        </div>
+
+    </div>
+
+    <?php endforeach; ?>
+
+    <?php echo $this->paginationControl($this->news, 'Sliding', 'paginator.phtml'); ?>
+
+<?php else: ?>
+
+Ništa nije pronađeno.
+
+<?php endif; ?>

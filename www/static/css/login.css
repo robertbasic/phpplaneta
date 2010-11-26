@@ -1,0 +1,72 @@
+#header {
+	background: #eee;
+	font-size: 14px;
+}
+
+#header h2 {
+	display: inline;
+	float: left;
+	margin: 10px 0 0 20px;;
+}
+
+a {
+	color: #0000ff;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#middle {
+    margin: 0 auto;
+    float: none;
+    display: block;
+    background: #eee;
+}
+
+#middle h2 {
+    text-align: center;
+}
+
+.flashMessenger {
+	width: 100%;
+	float: left;
+	text-align: center;
+	color: #ffffff;
+}
+
+.fm-good {
+	background: #00B35B;
+}
+
+.fm-good:before {
+	content: "\2714 \00a0 "; /*a check mark and a nbsp*/
+}
+
+.fm-bad {
+	background: #990000;
+}
+
+.fm-bad:before {
+	content: "\2718 \00a0 "; /*a check mark and a nbsp*/
+}
+
+.form_ul {
+	list-style-type: none;
+}
+
+.form_ul li {
+	margin: 0;
+	padding: 10px 0 5px 5px;
+}
+
+.form_ul label {
+	float: left;
+	width: 200px;
+}
+
+ul.errors {
+    margin: 0 0 0 10px;
+    list-style-type: none;
+}

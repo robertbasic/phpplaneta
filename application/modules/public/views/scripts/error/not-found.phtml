@@ -1,0 +1,31 @@
+<div class="article">
+
+    <div class="article-title">
+        <h2>
+            Greška 404 :(
+        </h2>
+    </div>
+
+    <div class="article-content">
+        <p>
+            Uh. Izgleda da ono što si tražio ne postoji na ovom serveru.
+            Najviše što mogu učiniti u ovom trenutku je da ti ponudim
+            da se vratiš <a href="javascript:history.go(-1);">odakle si došao</a>,
+            <a href="/">odeš na početnu stranu</a>
+            ili možda da probaš da pretražiš dokumente pomoću forme za pretragu:
+        </p>
+
+        <form name="search" action="<?php echo $this->url(array(
+            'action' => 'search',
+            'controller' => 'news'
+            ), 'search', true); ?>" method="get">
+            <label for="keyword">Ključna reč</label>: <input type="text" name="keyword" />
+            <input type="submit" name="search" value="Vadi me odavde" />
+        </form>
+        
+        <p>
+            
+        </p>
+    </div>
+    
+</div>
