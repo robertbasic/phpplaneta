@@ -64,15 +64,6 @@ class Planet_Form_News extends PPN_Form_Abstract
         );
 
         $this->addElement(
-            'select',
-            'fk_news_source_id',
-            array(
-                'label' => 'Izvor:',
-                'required' => false
-            )
-        );
-
-        $this->addElement(
             'textarea',
             'text',
             array(
@@ -148,15 +139,6 @@ class Planet_Form_News extends PPN_Form_Abstract
                 ->addMultiOptions(
                             $this->getModel()
                                 ->getNewsCategoriesForSelectBox()
-                        );
-
-        $this->getElement('fk_news_source_id')
-                ->addMultiOption(
-                            '','Izvor'
-                        )
-                ->addMultiOptions(
-                            $this->getModel()
-                                ->getNewsSourcesForSelectBox()
                         );
 
         $tagValidator = new Zend_Validate_Regex('/^(#\d+\#)+$/');

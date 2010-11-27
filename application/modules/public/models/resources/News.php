@@ -195,7 +195,7 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
                         'news' => $this->_name
                     ),
                     array(
-                        'id', 'fk_news_category_id', 'fk_news_source_id',
+                        'id', 'fk_news_category_id',
                         'fk_user_id', 'title', 'slug', 'text',
                         'datetime_added', 'active', 'comments_enabled'
                     )
@@ -307,7 +307,7 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
                         'news' => $this->_name
                     ),
                     array(
-                        'id', 'fk_news_category_id', 'fk_news_source_id',
+                        'id', 'fk_news_category_id',
                             'fk_user_id', 'title', 'slug', 'text',
                             'datetime_added', 'active', 'comments_enabled'
                     )

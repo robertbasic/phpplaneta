@@ -237,39 +237,6 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $oneCategory;
     }
 
-    /**
-     * Get all news sources, ready to be consumed by a select box
-     * in a Zend_Form
-     */
-    public function getNewsSourcesForSelectBox()
-    {
-        $sources = $this->getAllNewsSources();
-
-        $sourcesSelectBox = array();
-
-        foreach($sources as $source) {
-            $sourcesSelectBox[$source['id']] = $source['name'];
-        }
-
-        return $sourcesSelectBox;
-    }
-
-    public function getAllNewsSources($page=null)
-    {
-        return $this->getResource('News_Sources')->getAllNewsSources($page);
-    }
-
-    public function getOneNewsSourceById($id)
-    {
-        $oneSource = $this->getResource('News_Sources')->getSourceById($id);
-
-        if($oneSource === null) {
-            throw new Exception("No such source");
-        }
-
-        return $oneSource;
-    }
-
     public function getAllNewsTags($page=null)
     {
         return $this->getResource('News_Tags')->getAllNewsTags($page);
@@ -375,11 +342,6 @@ class Planet_Model_News extends PPN_Model_Abstract
 
         $this->_cleanFullPageCache();
 
-        if(array_key_exists('fk_news_source_id', $data)
-                and $data['fk_news_source_id'] == '') {
-            unset($data['fk_news_source_id']);
-        }
-
         if(!array_key_exists('id', $data)) {
             $form = $this->getForm('News_Add');
             $form->populate($data);
@@ -456,41 +418,6 @@ class Planet_Model_News extends PPN_Model_Abstract
             $data = $form->getValues();
 
             $return = $this->getResource('News_Categories')->updateCategory($data);
-        }
-
-        return $return;
-    }
-
-    public function saveNewsSource($data)
-    {
-        $return = false;
-
-        $this->_cleanFullPageCache();
-
-        if(!array_key_exists('id', $data)) {
-            $form = $this->getForm('News_Sources_Add');
-            $form->populate($data);
-            $form->removeElement('csrf');
-
-            if(!$form->isValid($data)) {
-                return false;
-            }
-
-            $data = $form->getValues();
-
-            $return = $this->getResource('News_Sources')->insertSource($data);
-        } else {
-            $form = $this->getForm('News_Sources_Edit');
-            $form->populate($data);
-            $form->removeElement('csrf');
-
-            if(!$form->isValid($data)) {
-                return false;
-            }
-
-            $data = $form->getValues();
-
-            $return = $this->getResource('News_Sources')->updateSource($data);
         }
 
         return $return;
@@ -626,13 +553,6 @@ class Planet_Model_News extends PPN_Model_Abstract
         } else {
             return false;
         }
-    }
-
-    public function deleteNewsSource($id)
-    {
-        $this->_cleanFullPageCache();
-
-        return $this->getResource('News_Sources')->deleteSource($id);
     }
 
     public function deleteNewsTag($id)
