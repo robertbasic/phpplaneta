@@ -502,7 +502,7 @@ class Planet_Model_News extends PPN_Model_Abstract
             }
 
             $data['datetime_added'] = date('Y-m-d H:i:s');
-            $data['active'] = false;
+            $data['active'] = true;
 
             $return = $this->getResource('News_Comments')->insertComment($data);
         } else {
