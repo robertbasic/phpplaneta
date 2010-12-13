@@ -10,4 +10,9 @@ $(document).ready(function(){
     if(left.innerHeight() > right.innerHeight()) {
         right.height(left.innerHeight());
     }
+
+    var jsFill = $("#js_fill");
+    if(jsFill.length > 0) {
+        jsFill.val('honeypot!');
+    }
 });

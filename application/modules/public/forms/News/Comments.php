@@ -143,6 +143,17 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
         );
 
         $this->addElement(
+            'text',
+            'js_fill',
+            array(
+                'label' => 'JS fill:',
+                'required' => true,
+                'class' => 'honeypot',
+                'decorators' => array('ViewHelper')
+            )
+        );
+
+        $this->addElement(
             'hidden',
             'id',
             array(

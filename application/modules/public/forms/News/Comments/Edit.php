@@ -15,5 +15,8 @@ class Planet_Form_News_Comments_Edit extends Planet_Form_News_Comments
     public function init()
     {
         parent::init();
+
+        $this->removeElement('honeypot');
+        $this->removeElement('js_fill');
     }
 }
