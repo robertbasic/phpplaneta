@@ -46,7 +46,7 @@ class NewsController extends Zend_Controller_Action
                                                     'controller' => 'news',
                                                     'slug' => $slug
                                                 ),
-                                                '', true
+                                                'news', true
                                             ));
         $commentsForm->getElement('fk_news_id')->setValue($news->id);
 
@@ -59,7 +59,7 @@ class NewsController extends Zend_Controller_Action
 
                    return $this->redirector->gotoRoute(
                            array('action' => 'view', 'controller' => 'news', 'slug' => $slug),
-                           '', true
+                           'news', true
                            );
                 } catch (Exception $e) {
                     $this->fm->addMessage(array('fm-bad' => $e->getMessage()));
@@ -123,7 +123,14 @@ class NewsController extends Zend_Controller_Action
         foreach($news as $n) {
             $entry = $feed->createEntry();
             $entry->setTitle($n->title);
-            $entry->setLink($url.'/news/view/slug/'.$n->slug);
+            $newsUrl = $url . $this->urlHelper->url(array(
+                                                    'action' => 'view',
+                                                    'controller' => 'news',
+                                                    'slug' => $n->slug
+                                                ),
+                                                'news', true
+                                            );
+            $entry->setLink($newsUrl);
             $entry->setDateCreated(strtotime($n->datetime_added));
             $entry->setContent($n->text);
             $feed->addEntry($entry);
