@@ -340,6 +340,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                     'cache_with_get_variables' => true,
                     'cache_with_cookie_variables' => true
                 ),
+                // These two rules are for caching based on routes
+                // silly me forgot to test caching after implementing the routes
+                '^/(kategorija|oznaka|strana|datum)/' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
+                '^/([a-z0-9-_]+)/?$' => array(
+                    'cache' => true,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
+                // just to be on the safe side, don't cache anything
+                // from the admin panel
+                '^/admin' => array(
+                    'cache' => false,
+                    'cache_with_get_variables' => true,
+                    'cache_with_cookie_variables' => true
+                ),
                 '^/news/ajax-load-dates/' => array(
                     'cache' => true,
                     'cache_with_get_variables' => true,
