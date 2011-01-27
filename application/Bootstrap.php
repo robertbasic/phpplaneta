@@ -283,7 +283,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
 
-        if(!$config->settings->cache->enabled) {
+        if(!$config->settings->cache->fullpage->enabled) {
+            return false;
+        }
+
+        if(!is_writable($config->settings->cache->fullpage->path)) {
+            trigger_error("Full page cache path not writeable!", E_USER_NOTICE);
             return false;
         }
 
@@ -338,7 +343,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
 
         $backendOptions = array(
-            'cache_dir' => realpath(APPLICATION_PATH . '/../data/cache/page/')
+            'cache_dir' => $config->settings->cache->fullpage->path
         );
 
         $cache = Zend_Cache::factory(
@@ -355,12 +360,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     public function _initDbCache()
     {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+        
+        if(!$config->settings->cache->db->enabled) {
+            return false;
+        }
+        
+        if(!is_writable($config->settings->cache->db->path)) {
+            trigger_error("Database cache path not writeable!", E_USER_NOTICE);
+            return false;
+        }
+
         $frontendOptions = array(
             'automatic_serialization' => true
         );
 
         $backendOptions = array(
-            'cache_dir' => realpath(APPLICATION_PATH . '/../data/cache/db/')
+            'cache_dir' => $config->settings->cache->db->path
         );
 
         $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
