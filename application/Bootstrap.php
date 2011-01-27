@@ -10,6 +10,12 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     /**
+     * 
+     * @var Zend_Config_Ini
+     */
+    private $__config = null;
+
+    /**
      * Autoloader for the "public" module
      * 
      * @return Zend_Application_Module_Autoloader
@@ -46,14 +52,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     public function _initLogger()
     {
-        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+        $config = $this->__getConfig();
+
+        $writer = null;
 
         if($config->settings->logs->enabled) {
-            $writer = new Zend_Log_Writer_Stream(realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml');
+            if(is_writable($config->settings->logs->filepath)) {
+                $writer = new Zend_Log_Writer_Stream($config->settings->logs->filepath);
 
-            $formatter = new Zend_Log_Formatter_Xml();
-            $writer->setFormatter($formatter);
-        } else {
+                $formatter = new Zend_Log_Formatter_Xml();
+                $writer->setFormatter($formatter);
+            }
+        }
+
+        if($writer === null) {
+            trigger_error("Logs are disabled. Is the log path writeable?", E_USER_NOTICE);
             $writer = new Zend_Log_Writer_Null();
         }
         
@@ -274,9 +287,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     public function _initFullPageCache()
     {
-        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+        $config = $this->__getConfig();
 
-        if(!$config->settings->cache->enabled) {
+        if(!$config->settings->cache->fullpage->enabled) {
+            return false;
+        }
+
+        if(!is_writable($config->settings->cache->fullpage->path)) {
+            trigger_error("Full page cache path not writeable!", E_USER_NOTICE);
             return false;
         }
 
@@ -331,7 +349,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         );
 
         $backendOptions = array(
-            'cache_dir' => realpath(APPLICATION_PATH . '/../data/cache/page/')
+            'cache_dir' => $config->settings->cache->fullpage->path
         );
 
         $cache = Zend_Cache::factory(
@@ -348,17 +366,41 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
     public function _initDbCache()
     {
+        $config = $this->__getConfig();
+
+        if(!$config->settings->cache->db->enabled) {
+            return false;
+        }
+        
+        if(!is_writable($config->settings->cache->db->path)) {
+            trigger_error("Database cache path not writeable!", E_USER_NOTICE);
+            return false;
+        }
+
         $frontendOptions = array(
             'automatic_serialization' => true
         );
 
         $backendOptions = array(
-            'cache_dir' => realpath(APPLICATION_PATH . '/../data/cache/db/')
+            'cache_dir' => $config->settings->cache->db->path
         );
 
         $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
 
         Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+    }
+
+    /**
+     *
+     * @return Zend_Config_Ini
+     */
+    private function __getConfig()
+    {
+        if($this->__config === null) {
+            $this->__config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+        }
+
+        return $this->__config;
     }
 
 }
