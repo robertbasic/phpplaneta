@@ -79,31 +79,15 @@ class NewsController extends Zend_Controller_Action
 
         $news = null;
 
-        $feedLink = '';
-        $feedTitle = '';
-
         if($category !== null) {
             $news = $this->model->getAllActiveNewsFromCategoryBySlug($category, $page);
-            $feedLink = 'category/'.$category;
-            $feedTitle = 'PHPPlaneta feed za kategoriju ' . $category;
         } elseif($tag !== null) {
             $news = $this->model->getAllActiveNewsByTagSlug($tag, $page);
-            $feedLink = 'tag/'.$tag;
-            $feedTitle = 'PHPPlaneta feed za oznaku ' . $tag;
         } elseif($date !== null) {
             $news = $this->model->getAllActiveNewsByDate($date, $page);
             $this->view->headScript('SCRIPT', '
                         var setCalendarDate = "'.date('d/m/Y', strtotime($date)).'";
                     ');
-        }
-
-        if($feedLink != '') {
-            $this->view->headLink(array(
-                'rel' => 'alternate',
-                'type' => 'application/rss+xml',
-                'title' => $feedTitle,
-                'href' => '/news/rss/' . $feedLink
-            ));
         }
 
         $this->view->news = $news;
@@ -123,21 +107,7 @@ class NewsController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
-        $category = $this->_getParam('category', null);
-        $tag = $this->_getParam('tag', null);
-
-        $news = null;
-
-        if($category !== null) {
-            $news = $this->model->getAllActiveNewsFromCategoryBySlug($category);
-            $feedLink = '/category/'.$category;
-        } elseif($tag !== null) {
-            $news = $this->model->getAllActiveNewsByTagSlug($tag);
-            $feedLink = '/tag/'.$tag;
-        } else {
-            $news = $this->model->getAllActiveNews();
-            $feedLink = '';
-        }
+        $news = $this->model->getAllActiveNews();
 
         $url = $this->view->serverUrl();
 
@@ -145,7 +115,7 @@ class NewsController extends Zend_Controller_Action
         $feed->setTitle('PHPPlaneta');
         $feed->setLink($url.'/');
         $feed->setDescription('PHPPlaneta');
-        $feed->setFeedLink($url.'/news/rss'.$feedLink, 'rss');
+        $feed->setFeedLink($url.'/news/rss', 'rss');
         $feed->setDateModified(time());
 
         $entry = null;
