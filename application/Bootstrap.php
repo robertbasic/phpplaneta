@@ -48,12 +48,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
     {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
 
-        if($config->settings->logs->enabled) {
-            $writer = new Zend_Log_Writer_Stream(realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml');
+        $writer = null;
 
-            $formatter = new Zend_Log_Formatter_Xml();
-            $writer->setFormatter($formatter);
-        } else {
+        if($config->settings->logs->enabled) {
+            if(is_writable($config->settings->logs->filepath)) {
+                $writer = new Zend_Log_Writer_Stream($config->settings->logs->filepath);
+
+                $formatter = new Zend_Log_Formatter_Xml();
+                $writer->setFormatter($formatter);
+            }
+        }
+
+        if($writer === null) {
+            trigger_error("Logs are disabled. Is the log path writeable?", E_USER_NOTICE);
             $writer = new Zend_Log_Writer_Null();
         }
         
