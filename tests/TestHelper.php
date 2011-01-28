@@ -31,7 +31,26 @@ defined('APPLICATION_PATH')
 function _App_Autloader_SetUp() {
     require_once 'Zend/Loader/Autoloader.php';
     $loader = Zend_Loader_Autoloader::getInstance();
-    $loader->registerNamespace('PPN_');
+    $loader->registerNamespace(array('PPN_'));
+
+    $moduleLoader = new Zend_Application_Module_Autoloader(
+                            array(
+                                'namespace' => 'Planet',
+                                'basePath' => APPLICATION_PATH . '/modules/public'
+                            )
+                        );
+
+    // adding model resources to the autoloader
+    $moduleLoader->addResourceTypes(
+            array(
+            'modelResources' => array(
+                    'path' => 'models/resources',
+                    'namespace' => 'Model_Resource'
+                )
+            )
+        );
+
+    $loader->setAutoloaders(array($moduleLoader));
 }
 
 function _App_Autloader_TearDown() {
