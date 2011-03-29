@@ -1,18 +1,38 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Taken from the Noumenal PHP Library.
+ *
+ * PHP classes built on top of Zend Framework. (http://framework.zend.com/)
+ *
+ * Bug Reports: support@noumenal.co.uk
+ * Questions  : https://noumenal.fogbugz.com/default.asp?noumenal
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file noumenal-new-bsd-licence.txt.
+ * It is also available through the world-wide-web at this URL:
+ *
+ * http://noumenal.co.uk/license/new-bsd
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@noumenal.co.uk so we can send you a copy immediately.
+ *
+ * ATTRIBUTION
+ *
+ * Beyond maintaining the Copyright Notice and Licence, attribution is
+ * appreciated but not required. Please attribute where appropriate by
+ * linking to:
+ *
+ * http://noumenal.co.uk/
+ *
+ * @author     Carlton Gibson <carlton.gibson@noumenal.co.uk>
+ * @copyright  Copyright (c) 2009 Noumenal Software Ltd. (http://noumenal.co.uk/)
+ * @license    http://noumenal.co.uk/license/new-bsd     New BSD License
+ * @version    $Revision: 3 $ $Date: 2009-08-13 16:02:49 +0100 (Thu, 13 Aug 2009) $
  */
 
-/**
- * File: FlashMessenger
- * Ver: 1.0
- * Created: Dec 28, 2009
- * Created by: Robert Basic
- * E-mail: robert.basic@online.rs
- * Description:
- *
- */
 class PPN_View_Helper_FlashMessenger extends Zend_View_Helper_Abstract
 {
     /**
