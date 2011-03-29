@@ -1,6 +1,8 @@
 Okruženje: <?php echo $this->environment; ?>
 <br />
-Cache: <?php if($this->cacheSetting): ?>Uključeno<?php else: ?>Isključeno<?php endif; ?>
+Full page cache: <?php if($this->fullpageCacheSetting): ?>Uključeno<?php else: ?>Isključeno<?php endif; ?>
+<br />
+DB cache: <?php if($this->dbCacheSetting): ?>Uključeno<?php else: ?>Isključeno<?php endif; ?>
 <br />
 Log: <?php if($this->logSetting): ?>Uključeno<?php else: ?>Isključeno<?php endif; ?>
 <br />
