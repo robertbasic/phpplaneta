@@ -27,9 +27,21 @@ class Zend_View_Helper_MostUsedTags extends Zend_View_Helper_Abstract
             return false;
         }
 
+        $cloudDecorator = new Zend_Tag_Cloud_Decorator_HtmlCloud();
+        $cloudDecorator->setHtmlTags(array(
+            'div' => array('class' => 'Zend_Tag_Cloud')
+        ));
+        $cloudDecorator->setSeparator(', ');
+        
+        $tagDecorator = new Zend_Tag_Cloud_Decorator_HtmlTag();
+        $tagDecorator->setHtmlTags(array(
+            'span'
+        ));
+        $tagDecorator->setMinFontSize(12);
+        
         $cloud = new Zend_Tag_Cloud(array(
-            'cloudDecorator' => new PPN_View_Helper_DivCloud(),
-            'tagDecorator' => new PPN_View_Helper_SpanTag()
+            'cloudDecorator' => $cloudDecorator,
+            'tagDecorator' => $tagDecorator
         ));
 
         foreach($tags as $tag) {
