@@ -15,16 +15,24 @@ class PPN_Plugin_AdminContext extends Zend_Controller_Plugin_Abstract
                 $request->setModuleName('public')
                         ->setControllerName('user')
                         ->setActionName('login');
-                return;
+                return false;
             }
 
             $layout = Zend_Layout::getMvcInstance();
             $layout->setLayout('admin');
             $view = $layout->getView();
             $view->headTitle()->prepend('Admin panel');
+            
+            return true;
         }
+        
+        return false;
     }
 
+    public function setAuth($auth) {
+        $this->_auth = $auth;
+    }
+    
     protected function _getAuth()
     {
         if($this->_auth === null) {
