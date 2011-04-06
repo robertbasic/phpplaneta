@@ -30,12 +30,16 @@ class AdminContextTest extends PHPUnit_Framework_TestCase {
                             ->method('getIdentity')
                             ->will($this->returnValue(false));
         
+        $layout = Zend_Layout::getMvcInstance();
+        $this->assertEquals('public', $layout->getLayout());
+        
         $plugin = new PPN_Plugin_AdminContext();
         $plugin->setAuth($this->_authStub);
         
         $return = $plugin->preDispatch($this->_requestStub);
         
         $this->assertFalse($return);
+        $this->assertEquals('public', $layout->getLayout());
     }
     
     public function testRequestAdminAreaLoggedIn() {
@@ -48,11 +52,15 @@ class AdminContextTest extends PHPUnit_Framework_TestCase {
                             ->method('getIdentity')
                             ->will($this->returnValue(true));
         
+        $layout = Zend_Layout::getMvcInstance();
+        $this->assertEquals('public', $layout->getLayout());
+        
         $plugin = new PPN_Plugin_AdminContext();
         $plugin->setAuth($this->_authStub);
         
         $return = $plugin->preDispatch($this->_requestStub);
         
         $this->assertTrue($return);
+        $this->assertEquals('admin', $layout->getLayout());
     }
 }
