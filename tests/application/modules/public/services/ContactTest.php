@@ -49,11 +49,34 @@ class ContactTest extends PHPUnit_Framework_TestCase {
         );
     }
     
+    public static function validMailData() {
+        return array(
+            array(
+                array(
+                    'name' => 'Foo',
+                    'email' => 'foo@email.com',
+                    'subject' => 'Subject',
+                    'message' => 'Message'
+                )
+            )
+        );
+    }
+    
     /**
      * @dataProvider invalidMailData
      * @expectedException Exception
      */
     public function testAllMailDataMustBeSet($mailData) {
         $this->_contactService->setMailData($mailData);
+    }
+    
+    /**
+     * @dataProvider validMailData
+     */
+    public function testAllMailDataIsSetMailIsSent($mailData) {
+        $this->_contactService->setMailer($this->_mailerStub);
+        $this->_contactService->setMailData($mailData);
+        $sent = $this->_contactService->sendMail();
+        $this->assertTrue($sent);
     }
 }
