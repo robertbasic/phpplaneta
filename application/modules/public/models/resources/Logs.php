@@ -11,14 +11,28 @@
  */
 class Planet_Model_Resource_Logs
 {
+    protected $_logFilePath = null;
+    
     public function __construct()
     {
 
     }
 
+    public function setLogFilePath($path) {
+        $this->_logFilePath = $path;
+    }
+    
+    public function getLogFilePath() {
+        if($this->_logFilePath === null) {
+            $this->_logFilePath = realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml';
+        }
+        
+        return $this->_logFilePath;
+    }
+    
     public function getAllLogs($page)
     {
-        $file = realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml';
+        $file = $this->getLogFilePath();
 
         $logData = file_get_contents($file);
 
@@ -60,7 +74,7 @@ class Planet_Model_Resource_Logs
 
     public function deleteLogs()
     {
-        $file = realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml';
+        $file = $this->getLogFilePath();
 
         if(file_put_contents($file,'') !== false) {
             return true;
