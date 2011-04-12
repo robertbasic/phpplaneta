@@ -30,7 +30,7 @@ class Planet_Model_Resource_Logs
         return $this->_logFilePath;
     }
     
-    public function getAllLogs($page)
+    public function getAllLogs($page=null)
     {
         $file = $this->getLogFilePath();
 
