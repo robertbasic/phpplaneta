@@ -102,30 +102,6 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
     }
 
     /**
-     * Get all active news from a category, by category id
-     *
-     * @param int $page
-     * @return Zend_Paginator | Zend_Db_Table_Rowset
-     */
-    public function getAllActiveNewsFromCategoryById($id,$page=null)
-    {
-        $id = (int)$id;
-        $select = $this->_getAllNewsSelect(
-                    array(
-                        array('news.active = ?', true),
-                        array('author.active = ?', true),
-                        array('news.fk_news_category_id = ?', $id)
-                    )
-                );
-
-        if($page !== null) {
-            return $this->_getPaginatorForSelect($select, $page);
-        }
-
-        return $this->fetchAll($select);
-    }
-
-    /**
      * Get one active news by it's slug
      *
      * @param string $slug
@@ -139,6 +115,26 @@ class Planet_Model_Resource_News extends PPN_Model_Resource_Abstract
                         array('news.active = ?', true),
                         array('author.active = ?', true),
                         array('news.slug = ?', $slug)
+                    )
+                );
+
+        return $this->fetchRow($select);
+    }
+
+    /**
+     * Get one active news by it's id
+     *
+     * @param int $id
+     * @return PPN_Model_Resource_Item_Abstract
+     */
+    public function getOneActiveNewsById($id)
+    {
+        $id = (int)$id;
+        $select = $this->_getAllNewsSelect(
+                    array(
+                        array('news.active = ?', true),
+                        array('author.active = ?', true),
+                        array('news.id = ?', $id)
                     )
                 );
 

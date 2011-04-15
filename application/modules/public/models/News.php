@@ -76,26 +76,6 @@ class Planet_Model_News extends PPN_Model_Abstract
     }
 
     /**
-     * Get active news from a category, by the categories id.
-     * Pagination is to be decided within the resource, based on $page
-     * I wonder will this ever be used?g Oh, well...
-     * @param int $id
-     * @param int|null $page
-     */
-    public function getAllActiveNewsFromCategoryById($id,$page=null)
-    {
-        $category = $this->getResource("News_Categories")->getCategoryById($id);
-
-        if($category === null) {
-            throw new PPN_Exception_NotFound(
-                        sprintf(PPN_Exception_NotFound::NO_SUCH_CATEGORY, $id)
-                    );
-        }
-
-        return $this->getResource('News')->getAllActiveNewsFromCategoryById($id,$page);
-    }
-
-    /**
      * Get one active news by it's slug
      * @param string $slug
      */
