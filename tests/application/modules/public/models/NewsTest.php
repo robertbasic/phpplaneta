@@ -122,5 +122,76 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         
         $news = $this->_model->getOneNewsById($id);
     }
+
+    public function testGetActiveNewsFromAnExistingCategory() {
+        $categorySlug = 'vesti';
+        
+        $news = $this->_model->getAllActiveNewsFromCategoryBySlug($categorySlug);
+        
+        $this->assertInstanceOf('Zend_Db_Table_Rowset_Abstract', $news);
+        $this->assertEquals(4, count($news));
+    }
+
+    public function testGetActiveNewsFromAnExistingCategoryPaginated() {
+        $categorySlug = 'vesti';
+        
+        $news = $this->_model->getAllActiveNewsFromCategoryBySlug($categorySlug, 1);
+        
+        $this->assertInstanceOf('Zend_Paginator', $news);
+        $this->assertEquals(4, $news->getCurrentItemCount());
+    }
+
+    /**
+     * @expectedException PPN_Exception_NotFound
+     */
+    public function testGetActiveNewsFromANonexistingCategory() {
+        $categorySlug = 'no-such-category';
+        
+        $news = $this->_model->getAllActiveNewsFromCategoryBySlug($categorySlug);
+    }
+
+    public function testGetActiveNewsForAnExistingTag() {
+        $tagSlug = 'tag-1';
+        
+        $news = $this->_model->getAllActiveNewsByTagSlug($tagSlug);
+        
+        $this->assertInstanceOf('Zend_Db_Table_Rowset_Abstract', $news);
+        $this->assertEquals(1, count($news));
+    }
+
+    public function testGetActiveNewsForAnExistingTagPaginated() {
+        $tagSlug = 'tag-1';
+        
+        $news = $this->_model->getAllActiveNewsByTagSlug($tagSlug, 1);
+        
+        $this->assertInstanceOf('Zend_Paginator', $news);
+        $this->assertEquals(1, $news->getCurrentItemCount());
+    }
+
+    /**
+     * @expectedException PPN_Exception_NotFound
+     */
+    public function testGetActiveNewsForANonexistingTag() {
+        $tagSlug = 'no-such-tag';
+        
+        $news = $this->_model->getAllActiveNewsByTagSlug($tagSlug);
+    }
     
+    public function testGetActiveNewsByDate() {
+        $date = '2010-05-09';
+        
+        $news = $this->_model->getAllActiveNewsByDate($date);
+        
+        $this->assertInstanceOf('Zend_Db_Table_Rowset_Abstract', $news);
+        $this->assertEquals(10, count($news));
+    }
+    
+    public function testGetActiveNewsByDatePaginated() {
+        $date = '2010-05-09';
+        
+        $news = $this->_model->getAllActiveNewsByDate($date, 1);
+        
+        $this->assertInstanceOf('Zend_Paginator', $news);
+        $this->assertEquals(5, $news->getCurrentItemCount());
+    }
 }
