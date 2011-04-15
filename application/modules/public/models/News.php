@@ -113,23 +113,6 @@ class Planet_Model_News extends PPN_Model_Abstract
     }
 
     /**
-     * Get one active news by it's id
-     * @param int $id
-     */
-    public function getOneActiveNewsById($id)
-    {
-        $oneNews = $this->getResource('News')->getOneActiveNewsById($id);
-
-        if($oneNews === null) {
-            throw new PPN_Exception_NotFound(
-                        sprintf(PPN_Exception_NotFound::NO_SUCH_NEWS, $id)
-                    );
-        }
-        
-        return $oneNews;
-    }
-
-    /**
      * Get one news by it's id
      * @param int $id
      */
