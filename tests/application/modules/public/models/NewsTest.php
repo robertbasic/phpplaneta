@@ -34,6 +34,54 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         copy($initDb, $testDb);
     }
     
+    public static function invalidNewsData() {
+        return array(
+            array(
+                array(
+                    'title' => '',
+                    'slug' => 'news-slug',
+                    'text' => 'Lorem ipsum dummy text',
+                    'fk_news_category_id' => 1,
+                    'fk_user_id' => 1,
+                    'active' => 1,
+                    'comments_enabled' => 1
+                ),
+            ),
+            array(
+                array(
+                    'title' => 'News title',
+                    'slug' => '',
+                    'text' => 'Lorem ipsum dummy text',
+                    'fk_news_category_id' => 1,
+                    'fk_user_id' => 1,
+                    'active' => 1,
+                    'comments_enabled' => 1
+                ),
+            ),
+            array(
+                array(
+                    'title' => 'News title',
+                    'slug' => 'news-slug',
+                    'text' => '',
+                    'fk_news_category_id' => 1,
+                    'fk_user_id' => 1,
+                    'active' => 1,
+                    'comments_enabled' => 1
+                ),
+            ),
+            array(
+                array(
+                    'title' => 'News title',
+                    'slug' => 'news-slug',
+                    'text' => 'Lorem ipsum',
+                    'fk_user_id' => 1,
+                    'active' => 1,
+                    'comments_enabled' => 1
+                )
+            )
+        );
+    }
+    
     public function testGetAllActiveNewsReturnsOnlyActiveNews() {
         $news = $this->_model->getAllActiveNews();
         
@@ -193,5 +241,88 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         
         $this->assertInstanceOf('Zend_Paginator', $news);
         $this->assertEquals(5, $news->getCurrentItemCount());
+    }
+    
+    public function testValidNewsIsAdded() {
+        $newsBeforeInsert = $this->_model->getAllNews();
+        
+        $data = array(
+            'title' => 'Some news',
+            'slug' => 'some-news',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1
+        );
+        
+        $this->_model->saveNews($data);
+        
+        $newsAfterInsert = $this->_model->getAllNews();
+        
+        $this->assertEquals(12, count($newsBeforeInsert));
+        $this->assertEquals(13, count($newsAfterInsert));
+    }
+    
+    /**
+     * @dataProvider invalidNewsData
+     */
+    public function testInvalidNewsIsNotAdded($data) {
+        $newsBeforeInsert = $this->_model->getAllNews();
+        
+        $this->_model->saveNews($data);
+        
+        $newsAfterInsert = $this->_model->getAllNews();
+        
+        $this->assertEquals(12, count($newsBeforeInsert));
+        $this->assertEquals(12, count($newsAfterInsert));
+    }
+    
+    public function testNewsSlugGetsSluggified() {
+        $data = array(
+            'title' => 'Some news',
+            'slug' => 'some string with -- and spaces',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1
+        );
+        
+        $expectedSlug = 'some-string-with-and-spaces';
+        
+        $this->_model->saveNews($data);
+        
+        $news = $this->_model->getOneActiveNewsBySlug($expectedSlug);
+        
+        $this->assertEquals($expectedSlug, $news->slug);
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    public function testSlugMustBeUnique() {
+        $dataOne = array(
+            'title' => 'Some news',
+            'slug' => 'unique-slug',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1
+        );
+        $dataTwo = array(
+            'title' => 'Some other news',
+            'slug' => 'unique-slug',
+            'text' => 'Lorem ipsum other dummy text',
+            'fk_news_category_id' => 2,
+            'fk_user_id' => 1,
+            'active' => 0,
+            'comments_enabled' => 1
+        );
+        
+        $this->_model->saveNews($dataOne);
+        
+        $this->_model->saveNews($dataTwo);
     }
 }
