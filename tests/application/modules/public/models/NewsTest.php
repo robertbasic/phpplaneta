@@ -82,6 +82,27 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         );
     }
     
+    public static function invalidNewsCategoryData() {
+        return array(
+            array(
+                array(
+                    'title' => '',
+                    'slug' => 'category-slug'
+                ),
+            ),
+            array(
+                array(
+                    'title' => 'Category title',
+                    'slug' => ''
+                ),
+            )
+        );
+    }
+    
+    /**
+     * Tests for news, until further notice.
+     */
+    
     public function testGetAllActiveNewsReturnsOnlyActiveNews() {
         $news = $this->_model->getAllActiveNews();
         
@@ -301,7 +322,7 @@ class NewsTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Exception
      */
-    public function testSlugMustBeUnique() {
+    public function testNewsSlugMustBeUnique() {
         $dataOne = array(
             'title' => 'Some news',
             'slug' => 'unique-slug',
@@ -400,7 +421,7 @@ class NewsTest extends PHPUnit_Framework_TestCase {
     /**
      * @expectedException Exception
      */
-    public function testSlugMustBeUniqueOnUpdate() {
+    public function testNewsSlugMustBeUniqueOnUpdate() {
         $dataOne = array(
             'id' => 1,
             'title' => 'Some news',
@@ -435,5 +456,192 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         
         $this->assertEquals(12, count($newsBeforeDelete));
         $this->assertEquals(8, count($newsAfterDelete));
+    }
+    
+    /**
+     * Tests for categories, until further notice.
+     */
+    
+    public function testGetOnlyCategoriesWithNews() {
+        $categories = $this->_model->getAllNewsCategoriesWithPosts();
+        
+        $this->assertEquals(3, count($categories));
+    }
+    
+    public function testGetCategoryBySlug() {
+        $slug = 'vesti';
+        
+        $data = array(
+            'id' => 1,
+            'slug' => 'vesti',
+            'title' => 'Vesti'
+        );
+        
+        $category = $this->_model->getOneNewsCategoryBySlug($slug);
+        $category = $category->toArray();
+        
+        $this->assertEquals($data, $category);
+    }
+    
+    public function testGetCategoryById() {
+        $id = 1;
+        
+        $data = array(
+            'id' => 1,
+            'slug' => 'vesti',
+            'title' => 'Vesti'
+        );
+        
+        $category = $this->_model->getOneNewsCategoryById($id);
+        $category = $category->toArray();
+        
+        $this->assertEquals($data, $category);
+    }
+
+    /**
+     * @expectedException PPN_Exception_NotFound
+     */
+    public function testGetNonexistingCategoryBySlug() {
+        $slug = 'no-such-category';
+        
+        $category = $this->_model->getOneNewsCategoryBySlug($slug);
+    }
+    
+    /**
+     * @expectedException PPN_Exception_NotFound
+     */
+    public function testGetNonexistingCategoryById() {
+        $id = 999;
+        
+        $category = $this->_model->getOneNewsCategoryById($id);
+    }
+    
+    public function testValidCategoryIsAdded() {
+        $before = $this->_model->getAllNewsCategories();
+        
+        $data = array(
+            'title' => 'Some category',
+            'slug' => 'some-category'
+        );
+        
+        $this->_model->saveNewsCategory($data);
+        
+        $after = $this->_model->getAllNewsCategories();
+        
+        $this->assertEquals(4, count($before));
+        $this->assertEquals(5, count($after));
+    }
+    
+    /**
+     * @dataProvider invalidNewsCategoryData
+     */
+    public function testInvalidCategoryIsNotAdded($data) {
+        $before = $this->_model->getAllNewsCategories();
+        
+        $this->_model->saveNewsCategory($data);
+        
+        $after = $this->_model->getAllNewsCategories();
+        
+        $this->assertEquals(4, count($before));
+        $this->assertEquals(4, count($after));
+    }
+    
+    public function testCategorySlugGetsSluggified() {
+        $data = array(
+            'title' => 'Some category',
+            'slug' => 'some string with -- and spaces'
+        );
+        
+        $expectedSlug = 'some-string-with-and-spaces';
+        
+        $this->_model->saveNewsCategory($data);
+        
+        $category = $this->_model->getOneNewsCategoryBySlug($expectedSlug);
+        
+        $this->assertEquals($expectedSlug, $category->slug);
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    public function testCategorySlugMustBeUnique() {
+        $dataOne = array(
+            'title' => 'Some category',
+            'slug' => 'vesti'
+        );
+        $dataTwo = array(
+            'title' => 'Some other category',
+            'slug' => 'unique-slug'
+        );
+        
+        $this->_model->saveNewsCategory($dataOne);
+        
+        $this->_model->saveNewsCategory($dataTwo);
+        
+    }
+    
+    
+    public function testValidCategoryIsUpdated() {
+        $data = array(
+            'id' => 1,
+            'title' => 'Some category',
+            'slug' => 'some-category'
+        );
+        
+        $returnedData = array(
+            'id' => 1,
+            'title' => 'Some category',
+            'slug' => 'some-category'
+        );
+        
+        $this->_model->saveNewsCategory($data);
+        
+        $after = $this->_model->getOneNewsCategoryById(1);
+        $after = $after->toArray();
+        
+        $this->assertEquals($returnedData, $after);
+    }
+    
+    /**
+     * @dataProvider invalidNewsCategoryData
+     */
+    public function testInvalidCategoryIsNotUpdated($data) {
+        $data['id'] = 1;
+        $this->_model->saveNewsCategory($data);
+        
+        $returnedData = array(
+            'id' => 1,
+            'title' => 'Vesti',
+            'slug' => 'vesti'
+        );
+        
+        $after = $this->_model->getOneNewsCategoryById(1);
+        $after = $after->toArray();
+        
+        $this->assertEquals($returnedData, $after);
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    public function testCategorySlugMustBeUniqueOnUpdate() {
+        $dataOne = array(
+            'id' => 1,
+            'title' => 'Some category',
+            'slug' => 'alati'
+        );
+        
+        $this->_model->saveNewsCategory($dataOne);
+    }
+    
+    public function testCategoryGetsDeleted() {
+        $before = $this->_model->getAllNewsCategories();
+        
+        $this->_model->deleteNewsCategory(1);
+        
+        $after = $this->_model->getAllNewsCategories();
+        
+        $this->assertEquals(4, count($before));
+        $this->assertEquals(3, count($after));
     }
 }
