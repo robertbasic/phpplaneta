@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `ppn_news` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `fk_news_category_id` int(11) NOT NULL,
   `fk_user_id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
@@ -11,13 +11,13 @@ CREATE TABLE IF NOT EXISTS `ppn_news` (
 );
 
 CREATE TABLE IF NOT EXISTS `ppn_news_categories` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `title` varchar(50) NOT NULL,
   `slug` varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS `ppn_news_comments` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `fk_news_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -28,19 +28,19 @@ CREATE TABLE IF NOT EXISTS `ppn_news_comments` (
 );
 
 CREATE TABLE IF NOT EXISTS `ppn_news_tags` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `title` varchar(25) NOT NULL,
   `slug` varchar(25) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS `ppn_news_tags_relations` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `fk_news_id` int(11) NOT NULL,
   `fk_news_tag_id` int(11) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `ppn_users` (
-  `id` int(11) NOT NULL PRIMARY KEY,
+  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `email` varchar(100) NOT NULL UNIQUE,
   `password` varchar(100) NOT NULL,
   `firstname` varchar(25) NOT NULL,
