@@ -325,4 +325,115 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         
         $this->_model->saveNews($dataTwo);
     }
+    
+    
+    public function testValidNewsIsUpdated() {
+        $data = array(
+            'id' => 1,
+            'title' => 'Some news',
+            'slug' => 'some-news',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1,
+            'datetime_added' => '2011-04-16 20:28:00'
+        );
+        
+        $returnedData = array(
+            'id' => 1,
+            'title' => 'Some news',
+            'slug' => 'some-news',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1,
+            'datetime_added' => '2011-04-16 20:28:00',
+            'category_slug' => 'vesti',
+            'category_title' => 'Vesti',
+            'firstname' => 'Admin',
+            'lastname' => 'Admin'
+        );
+        
+        $this->_model->saveNews($data);
+        
+        $newsAfterUpdate = $this->_model->getOneNewsById(1);
+        $newsAfterUpdate = $newsAfterUpdate->toArray();
+        
+        $this->assertEquals($returnedData, $newsAfterUpdate);
+    }
+    
+    /**
+     * @dataProvider invalidNewsData
+     */
+    public function testInvalidNewsIsNotUpdated($data) {
+        $data['id'] = 1;
+        $this->_model->saveNews($data);
+        
+        $returnedData = array(
+            'id' => 1,
+            'title' => 'Naslov vesti 1',
+            'slug' => 'slug-vesti-1',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1,
+            'datetime_added' => '2010-05-09 20:25:14',
+            'category_slug' => 'vesti',
+            'category_title' => 'Vesti',
+            'firstname' => 'Admin',
+            'lastname' => 'Admin'
+        );
+        
+        $newsAfterUpdate = $this->_model->getOneNewsById(1);
+        $newsAfterUpdate = $newsAfterUpdate->toArray();
+        
+        // unsetting to not to try to compare a few paragraphs of text...
+        unset($newsAfterUpdate['text']);
+        unset($returnedData['text']);
+        
+        $this->assertEquals($returnedData, $newsAfterUpdate);
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    public function testSlugMustBeUniqueOnUpdate() {
+        $dataOne = array(
+            'id' => 1,
+            'title' => 'Some news',
+            'slug' => 'slug-vesti-2',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1
+        );
+        
+        $this->_model->saveNews($dataOne);
+    }
+    
+    public function testNewsGetsDeleted() {
+        $newsBeforeDelete = $this->_model->getAllNews();
+        
+        $this->_model->deleteNews(1);
+        
+        $newsAfterDelete = $this->_model->getAllNews();
+        
+        $this->assertEquals(12, count($newsBeforeDelete));
+        $this->assertEquals(11, count($newsAfterDelete));
+    }
+    
+    public function testAllNewsFromACategoryGetDeleted() {
+        $newsBeforeDelete = $this->_model->getAllNews();
+        
+        $this->_model->deleteNewsFromCategory(1);
+        
+        $newsAfterDelete = $this->_model->getAllNews();
+        
+        $this->assertEquals(12, count($newsBeforeDelete));
+        $this->assertEquals(8, count($newsAfterDelete));
+    }
 }
