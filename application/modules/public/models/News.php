@@ -229,7 +229,7 @@ class Planet_Model_News extends PPN_Model_Abstract
 
         if($oneTag === null) {
             throw new PPN_Exception_NotFound(
-                        sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $id)
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $tagId)
                     );
         }
 
