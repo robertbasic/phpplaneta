@@ -256,7 +256,7 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $tags;
     }
 
-    public function getAllComments($page)
+    public function getAllComments($page=null)
     {
         return $this->getResource('News_Comments')->getAllComments($page);
     }
