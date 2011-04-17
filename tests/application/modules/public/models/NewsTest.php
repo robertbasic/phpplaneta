@@ -925,4 +925,111 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         $tag = $this->_model->getOneNewsTagBySlug('no-such-tag');
     }
     
+    public function testNewsAndTagsRelationIsCreatedOnNewsInsert() {
+        $news = array(
+            'title' => 'Some news',
+            'slug' => 'some-news',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'active' => 1,
+            'comments_enabled' => 1,
+            'related_tags' => '#1#'
+        );
+        
+        $this->_model->saveNews($news);
+        
+        $after = $this->_model->getTagsForNews(13);
+        $after = $after->toArray();
+        
+        $this->assertEquals(1, count($after));
+        $this->assertEquals('tag-1', $after[0]['slug']);
+    }
+    
+    public function testNewsAndTagsRelationIsCreatedOnNewsUpdate() {
+        /**
+         * At first, this might look like a bug, but it isn't. It's a feature.
+         * On update, the existing news-tag relations are deleted and new ones
+         * are created. BUT! When the edit form is loaded in the browser,
+         * an ajax request loads up the existing relations, thus no relation is
+         * lost. Sounds hacky and dirty, but this part will be rewritten, someday
+         */
+        $news = array(
+            'id' => 1,
+            'title' => 'Some news',
+            'slug' => 'slug-vesti-1',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'datetime_added' => '2011-04-17 17:17:00',
+            'active' => 1,
+            'comments_enabled' => 1,
+            'related_tags' => '#2#'
+        );
+        
+        $this->_model->saveNews($news);
+        
+        $after = $this->_model->getTagsForNews(1);
+        $after = $after->toArray();
+        
+        $this->assertEquals(1, count($after));
+        $this->assertEquals('tag-2', $after[0]['slug']);
+    }
+    
+    public function testNewsTagDeleting() {
+        $before = $this->_model->getAllNewsTags();
+        
+        $this->_model->deleteNewsTag(1);
+        
+        $after = $this->_model->getAllNewsTags();
+        
+        $this->assertEquals(12, count($before));
+        $this->assertEquals(11, count($after));
+    }
+    
+    public function testNewsTagRelationIsDeletedWhenDeletingNews() {
+        $before = $this->_model->getTagsForNews(1);
+        
+        $this->_model->deleteNews(1);
+        
+        $after = $this->_model->getTagsForNews(1);
+        
+        $this->assertEquals(1, count($before));
+        $this->assertEquals(0, count($after));
+    }
+    
+    public function testNewsTagRelationIsDeletedWhenDeletingTag() {
+        $before = $this->_model->getTagsForNews(1);
+        
+        $this->_model->deleteNewsTag(1);
+        
+        $after = $this->_model->getTagsForNews(1);
+        
+        $this->assertEquals(1, count($before));
+        $this->assertEquals(0, count($after));
+    }
+    
+    public function testMostUsedTags() {
+        $news = array(
+            'id' => 1,
+            'title' => 'Some news',
+            'slug' => 'slug-vesti-1',
+            'text' => 'Lorem ipsum dummy text',
+            'fk_news_category_id' => 1,
+            'fk_user_id' => 1,
+            'datetime_added' => '2011-04-17 17:17:00',
+            'active' => 1,
+            'comments_enabled' => 1,
+            'related_tags' => '#2#'
+        );
+        
+        $this->_model->saveNews($news);
+        
+        $tags = $this->_model->getMostUsedTags(2);
+        $tags = $tags->toArray();
+        
+        $this->assertEquals(2, $tags[0]['num']);
+        $this->assertEquals(1, $tags[1]['num']);
+    }
+    
 }
