@@ -266,7 +266,7 @@ class Planet_Model_News extends PPN_Model_Abstract
         $oneComment = $this->getResource('News_Comments')->getOneCommentById($commentId);
 
         if($oneComment === null) {
-            throw new Exception("No such comment");
+            throw new PPN_Exception_NotFound();
         }
 
         return $oneComment;
