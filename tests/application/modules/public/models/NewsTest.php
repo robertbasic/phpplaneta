@@ -99,6 +99,99 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         );
     }
     
+    public static function invalidCommentData() {
+        return array(
+            array(
+                array(
+                    'fk_news_id' => '',
+                    'name' => 'Foo',
+                    'email' => 'foo@bar.com',
+                    'url' => 'bar.com',
+                    'comment' => 'Comment text',
+                    'honeypot' => '',
+                    'js_fill' => 'filled with javascript'
+                )
+            ),
+            array(
+                array(
+                    'fk_news_id' => 999,
+                    'name' => 'Foo',
+                    'email' => 'foo@bar.com',
+                    'url' => 'bar.com',
+                    'comment' => 'Comment text',
+                    'honeypot' => '',
+                    'js_fill' => 'filled with javascript'
+                )
+            ),
+            array(
+                array(
+                    'fk_news_id' => 1,
+                    'name' => '',
+                    'email' => 'foo@bar.com',
+                    'url' => 'bar.com',
+                    'comment' => 'Comment text',
+                    'honeypot' => '',
+                    'js_fill' => 'filled with javascript'
+                )
+            ),
+            array(
+                array(
+                    'fk_news_id' => 1,
+                    'name' => 'Foo',
+                    'email' => 'foo@bar',
+                    'url' => 'bar.com',
+                    'comment' => 'Comment text',
+                    'honeypot' => '',
+                    'js_fill' => 'filled with javascript'
+                )
+            ),
+            array(
+                array(
+                    'fk_news_id' => 1,
+                    'name' => 'Foo',
+                    'email' => '',
+                    'url' => 'bar.com',
+                    'comment' => 'Comment text',
+                    'honeypot' => '',
+                    'js_fill' => 'filled with javascript'
+                )
+            ),
+            array(
+                array(
+                    'fk_news_id' => 1,
+                    'name' => 'Foo',
+                    'email' => 'foo@bar.comm',
+                    'url' => 'bar.com',
+                    'comment' => '',
+                    'honeypot' => '',
+                    'js_fill' => 'filled with javascript'
+                )
+            ),
+            array(
+                array(
+                    'fk_news_id' => 1,
+                    'name' => 'Foo',
+                    'email' => 'foo@bar.comm',
+                    'url' => 'bar.com',
+                    'comment' => 'Comment text',
+                    'honeypot' => 'honeypot!',
+                    'js_fill' => 'filled with javascript'
+                )
+            ),
+            array(
+                array(
+                    'fk_news_id' => 1,
+                    'name' => 'Foo',
+                    'email' => 'foo@bar.comm',
+                    'url' => 'bar.com',
+                    'comment' => 'Comment text',
+                    'honeypot' => '',
+                    'js_fill' => ''
+                )
+            )
+        );
+    }
+    
     /**
      * Tests for news, until further notice.
      */
@@ -643,5 +736,131 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         
         $this->assertEquals(4, count($before));
         $this->assertEquals(3, count($after));
+    }
+    
+    /**
+     * Tests for comments, until further notice.
+     */
+    
+    public function testValidCommentIsAdded() {
+        $data = array(
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'spammer@email.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $before = $this->_model->getCommentsForNews(1);
+        
+        $this->_model->saveComment($data);
+        
+        $after = $this->_model->getCommentsForNews(1);
+        
+        $this->assertEquals(0, count($before));
+        $this->assertEquals(1, count($after));
+    }
+    
+    /**
+     * @dataProvider invalidCommentData
+     */
+    public function testInvalidCommentIsNotAdded($data) {
+        $before = $this->_model->getCommentsForNews(1);
+        
+        $this->_model->saveComment($data);
+        
+        $after = $this->_model->getCommentsForNews(1);
+        
+        $this->assertEquals(0, count($before));
+        $this->assertEquals(0, count($after));
+    }
+    
+    public function testValidCommentIsUpdated() {
+        $insertData = array(
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'spammer@email.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $updateData = array(
+            'id' => 1,
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'foo@bar.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $this->_model->saveComment($insertData);
+        
+        $this->_model->saveComment($updateData);
+        
+        $comment = $this->_model->getOneCommentById(1);
+        
+        $this->assertEquals('foo@bar.com', $comment->email);
+    }
+    
+    /**
+     * @dataProvider invalidCommentData
+     */
+    public function testInvalidCommentIsNotUpdated($data) {
+        $insertData = array(
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'spammer@email.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $data['id'] = 1;
+        
+        $this->_model->saveComment($insertData);
+        
+        $this->_model->saveComment($data);
+        
+        $comment = $this->_model->getOneCommentById(1);
+        $comment = $comment->toArray();
+        
+        unset($comment['id']);
+        unset($comment['datetime_added']);
+        unset($comment['active']);
+        
+        unset($insertData['honeypot']);
+        unset($insertData['js_fill']);
+        
+        $this->assertEquals($insertData, $comment);
+    }
+    
+    public function testCommentIsDeleted() {
+        $data = array(
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'spammer@email.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $this->_model->saveComment($data);
+        
+        $before = $this->_model->getAllComments();
+        
+        $this->_model->deleteComment(1);
+        
+        $after = $this->_model->getAllComments();
+        
+        $this->assertEquals(1, count($before));
+        $this->assertEquals(0, count($after));
     }
 }
