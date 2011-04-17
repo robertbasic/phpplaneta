@@ -864,10 +864,64 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(0, count($after));
     }
     
+    public function testGetCommentsForNewsByPassingInteger() {
+        $data = array(
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'spammer@email.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $this->_model->saveComment($data);
+        
+        $comments = $this->_model->getCommentsForNews(1);
+        
+        $this->assertEquals(1, count($comments));
+    }
+    
+    public function testGetCommentsForNewsByPassingArray() {
+        $data = array(
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'spammer@email.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $this->_model->saveComment($data);
+        
+        $comments = $this->_model->getCommentsForNews(array('newsId' => 1));
+        
+        $this->assertEquals(1, count($comments));
+    }
+    
+    public function testGetCommentsForNewsByPassingInvalidArray() {
+        $data = array(
+            'fk_news_id' => 1,
+            'name' => 'Commenter',
+            'email' => 'spammer@email.com',
+            'url' => 'http://example.com',
+            'comment' => 'Lorem ipsum',
+            'honeypot' => '',
+            'js_fill' => 'filled with javascript'
+        );
+        
+        $this->_model->saveComment($data);
+        
+        $comments = $this->_model->getCommentsForNews(array('no_such_key' => 1));
+        
+        $this->assertEquals(0, count($comments));
+    }
+    
     /**
      * @expectedException PPN_Exception_NotFound
      */
-    public function testNonexistingComment() {
+    public function testGetNonexistingComment() {
         $this->_model->getOneCommentById(1);
     }
     
