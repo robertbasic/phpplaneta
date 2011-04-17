@@ -170,6 +170,13 @@ class Planet_Form_News_Comments extends PPN_Form_Abstract
                 'validators' => array(
                     array(
                         'validator' => 'Digits'
+                    ),
+                    array(
+                        'validator' => 'Db_RecordExists',
+                        'options' => array(
+                            'table' => 'ppn_news',
+                            'field' => 'id'
+                        )
                     )
                 ),
                 'filters' => array(
