@@ -863,4 +863,66 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals(1, count($before));
         $this->assertEquals(0, count($after));
     }
+    
+    /**
+     * @expectedException PPN_Exception_NotFound
+     */
+    public function testNonexistingComment() {
+        $this->_model->getOneCommentById(1);
+    }
+    
+    /**
+     * Tests for tags, until further notice.
+     */
+    
+    public function testGetAllTags() {
+        $tags = $this->_model->getAllNewsTags();
+        
+        $this->assertEquals(12, count($tags));
+    }
+    
+    public function testGetTagsForNewsPassInteger() {
+        $tags = $this->_model->getTagsForNews(1);
+        
+        $this->assertEquals(1, count($tags));
+    }
+    
+    public function testGetTagsForNewsPassValidArray() {
+        $tags = $this->_model->getTagsForNews(array('newsId' => 1));
+        
+        $this->assertEquals(1, count($tags));
+    }
+    
+    public function testGetTagsForNewsPassInvalidArray() {
+        $tags = $this->_model->getTagsForNews(array('not_a_valid_key' => 1));
+        
+        $this->assertEquals(0, count($tags));
+    }
+    
+    public function testGetExistingTagById() {
+        $tag = $this->_model->getOneNewsTagById(1);
+        
+        $this->assertEquals('tag-1', $tag->slug);
+    }
+    
+    /**
+     * @expectedException PPN_Exception_NotFound
+     */
+    public function testGetNonexistingTagById() {
+        $tag = $this->_model->getOneNewsTagById(999);
+    }
+    
+    public function testGetExistingTagBySlug() {
+        $tag = $this->_model->getOneNewsTagBySlug('tag-1');
+        
+        $this->assertEquals('tag-1', $tag->slug);
+    }
+    
+    /**
+     * @expectedException PPN_Exception_NotFound
+     */
+    public function testGetNonexistingTagBySlug() {
+        $tag = $this->_model->getOneNewsTagBySlug('no-such-tag');
+    }
+    
 }
