@@ -192,6 +192,23 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         );
     }
     
+    public static function invalidTagData() {
+        return array(
+            array(
+                array(
+                    'title' => '',
+                    'slug' => 'tag-slug'
+                )
+            ),
+            array(
+                array(
+                    'title' => 'Tag title',
+                    'slug' => ''
+                )
+            )
+        );
+    }
+    
     /**
      * Tests for news, until further notice.
      */
@@ -1084,6 +1101,90 @@ class NewsTest extends PHPUnit_Framework_TestCase {
         
         $this->assertEquals(2, $tags[0]['num']);
         $this->assertEquals(1, $tags[1]['num']);
+    }
+    
+    public function testTagsInsert() {
+        $data = array(
+            'tags' => 'A tag'
+        );
+        
+        $this->_model->saveNewsTags($data);
+        
+        $tag = $this->_model->getOneNewsTagById(13);
+        
+        $this->assertEquals('A tag', $tag->title);
+        $this->assertEquals('A-tag', $tag->slug);
+    }
+    
+    public function testTagsInsertMultipleTags() {
+        $data = array(
+            'tags' => 'A tag, Second tag'
+        );
+        
+        $this->_model->saveNewsTags($data);
+        
+        $tag = $this->_model->getOneNewsTagById(14);
+        
+        $this->assertEquals('Second tag', $tag->title);
+        $this->assertEquals('Second-tag', $tag->slug);
+    }
+    
+    public function testExistingTagIsNotInsertedAgain() {
+        $data = array(
+            'tags' => 'A tag'
+        );
+        
+        $this->_model->saveNewsTags($data);
+        
+        $before = $this->_model->getAllNewsTags();
+        
+        $data = array(
+            'tags' => 'A tag, Second tag'
+        );
+        
+        $this->_model->saveNewsTags($data);
+        
+        $after = $this->_model->getAllNewsTags();
+        
+        $this->assertEquals(count($before)+1, count($after));
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    public function testTagsKeyMustExistInDataArrayOnInsert() {
+        $data = array(
+            'no_tags_key' => 'A tag'
+        );
+        
+        $this->_model->saveNewsTags($data);
+    }
+    
+    public function testValidTagIsUpdated() {
+        $data = array(
+            'id' => 1,
+            'title' => 'A tag',
+            'slug' => 'tag-1'
+        );
+        
+        $this->_model->saveNewsTags($data);
+        
+        $tag = $this->_model->getOneNewsTagById(1);
+        
+        $this->assertEquals('A tag', $tag->title);
+    }
+    
+    /**
+     * @dataProvider invalidTagData
+     */
+    public function testInvalidTagIsNotUpdated($data) {
+        $data['id'] = 1;
+        $this->_model->saveNewsTags($data);
+        
+        $tag = $this->_model->getOneNewsTagById(1);
+        
+        $this->assertEquals('Tag 1', $tag->title);
+        $this->assertEquals('tag-1', $tag->slug);
     }
     
 }
