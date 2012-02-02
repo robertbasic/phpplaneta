@@ -63,7 +63,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
                 $formatter = new Zend_Log_Formatter_Xml();
                 $writer->setFormatter($formatter);
             } else {
-                throw new Exception("Logs are enabled, but the log path is not writeable!");
+                throw new PPN_Exception_Runtime("Logs are enabled, but the log path is not writeable!");
             }
         }
 
@@ -295,7 +295,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
 
         if(!is_writable($config->settings->cache->fullpage->path)) {
-            throw new Exception("Full page cache enabled, but path not writeable!");
+            throw new PPN_Exception_Runtime("Full page cache enabled, but path not writeable!");
             return false;
         }
 

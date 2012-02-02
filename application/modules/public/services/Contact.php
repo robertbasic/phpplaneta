@@ -27,19 +27,19 @@ class Planet_Service_Contact
     public function setMailData($data)
     {
         if(!array_key_exists('name', $data) or $data['name'] == '') {
-            throw new Exception('No sender name provided');
+            throw new PPN_Exception_Runtime('No sender name provided');
         }
 
         if(!array_key_exists('email', $data) or $data['email'] == '') {
-            throw new Exception('No sender Email address provided');
+            throw new PPN_Exception_Runtime('No sender Email address provided');
         }
 
         if(!array_key_exists('subject', $data) or $data['subject'] == '') {
-            throw new Exception('No subject for Email provided');
+            throw new PPN_Exception_Runtime('No subject for Email provided');
         }
 
         if(!array_key_exists('message', $data) or $data['message'] == '') {
-            throw new Exception('No message for Email provided');
+            throw new PPN_Exception_Runtime('No message for Email provided');
         }
 
         $this->_mailer = $this->_getMailer();
@@ -60,7 +60,7 @@ class Planet_Service_Contact
             $this->_mailer->send();
             return true;
         } catch (Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
         }
     }
     

@@ -395,7 +395,7 @@ class Planet_Model_News extends PPN_Model_Abstract
         if(!array_key_exists('id', $data)) {
             if(!array_key_exists('tags', $data)
                     or $data['tags'] == '') {
-                throw new Exception("No tags provided");
+                throw new PPN_Exception_Runtime("No tags provided");
             }
             
             $tags = explode(",", $data['tags']);
@@ -504,7 +504,7 @@ class Planet_Model_News extends PPN_Model_Abstract
         try {
             $this->getResource('News_Tags_Relations')->deleteRelationsForNews($id);
         } catch(Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
         }
 
         return $this->getResource('News')->deleteNews($id);

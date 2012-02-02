@@ -64,7 +64,7 @@ class ContactTest extends PHPUnit_Framework_TestCase {
     
     /**
      * @dataProvider invalidMailData
-     * @expectedException Exception
+     * @expectedException PPN_Exception_Runtime
      */
     public function testAllMailDataMustBeSet($mailData) {
         $this->_contactService->setMailData($mailData);

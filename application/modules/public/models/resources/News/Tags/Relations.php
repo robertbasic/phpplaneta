@@ -90,13 +90,13 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
         $relatedTags = explode("##", trim($relatedTags, '#'));
         
         if(!is_array($relatedTags)) {
-            throw new Exception("Tag IDs must be an array, got: " . gettype($relatedTags));
+            throw new PPN_Exception_Runtime("Tag IDs must be an array, got: " . gettype($relatedTags));
         }
 
         try {
             $this->deleteRelationsForNews($newsId);
         } catch (Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
         }
 
         if(empty($relatedTags)
@@ -107,7 +107,7 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
         try {
             $this->insertRelations($newsId, $relatedTags);
         } catch (Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
         }
 
         return true;
@@ -132,7 +132,7 @@ class Planet_Model_Resource_News_Tags_Relations extends PPN_Model_Resource_Abstr
             $adapter->query($insertRelationsSql);
             return true;
         } catch (Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
         }
     }
 

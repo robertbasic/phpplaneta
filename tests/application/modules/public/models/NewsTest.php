@@ -430,7 +430,7 @@ class NewsTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException Exception
+     * @expectedException PPN_Exception_Runtime
      */
     public function testNewsSlugMustBeUnique() {
         $dataOne = array(
@@ -529,7 +529,7 @@ class NewsTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException Exception
+     * @expectedException PPN_Exception_Runtime
      */
     public function testNewsSlugMustBeUniqueOnUpdate() {
         $dataOne = array(
@@ -672,7 +672,7 @@ class NewsTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException Exception
+     * @expectedException PPN_Exception_Runtime
      */
     public function testCategorySlugMustBeUnique() {
         $dataOne = array(
@@ -732,7 +732,7 @@ class NewsTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException Exception
+     * @expectedException PPN_Exception_Runtime
      */
     public function testCategorySlugMustBeUniqueOnUpdate() {
         $dataOne = array(
@@ -1150,7 +1150,7 @@ class NewsTest extends PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @expectedException Exception
+     * @expectedException PPN_Exception_Runtime
      */
     public function testTagsKeyMustExistInDataArrayOnInsert() {
         $data = array(

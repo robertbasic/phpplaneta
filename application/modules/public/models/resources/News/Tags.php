@@ -94,7 +94,7 @@ class Planet_Model_Resource_News_Tags extends PPN_Model_Resource_Abstract
                     $newTags[] = $newTag;
 
                 } catch(Exception $e) {
-                    throw new Exception($e->getMessage(), $e->getCode());
+                    throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
                 }
             } else {
                 $existingTags[] = $existingTag->toArray();
@@ -112,7 +112,7 @@ class Planet_Model_Resource_News_Tags extends PPN_Model_Resource_Abstract
             $this->insert($data);
             return true;
         } catch(Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
         }
     }
 
@@ -122,7 +122,7 @@ class Planet_Model_Resource_News_Tags extends PPN_Model_Resource_Abstract
            $this->update($data, array('id = ?' => $data['id']));
            return true;
         } catch(Exception $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            throw new PPN_Exception_Runtime($e->getMessage(), $e->getCode());
         }
     }
 
