@@ -26,7 +26,9 @@ class Planet_Model_Resource_News_Comments extends PPN_Model_Resource_Abstract
     public function getAllComments($page=null)
     {
         $select = $this->_getCommentSelect();
-
+        
+        $select->order('comments.datetime_added DESC');
+        
         if($page !== null) {
             return $this->_getPaginatorForSelect($select, $page);
         }
@@ -58,6 +60,8 @@ class Planet_Model_Resource_News_Comments extends PPN_Model_Resource_Abstract
                     )
                 );
 
+        $select->order('comments.datetime_added ASC');
+        
         return $this->fetchAll($select);
     }
 
@@ -108,8 +112,6 @@ class Planet_Model_Resource_News_Comments extends PPN_Model_Resource_Abstract
                 $select->where($w[0], $w[1]);
             }
         }
-
-        $select->order('comments.datetime_added DESC');
 
         return $select;
     }
