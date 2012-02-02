@@ -62,11 +62,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
 
                 $formatter = new Zend_Log_Formatter_Xml();
                 $writer->setFormatter($formatter);
+            } else {
+                throw new Exception("Logs are enabled, but the log path is not writeable!");
             }
         }
 
         if($writer === null) {
-            trigger_error("Logs are disabled. Is the log path writeable?", E_USER_NOTICE);
             $writer = new Zend_Log_Writer_Null();
         }
         
