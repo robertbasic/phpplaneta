@@ -24,7 +24,8 @@ class Planet_Model_Resource_Logs
     
     public function getLogFilePath() {
         if($this->_logFilePath === null) {
-            $this->_logFilePath = realpath(APPLICATION_PATH . '/../data/logs') . '/logs.xml';
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
+            $this->_logFilePath = $config->settings->logs->filepath;
         }
         
         return $this->_logFilePath;
@@ -33,7 +34,12 @@ class Planet_Model_Resource_Logs
     public function getAllLogs($page=null)
     {
         $file = $this->getLogFilePath();
+        
+        if (!is_file($file) or !is_readable($file)) {
+            return array();
+        }
 
+        $parsedLogs = array();
         $logData = file_get_contents($file);
 
         preg_match_all('#<logEntry>
