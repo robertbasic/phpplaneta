@@ -295,7 +295,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
         }
 
         if(!is_writable($config->settings->cache->fullpage->path)) {
-            trigger_error("Full page cache path not writeable!", E_USER_NOTICE);
+            throw new Exception("Full page cache enabled, but path not writeable!");
             return false;
         }
 
