@@ -17,8 +17,6 @@ class Planet_Service_Contact
 
     public function __construct($data=array())
     {
-        $this->_mailer = new Zend_Mail('utf-8');
-
         if(!empty($data)) {
             $this->setMailData($data);
         }
@@ -28,22 +26,24 @@ class Planet_Service_Contact
 
     public function setMailData($data)
     {
-        if(!array_key_exists('name', $data)) {
+        if(!array_key_exists('name', $data) or $data['name'] == '') {
             throw new Exception('No sender name provided');
         }
 
-        if(!array_key_exists('email', $data)) {
+        if(!array_key_exists('email', $data) or $data['email'] == '') {
             throw new Exception('No sender Email address provided');
         }
 
-        if(!array_key_exists('subject', $data)) {
+        if(!array_key_exists('subject', $data) or $data['subject'] == '') {
             throw new Exception('No subject for Email provided');
         }
 
-        if(!array_key_exists('message', $data)) {
+        if(!array_key_exists('message', $data) or $data['message'] == '') {
             throw new Exception('No message for Email provided');
         }
 
+        $this->_mailer = $this->_getMailer();
+        
         $this->_mailer->setFrom('phpplaneta@gmail.com', 'PHPPlaneta kontakt');
         $this->_mailer->addTo('phpplaneta@gmail.com');
 
@@ -55,6 +55,7 @@ class Planet_Service_Contact
 
     public function sendMail()
     {
+        $this->_mailer = $this->_getMailer();
         try {
             $this->_mailer->send();
             return true;
@@ -62,7 +63,19 @@ class Planet_Service_Contact
             throw new Exception($e->getMessage(), $e->getCode());
         }
     }
+    
+    public function setMailer($mailer) {
+        $this->_mailer = $mailer;
+    }
 
+    protected function _getMailer() {
+        if($this->_mailer === null) {
+            $this->_mailer = new Zend_Mail('utf-8');
+        }
+        
+        return $this->_mailer;
+    }
+    
     protected function _setTransport()
     {
         if($this->_mailTransport === null) {

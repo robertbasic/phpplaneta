@@ -76,26 +76,6 @@ class Planet_Model_News extends PPN_Model_Abstract
     }
 
     /**
-     * Get active news from a category, by the categories id.
-     * Pagination is to be decided within the resource, based on $page
-     * I wonder will this ever be used?g Oh, well...
-     * @param int $id
-     * @param int|null $page
-     */
-    public function getAllActiveNewsFromCategoryById($id,$page=null)
-    {
-        $category = $this->getResource("News_Categories")->getCategoryById($id);
-
-        if($category === null) {
-            throw new PPN_Exception_NotFound(
-                        sprintf(PPN_Exception_NotFound::NO_SUCH_CATEGORY, $id)
-                    );
-        }
-
-        return $this->getResource('News')->getAllActiveNewsFromCategoryById($id,$page);
-    }
-
-    /**
      * Get one active news by it's slug
      * @param string $slug
      */
@@ -109,23 +89,6 @@ class Planet_Model_News extends PPN_Model_Abstract
                     );
         }
 
-        return $oneNews;
-    }
-
-    /**
-     * Get one active news by it's id
-     * @param int $id
-     */
-    public function getOneActiveNewsById($id)
-    {
-        $oneNews = $this->getResource('News')->getOneActiveNewsById($id);
-
-        if($oneNews === null) {
-            throw new PPN_Exception_NotFound(
-                        sprintf(PPN_Exception_NotFound::NO_SUCH_NEWS, $id)
-                    );
-        }
-        
         return $oneNews;
     }
 
@@ -266,7 +229,7 @@ class Planet_Model_News extends PPN_Model_Abstract
 
         if($oneTag === null) {
             throw new PPN_Exception_NotFound(
-                        sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $id)
+                        sprintf(PPN_Exception_NotFound::NO_SUCH_TAG, $tagId)
                     );
         }
 
@@ -293,7 +256,7 @@ class Planet_Model_News extends PPN_Model_Abstract
         return $tags;
     }
 
-    public function getAllComments($page)
+    public function getAllComments($page=null)
     {
         return $this->getResource('News_Comments')->getAllComments($page);
     }
@@ -303,7 +266,7 @@ class Planet_Model_News extends PPN_Model_Abstract
         $oneComment = $this->getResource('News_Comments')->getOneCommentById($commentId);
 
         if($oneComment === null) {
-            throw new Exception("No such comment");
+            throw new PPN_Exception_NotFound();
         }
 
         return $oneComment;

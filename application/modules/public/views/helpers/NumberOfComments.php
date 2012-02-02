@@ -35,6 +35,10 @@ class Zend_View_Helper_NumberOfComments extends Zend_View_Helper_Abstract
         return $return;
     }
 
+    public function setModel($model) {
+        $this->_model = $model;
+    }
+    
     protected function _getModel()
     {
         if($this->_model === null) {

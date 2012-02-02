@@ -1,0 +1,219 @@
+<logEntry><timestamp>2010-10-13T17:15:12+02:00</timestamp><message>Session must be started before any output has been sent to the browser; output started in /home/robert/www/phpplaneta/library/Zend/Translate/Adapter.php/405
+#0 /home/robert/www/phpplaneta/library/Zend/Session/Namespace.php(143): Zend_Session::start(true)
+#1 /home/robert/www/phpplaneta/library/Zend/Controller/Action/Helper/FlashMessenger.php(82): Zend_Session_Namespace-&gt;__construct('FlashMessenger')
+#2 /home/robert/www/phpplaneta/library/Zend/Controller/Action/HelperBroker.php(372): Zend_Controller_Action_Helper_FlashMessenger-&gt;__construct()
+#3 /home/robert/www/phpplaneta/library/Zend/Controller/Action/HelperBroker.php(293): Zend_Controller_Action_HelperBroker::_loadHelper('FlashMessenger')
+#4 /home/robert/www/phpplaneta/library/Zend/Controller/Action/HelperBroker.php(339): Zend_Controller_Action_HelperBroker-&gt;getHelper('flashMessenger')
+#5 /home/robert/www/phpplaneta/library/Zend/Controller/Action.php(389): Zend_Controller_Action_HelperBroker-&gt;__get('flashMessenger')
+#6 /home/robert/www/phpplaneta/application/modules/public/controllers/IndexController.php(9): Zend_Controller_Action-&gt;getHelper('flashMessenger')
+#7 /home/robert/www/phpplaneta/library/Zend/Controller/Action.php(133): IndexController-&gt;init()
+#8 /home/robert/www/phpplaneta/library/Zend/Controller/Dispatcher/Standard.php(268): Zend_Controller_Action-&gt;__construct(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http), Array)
+#9 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#10 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#11 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#12 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#13 {main}
+array (
+  'action' =&gt; 'contact',
+  'controller' =&gt; 'index',
+  'module' =&gt; 'public',
+  'name' =&gt; '',
+  'email' =&gt; '',
+  'subject' =&gt; '',
+  'message' =&gt; '',
+  'honeypot' =&gt; '',
+  'submit' =&gt; 'Pošalji',
+  'csrf' =&gt; '4e10d2ff398229d24a65835c53c21c7e',
+)</message><priority>2</priority><priorityName>CRIT</priorityName></logEntry>
+
+<logEntry><timestamp>2010-10-13T17:15:12+02:00</timestamp><message>Session must be started before any output has been sent to the browser; output started in /home/robert/www/phpplaneta/library/Zend/Translate/Adapter.php/405
+#0 /home/robert/www/phpplaneta/library/Zend/Session/Namespace.php(143): Zend_Session::start(true)
+#1 /home/robert/www/phpplaneta/library/Zend/Auth/Storage/Session.php(87): Zend_Session_Namespace-&gt;__construct('Zend_Auth')
+#2 /home/robert/www/phpplaneta/library/Zend/Auth.php(91): Zend_Auth_Storage_Session-&gt;__construct()
+#3 /home/robert/www/phpplaneta/library/Zend/Auth.php(141): Zend_Auth-&gt;getStorage()
+#4 /home/robert/www/phpplaneta/application/modules/public/services/Auth.php(61): Zend_Auth-&gt;hasIdentity()
+#5 /home/robert/www/phpplaneta/application/modules/public/controllers/helpers/LoggedInUser.php(16): Planet_Service_Auth-&gt;getIdentity()
+#6 [internal function]: Zend_Controller_Action_Helper_LoggedInUser-&gt;direct()
+#7 /home/robert/www/phpplaneta/library/Zend/Controller/Action/HelperBroker.php(328): call_user_func_array(Array, Array)
+#8 [internal function]: Zend_Controller_Action_HelperBroker-&gt;__call('loggedInUser', Array)
+#9 /home/robert/www/phpplaneta/application/modules/public/controllers/NewsController.php(17): Zend_Controller_Action_HelperBroker-&gt;loggedInUser()
+#10 /home/robert/www/phpplaneta/library/Zend/Controller/Action.php(133): NewsController-&gt;init()
+#11 /home/robert/www/phpplaneta/library/Zend/Controller/Dispatcher/Standard.php(268): Zend_Controller_Action-&gt;__construct(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http), Array)
+#12 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#13 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#14 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#15 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#16 {main}
+array (
+  'controller' =&gt; 'news',
+  'action' =&gt; 'ajax-load-dates',
+  'module' =&gt; 'public',
+  'year' =&gt; '2010',
+  'month' =&gt; '10',
+)</message><priority>2</priority><priorityName>CRIT</priorityName></logEntry>
+
+<logEntry><timestamp>2010-10-14T16:39:58+02:00</timestamp><message>Invalid controller specified (favicon.ico)
+#0 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#2 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#3 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#4 {main}
+array (
+  'controller' =&gt; 'favicon.ico',
+  'action' =&gt; 'index',
+  'module' =&gt; 'public',
+)</message><priority>3</priority><priorityName>ERR</priorityName></logEntry>
+
+<logEntry><timestamp>2010-10-16T11:52:45+02:00</timestamp><message>Invalid controller specified (favicon.ico)
+#0 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#2 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#3 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#4 {main}
+array (
+  'controller' =&gt; 'favicon.ico',
+  'action' =&gt; 'index',
+  'module' =&gt; 'public',
+)</message><priority>3</priority><priorityName>ERR</priorityName></logEntry>
+
+<logEntry><timestamp>2010-10-24T11:11:22+02:00</timestamp><message>Invalid controller specified (favicon.ico)
+#0 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#2 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#3 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#4 {main}
+array (
+  'controller' =&gt; 'favicon.ico',
+  'action' =&gt; 'index',
+  'module' =&gt; 'public',
+)</message><priority>3</priority><priorityName>ERR</priorityName></logEntry>
+
+<logEntry><timestamp>2010-10-24T11:11:25+02:00</timestamp><message>Invalid controller specified (favicon.ico)
+#0 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#2 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#3 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#4 {main}
+array (
+  'controller' =&gt; 'favicon.ico',
+  'action' =&gt; 'index',
+  'module' =&gt; 'public',
+)</message><priority>3</priority><priorityName>ERR</priorityName></logEntry>
+
+<logEntry><timestamp>2010-11-04T22:26:40+01:00</timestamp><message>5.7.1 Username and Password not accepted. Learn more at                   &#13;
+ 5.7.1 http://mail.google.com/support/bin/answer.py?answer=14257 14sm275112fas.20&#13;
+</message><priority>2</priority><priorityName>CRIT</priorityName></logEntry>
+
+<logEntry><timestamp>2010-11-04T22:27:20+01:00</timestamp><message>Plugin by name 'Honeypot' was not found in the registry; used paths:
+Zend_Validate_: Zend/Validate/
+#0 /home/robert/www/phpplaneta/library/Zend/Form/Element.php(2097): Zend_Loader_PluginLoader-&gt;load('Honeypot')
+#1 /home/robert/www/phpplaneta/library/Zend/Form/Element.php(1260): Zend_Form_Element-&gt;_loadValidator(Array)
+#2 /home/robert/www/phpplaneta/library/Zend/Form/Element.php(1358): Zend_Form_Element-&gt;getValidators()
+#3 /home/robert/www/phpplaneta/library/Zend/Form.php(2233): Zend_Form_Element-&gt;isValid('asdasdasd', Array)
+#4 /home/robert/www/phpplaneta/application/modules/public/controllers/IndexController.php(29): Zend_Form-&gt;isValid(Array)
+#5 /home/robert/www/phpplaneta/library/Zend/Controller/Action.php(513): IndexController-&gt;contactAction()
+#6 /home/robert/www/phpplaneta/library/Zend/Controller/Dispatcher/Standard.php(295): Zend_Controller_Action-&gt;dispatch('contactAction')
+#7 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#8 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#9 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#10 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#11 {main}
+array (
+  'action' =&gt; 'contact',
+  'controller' =&gt; 'index',
+  'module' =&gt; 'public',
+  'name' =&gt; 'sdasd',
+  'email' =&gt; 'robert.basic@online.rs',
+  'subject' =&gt; 'asfsdfsafas',
+  'message' =&gt; 'dfssfdsafsaf',
+  'honeypot' =&gt; 'asdasdasd',
+  'submit' =&gt; 'Pošalji',
+  'csrf' =&gt; 'efac9f0ef8fd544aba7bf8ea999aed38',
+)</message><priority>2</priority><priorityName>CRIT</priorityName></logEntry>
+
+<logEntry><timestamp>2010-11-04T22:31:19+01:00</timestamp><message>Plugin by name 'Honeypot' was not found in the registry; used paths:
+PPN_Validate_: /home/robert/www/phpplaneta/library/PPN/Validate/
+Zend_Validate_: Zend/Validate/
+#0 /home/robert/www/phpplaneta/library/Zend/Form/Element.php(2097): Zend_Loader_PluginLoader-&gt;load('Honeypot')
+#1 /home/robert/www/phpplaneta/library/Zend/Form/Element.php(1260): Zend_Form_Element-&gt;_loadValidator(Array)
+#2 /home/robert/www/phpplaneta/library/Zend/Form/Element.php(1358): Zend_Form_Element-&gt;getValidators()
+#3 /home/robert/www/phpplaneta/library/Zend/Form.php(2233): Zend_Form_Element-&gt;isValid('asdasdasdad', Array)
+#4 /home/robert/www/phpplaneta/application/modules/public/controllers/IndexController.php(29): Zend_Form-&gt;isValid(Array)
+#5 /home/robert/www/phpplaneta/library/Zend/Controller/Action.php(513): IndexController-&gt;contactAction()
+#6 /home/robert/www/phpplaneta/library/Zend/Controller/Dispatcher/Standard.php(295): Zend_Controller_Action-&gt;dispatch('contactAction')
+#7 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#8 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#9 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#10 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#11 {main}
+array (
+  'action' =&gt; 'contact',
+  'controller' =&gt; 'index',
+  'module' =&gt; 'public',
+  'name' =&gt; 'asdasd',
+  'email' =&gt; 'robert.basic@online.rs',
+  'subject' =&gt; 'asdasdasdads',
+  'message' =&gt; 'asdasdasdasd',
+  'honeypot' =&gt; 'asdasdasdad',
+  'submit' =&gt; 'Pošalji',
+  'csrf' =&gt; 'bc11e086ec1e7dcf5e2b0b65c99f108c',
+)</message><priority>2</priority><priorityName>CRIT</priorityName></logEntry>
+
+<logEntry><timestamp>2010-11-09T17:35:14+01:00</timestamp><message>Invalid controller specified (favicon.ico)
+#0 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#2 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#3 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#4 {main}
+array (
+  'controller' =&gt; 'favicon.ico',
+  'action' =&gt; 'index',
+  'module' =&gt; 'public',
+)</message><priority>3</priority><priorityName>ERR</priorityName></logEntry>
+
+<logEntry><timestamp>2010-11-09T17:35:17+01:00</timestamp><message>Invalid controller specified (favicon.ico)
+#0 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#2 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#3 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#4 {main}
+array (
+  'controller' =&gt; 'favicon.ico',
+  'action' =&gt; 'index',
+  'module' =&gt; 'public',
+)</message><priority>3</priority><priorityName>ERR</priorityName></logEntry>
+
+<logEntry><timestamp>2010-11-27T19:28:27+01:00</timestamp><message>Zend_Session::start() - /home/robert/www/phpplaneta/library/Zend/Session.php(Line:480): Error #8 session_start() [&lt;a href='function.session-start'&gt;function.session-start&lt;/a&gt;]: ps_files_cleanup_dir: opendir(/var/lib/php5) failed: Permission denied (13) Array
+#0 /home/robert/www/phpplaneta/library/Zend/Session/Namespace.php(143): Zend_Session::start(true)
+#1 /home/robert/www/phpplaneta/library/Zend/Controller/Action/Helper/FlashMessenger.php(82): Zend_Session_Namespace-&gt;__construct('FlashMessenger')
+#2 /home/robert/www/phpplaneta/library/Zend/Controller/Action/HelperBroker.php(372): Zend_Controller_Action_Helper_FlashMessenger-&gt;__construct()
+#3 /home/robert/www/phpplaneta/library/Zend/Controller/Action/HelperBroker.php(293): Zend_Controller_Action_HelperBroker::_loadHelper('FlashMessenger')
+#4 /home/robert/www/phpplaneta/library/Zend/Controller/Action/HelperBroker.php(339): Zend_Controller_Action_HelperBroker-&gt;getHelper('flashMessenger')
+#5 /home/robert/www/phpplaneta/library/Zend/Controller/Action.php(389): Zend_Controller_Action_HelperBroker-&gt;__get('flashMessenger')
+#6 /home/robert/www/phpplaneta/application/modules/public/controllers/UserController.php(10): Zend_Controller_Action-&gt;getHelper('flashMessenger')
+#7 /home/robert/www/phpplaneta/library/Zend/Controller/Action.php(133): UserController-&gt;init()
+#8 /home/robert/www/phpplaneta/library/Zend/Controller/Dispatcher/Standard.php(268): Zend_Controller_Action-&gt;__construct(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http), Array)
+#9 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#10 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#11 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#12 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#13 {main}
+array (
+  'action' =&gt; 'login',
+  'controller' =&gt; 'user',
+  'module' =&gt; 'public',
+)</message><priority>2</priority><priorityName>CRIT</priorityName></logEntry>
+
+<logEntry><timestamp>2010-11-27T19:28:38+01:00</timestamp><message>Invalid controller specified (favicon.ico)
+#0 /home/robert/www/phpplaneta/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard-&gt;dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))
+#1 /home/robert/www/phpplaneta/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zend_Controller_Front-&gt;dispatch()
+#2 /home/robert/www/phpplaneta/library/Zend/Application.php(366): Zend_Application_Bootstrap_Bootstrap-&gt;run()
+#3 /home/robert/www/phpplaneta/www/index.php(29): Zend_Application-&gt;run()
+#4 {main}
+array (
+  'controller' =&gt; 'favicon.ico',
+  'action' =&gt; 'index',
+  'module' =&gt; 'public',
+)</message><priority>3</priority><priorityName>ERR</priorityName></logEntry>
+
+
