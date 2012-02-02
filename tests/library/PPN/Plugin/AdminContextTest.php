@@ -10,6 +10,9 @@ class AdminContextTest extends PHPUnit_Framework_TestCase {
         $this->_requestStub = $this->getMock('Zend_Controller_Request_Http');
         
         $this->_authStub = $this->getMock('Planet_Service_Auth');
+        
+        $layout = Zend_Layout::getMvcInstance();
+        $layout->setLayout('public');
     }
     
     public function testRequestAdminAreaNotLoggedIn() {
